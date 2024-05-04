@@ -1,5 +1,5 @@
 """
-URL configuration for projeto project.
+URL configuration for project project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -21,6 +21,9 @@ app_name = 'recipes'
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('recipes/category/<int:category_id>/',
+         views.category, name='category'),
     path('recipes/<int:id>/', views.recipe, name='recipe'),
+
 
 ]
