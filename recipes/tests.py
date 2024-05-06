@@ -1,11 +1,11 @@
 from django.test import TestCase  # type: ignore
-
+from django.urls import reverse  # type: ignore
 # Create your tests here.
 
 
-# Testing if the test configuration in the pytest.ini file is correct
 class RecipeURLsTest(TestCase):
 
-    def test_the_pytest_is_ok(self):
-        print('Olá')
-        ...
+    def test_recipe_home_url_is_correct(self):
+        home_url = reverse('recipes:home')
+        # Checking if the recipes:home url is '/'
+        self.assertEqual(home_url, '/')
