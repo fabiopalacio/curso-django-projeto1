@@ -1,3 +1,4 @@
+# type: ignore #noqa: E501
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from recipes.models import Recipe
 
@@ -22,7 +23,7 @@ def category(request, category_id):
 
 def recipe(request, id):
     # recipe = Recipe.objects.filter(id=id)[0]
-    recipe = get_object_or_404(Recipe, id=id,)
+    recipe = get_object_or_404(Recipe, id=id, is_published=True)
     return render(request, 'recipes/pages/recipe-view.html', context={
         'recipe': recipe,
         'isDetailPage': True
