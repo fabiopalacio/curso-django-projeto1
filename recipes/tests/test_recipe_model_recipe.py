@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError  # type: ignore
 from parameterized import parameterized  # type: ignore
 
 
-class RecipeModelTest(RecipeTestBase):
+class RecipesRecipeModelTest(RecipeTestBase):
     def setUp(self) -> None:
         self.recipe = self.make_recipe()
         return super().setUp()
@@ -48,3 +48,15 @@ class RecipeModelTest(RecipeTestBase):
         recipe = self.make_recipe_with_no_boolean_defaults()
         self.assertFalse(recipe.is_published,
                          msg='Recipe is_published is not False by default')
+
+    def test_recipe_string_representation(self):
+        needed = 'Testing Recipe String'
+        self.recipe.title = needed
+        self.recipe.full_clean()
+        self.recipe.save()
+        self.assertEqual(
+            str(self.recipe), needed,
+            msg=f'Expect: "{needed}" but found: "{str(self.recipe)}"')
+
+    # def test_category_string_representation(self):
+    #     self.make_category(name='A new category')
