@@ -55,7 +55,7 @@ class RecipeViewsSearchTest(RecipeTestBase):
                          msg='The view did not return the correct QuerySet')
 
         self.assertEqual(len(responseboth.context['recipes']), 2,
-                         msg=f'The QuerySet length expected was 2, but found {len(responseboth.context["recipes"])}')
+                         msg=f'The QuerySet length expected was 2, but found {len(responseboth.context["recipes"])}')  # noqa: E501
 
         self.assertIn(recipe1, responseboth.context['recipes'],
                       msg="The first recipe was not found in the QuerySet")
@@ -91,9 +91,21 @@ class RecipeViewsSearchTest(RecipeTestBase):
                          msg='The view did not return the correct QuerySet')
 
         self.assertEqual(len(responseboth.context['recipes']), 2,
-                         msg=f'The QuerySet length expected = 2, found = {len(responseboth.context["recipes"])}')
+                         msg=f'The QuerySet length expected = 2, found = {len(responseboth.context["recipes"])}')  # noqa: E501
 
         self.assertIn(recipe1, responseboth.context['recipes'],
                       msg="The first recipe was not found in the QuerySet")
         self.assertIn(recipe2, responseboth.context['recipes'],
                       msg="The second recipe was not found in the QuerySet")
+
+    def test_recipe_search_pagination_displays_nine_items_per_page(self):
+        for i in range(10):
+            self.make_recipe(
+                slug=f'recipe-{i}', title='This is one recipe',
+                author_data={'username': f'{i}'},
+            )
+
+        search_url = reverse('recipes:search')
+        response = self.client.get(f'{search_url}?q=recipe')
+
+        self.assertContains(response, '<div class="recipe-cover">', 9)

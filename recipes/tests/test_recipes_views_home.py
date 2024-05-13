@@ -27,11 +27,12 @@ class RecipeViewsHomeTest(RecipeTestBase):
                       response.content.decode('utf-8'))
 
     def test_recipes_home_template_loads_recipes(self):
+        category = self.make_category('Café da manhã')
         self.make_recipe(
-            category_data={'name': 'Café da manhã'},
             author_data={
                 'first_name': 'Fabio',
                 'last_name': 'Palacio'},
+            category_data=category,
             title='My Recipe Title',
             description='Recipe Description',
             preparation_time=10,
@@ -75,3 +76,15 @@ class RecipeViewsHomeTest(RecipeTestBase):
 
         # Assertions:
         self.assertIn('Desculpe. Não encontramos nenhuma receita', content)
+
+    def test_recipes_home_pagination_displays_nine_items_per_page(self):
+        for i in range(10):
+            self.make_recipe(
+                slug=f'recipe-{i}', title='This is one recipe',
+                author_data={'username': f'{i}'},
+            )
+
+        url = reverse('recipes:home')
+        response = self.client.get(url)
+
+        self.assertContains(response, '<div class="recipe-cover">', 9)

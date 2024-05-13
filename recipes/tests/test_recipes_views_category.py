@@ -39,3 +39,17 @@ class RecipeViewsCategoryTest(RecipeTestBase):
 
         # Assertions:
         self.assertEqual(response.status_code, 404)
+
+    def test_recipes_category_pagination_displays_nine_items_per_page(self):
+        category = self.make_category('MyCategory')
+        for i in range(10):
+            self.make_recipe(
+                slug=f'recipe-{i}', title='This is one recipe',
+                author_data={'username': f'{i}'},
+                category_data=category
+            )
+
+        url = reverse('recipes:category', kwargs={'category_id': 1})
+        response = self.client.get(url)
+
+        self.assertContains(response, '<div class="recipe-cover">', 9)

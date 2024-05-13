@@ -42,13 +42,13 @@ class RecipeTestBase(TestCase):
             is_published=True,):
 
         if category_data is None:
-            category_data = {}
+            category_data = self.make_category(name='Default Category')
 
         if author_data is None:
             author_data = {}
 
         return Recipe.objects.create(  # noqa: F841
-            category=self.make_category(**category_data),
+            category=category_data,
             author=self.make_author(**author_data),
             title=title,
             description=description,
