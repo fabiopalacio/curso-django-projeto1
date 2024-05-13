@@ -1,3 +1,4 @@
+from unittest.mock import patch
 from django.urls import resolve, reverse  # type: ignore
 from recipes import views
 from .test_recipe_base import RecipeTestBase
@@ -98,14 +99,23 @@ class RecipeViewsSearchTest(RecipeTestBase):
         self.assertIn(recipe2, responseboth.context['recipes'],
                       msg="The second recipe was not found in the QuerySet")
 
-    def test_recipe_search_pagination_displays_nine_items_per_page(self):
-        for i in range(10):
+    def test_recipe_search_gets_paginator_numpages_correctly(self):
+        for i in range(7):
             self.make_recipe(
                 slug=f'recipe-{i}', title='This is one recipe',
                 author_data={'username': f'{i}'},
             )
 
-        search_url = reverse('recipes:search')
-        response = self.client.get(f'{search_url}?q=recipe')
+        with patch('recipes.views.PER_PAGE', 3):
+            search_url = reverse('recipes:search')
+            response = self.client.get(f'{search_url}?q=recipe')
 
-        self.assertContains(response, '<div class="recipe-cover">', 9)
+            self.assertEqual(
+                response.context['recipes'].paginator.num_pages, 3)
+
+            self.assertContains(response, '<div class="recipe-cover">', 3)
+
+            self.assertEqual(
+                len(response.context['recipes'].paginator.get_page(1)), 3)
+            self.assertEqual(
+                len(response.context['recipes'].paginator.get_page(4)), 1)

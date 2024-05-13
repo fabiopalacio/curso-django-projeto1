@@ -1,3 +1,4 @@
+from unittest.mock import patch
 from django.urls import resolve, reverse  # type: ignore
 from recipes import views
 from .test_recipe_base import RecipeTestBase
@@ -40,16 +41,25 @@ class RecipeViewsCategoryTest(RecipeTestBase):
         # Assertions:
         self.assertEqual(response.status_code, 404)
 
-    def test_recipes_category_pagination_displays_nine_items_per_page(self):
+    def test_recipes_category_gets_paginator_numpages_correctly(self):
         category = self.make_category('MyCategory')
-        for i in range(10):
+        for i in range(7):
             self.make_recipe(
                 slug=f'recipe-{i}', title='This is one recipe',
                 author_data={'username': f'{i}'},
                 category_data=category
             )
 
-        url = reverse('recipes:category', kwargs={'category_id': 1})
-        response = self.client.get(url)
+        with patch('recipes.views.PER_PAGE', new=3):
+            url = reverse('recipes:category', kwargs={'category_id': 1})
+            response = self.client.get(url)
 
-        self.assertContains(response, '<div class="recipe-cover">', 9)
+            self.assertEqual(
+                response.context['recipes'].paginator.num_pages, 3)
+
+            self.assertContains(response, '<div class="recipe-cover">', 3)
+
+            self.assertEqual(
+                len(response.context['recipes'].paginator.get_page(1)), 3)
+            self.assertEqual(
+                len(response.context['recipes'].paginator.get_page(3)), 1)
