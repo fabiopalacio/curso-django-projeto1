@@ -80,14 +80,14 @@ class AuthorsRegisterFormIntegrationTest(DjangoTestCase):
     ])
     def test_fields_are_not_empty(self, field, msg):
         self.form_data[field] = ''
-        url = reverse('authors:create')
+        url = reverse('authors:register_create')
         response = self.client.post(url, data=self.form_data, follow=True)
         self.assertIn(msg, response.context['form'].errors.get(field))
         self.assertIn(msg, response.content.decode('utf-8'))
 
     def test_username_min_length_is_4(self):
         self.form_data['username'] = '123'
-        url = reverse('authors:create')
+        url = reverse('authors:register_create')
         response = self.client.post(url, data=self.form_data, follow=True)
 
         message = ('Username requires a minimum of 4 characters.')
@@ -110,7 +110,7 @@ class AuthorsRegisterFormIntegrationTest(DjangoTestCase):
 
     def test_username_max_length_is_150(self):
         self.form_data['username'] = 'a'*151
-        url = reverse('authors:create')
+        url = reverse('authors:register_create')
         response = self.client.post(url, data=self.form_data, follow=True)
 
         message = ('Username requires a maximum of 150 characters.')
@@ -133,7 +133,7 @@ class AuthorsRegisterFormIntegrationTest(DjangoTestCase):
 
     def test_password_has_uppercase_lowercase_and_numbers(self):
         self.form_data['password'] = 'asc123'
-        url = reverse('authors:create')
+        url = reverse('authors:register_create')
         response = self.client.post(url, self.form_data, follow=True)
         error_message = (
             'Remember: The password must have at least one uppercase letter, '
@@ -150,7 +150,7 @@ class AuthorsRegisterFormIntegrationTest(DjangoTestCase):
 
     def test_password_and_confirmation_validation(self):
 
-        url = reverse('authors:create')
+        url = reverse('authors:register_create')
         response = self.client.post(url, data=self.form_data, follow=True)
         error_message = ("The passwords must be equal.")
 
@@ -173,7 +173,7 @@ class AuthorsRegisterFormIntegrationTest(DjangoTestCase):
 
     def test_register_email_must_be_unique(self):
 
-        url = reverse('authors:create')
+        url = reverse('authors:register_create')
         self.client.post(url, data=self.form_data, follow=True)
 
         response = self.client.post(url, data=self.form_data, follow=True)
@@ -186,7 +186,7 @@ class AuthorsRegisterFormIntegrationTest(DjangoTestCase):
 
     def test_author_created_can_log_in(self):
 
-        url = reverse('authors:create')
+        url = reverse('authors:register_create')
 
         self.form_data.update({
             'username': 'my_user',

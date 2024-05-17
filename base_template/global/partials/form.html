@@ -1,7 +1,7 @@
 <div class="main-content container">
+
     {% if form.errors %}
     <div class="form-content">
-
         <div class="message-error message">
             <p>There are errors in the form, please fix them and try again.</p>
         </div>
@@ -28,7 +28,7 @@
 
         <div class="form-content form-content-grid">
             <div class="form-group">
-                <button type="submit">Send...</button>
+                <button type="submit">{{ btn_text}}</button>
             </div>
         </div>
 

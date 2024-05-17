@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.urls import reverse
 
 # Create your views here.
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 
 
 def register_view(request):
@@ -12,7 +12,8 @@ def register_view(request):
     form = RegisterForm(register_form_data)
     return render(request, 'authors/pages/register_view.html', context={
         'form': form,
-        'form_action': reverse('authors:create')
+        'form_action': reverse('authors:register_create'),
+        'btn_text': 'Send...'
     })
 
 
@@ -35,3 +36,18 @@ def register_create(request):
         return redirect('recipes:home')
 
     return redirect('authors:register')
+
+
+def login_view(request):
+    form = LoginForm()
+
+    return render(request, 'authors/pages/login_view.html', context={
+        'form': form,
+        'form_action': reverse('authors:login_auth'),
+        'btn_text': 'Login'
+
+    })
+
+
+def login_create(request):
+    return render(request, 'authors/pages/login_view.html')

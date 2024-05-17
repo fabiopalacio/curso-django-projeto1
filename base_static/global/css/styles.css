@@ -432,6 +432,10 @@ h6 {
     text-align: center;
 }
 
+.mt-medium {
+    margin-top: var(--spacing-gutter-medium);
+}
+
 @media (max-width: 420px) {
 
     .main-content-list,
