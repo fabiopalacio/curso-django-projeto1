@@ -183,3 +183,20 @@ class AuthorsRegisterFormIntegrationTest(DjangoTestCase):
             error_message,
             response.context['form'].errors.get('email'),
             msg=" The unique e-mail error wasn't found in the error list.")
+
+    def test_author_created_can_log_in(self):
+
+        url = reverse('authors:create')
+
+        self.form_data.update({
+            'username': 'my_user',
+            'password': '1234ABcd',
+            'password2': '1234ABcd'
+        })
+
+        self.client.post(url, data=self.form_data)
+
+        is_authenticated = self.client.login(
+            username='my_user', password='1234ABcd')
+
+        self.assertTrue(is_authenticated)
