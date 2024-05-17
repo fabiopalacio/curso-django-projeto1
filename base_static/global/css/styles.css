@@ -378,6 +378,19 @@ h6 {
     gap: calc(var(--spacing-gutter-medium)/2) var(--spacing-gutter-medium);
 }
 
+.plaintext-button {
+    display: inline;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--color-primary);
+    transition: all ease-in-out 300ms;
+}
+
+.plaintext-button:hover {
+    transform: scale(1.05);
+}
+
 /* Messages */
 
 .messages-container {
@@ -434,6 +447,10 @@ h6 {
 
 .mt-medium {
     margin-top: var(--spacing-gutter-medium);
+}
+
+.mb-medium {
+    margin-bottom: var(--spacing-gutter-medium);
 }
 
 @media (max-width: 420px) {
