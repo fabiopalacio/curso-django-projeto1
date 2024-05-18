@@ -57,6 +57,3 @@ class RecipesRecipeModelTest(RecipeTestBase):
         self.assertEqual(
             str(self.recipe), needed,
             msg=f'Expect: "{needed}" but found: "{str(self.recipe)}"')
-
-    # def test_category_string_representation(self):
-    #     self.make_category(name='A new category')

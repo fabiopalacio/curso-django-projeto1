@@ -43,12 +43,8 @@ class RecipeViewsCategoryTest(RecipeTestBase):
 
     def test_recipes_category_gets_paginator_numpages_correctly(self):
         category = self.make_category('MyCategory')
-        for i in range(7):
-            self.make_recipe(
-                slug=f'recipe-{i}', title='This is one recipe',
-                author_data={'username': f'{i}'},
-                category_data=category
-            )
+
+        self.make_recipes_in_batch(qty=7, category_data=category)
 
         with patch('recipes.views.PER_PAGE', new=3):
             url = reverse('recipes:category', kwargs={'category_id': 1})

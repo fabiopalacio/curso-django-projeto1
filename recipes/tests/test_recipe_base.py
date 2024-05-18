@@ -4,10 +4,7 @@ from django.contrib.auth.models import User  # type: ignore
 from recipes.models import Category, Recipe
 
 
-class RecipeTestBase(TestCase):
-    # SETUP
-    def setUp(self) -> None:
-        return super().setUp()
+class RecipeMixin:
 
     def make_category(self, name='Category'):
         return Category.objects.create(name=name)
@@ -60,3 +57,20 @@ class RecipeTestBase(TestCase):
             preparation_steps=preparation_steps,
             preparation_steps_is_html=preparation_steps_is_html,
             is_published=is_published,)
+
+    def make_recipes_in_batch(self, qty=7, category_data=None):
+        recipes = []
+        for i in range(qty):
+            recipe = self.make_recipe(
+                slug=f'recipe-{i}', title='This is one recipe',
+                author_data={'username': f'{i}'},
+                category_data=category_data
+            )
+            recipes.append(recipe)
+        return recipes
+
+
+class RecipeTestBase(TestCase, RecipeMixin):
+    # SETUP
+    def setUp(self) -> None:
+        return super().setUp()

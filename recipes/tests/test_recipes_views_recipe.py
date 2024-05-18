@@ -30,7 +30,9 @@ class RecipeViewsRecipeTest(RecipeTestBase):
         self.assertIn(required_title, content)
 
     def test_recipes_detail_template_dont_load_not_published_recipes(self):
+
         recipe = self.make_recipe(is_published=False)
+
         response = self.client.get(
             reverse('recipes:recipe', kwargs={'id': recipe.id}))
 

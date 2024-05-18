@@ -100,12 +100,7 @@ class RecipeViewsSearchTest(RecipeTestBase):
                       msg="The second recipe was not found in the QuerySet")
 
     def test_recipe_search_gets_paginator_numpages_correctly(self):
-        for i in range(7):
-            self.make_recipe(
-                slug=f'recipe-{i}', title='This is one recipe',
-                author_data={'username': f'{i}'},
-            )
-
+        self.make_recipes_in_batch(qty=7)
         with patch('recipes.views.PER_PAGE', 3):
             search_url = reverse('recipes:search')
             response = self.client.get(f'{search_url}?q=recipe')
