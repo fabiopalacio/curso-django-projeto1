@@ -24,7 +24,7 @@ class RecipeViewsHomeTest(RecipeTestBase):
 
     def test_recipes_home_view_shows_message_if_no_recipes(self):
         response = self.client.get(reverse('recipes:home'))
-        self.assertIn('Desculpe. Não encontramos nenhuma receita',
+        self.assertIn("No recipes found here...",
                       response.content.decode('utf-8'))
 
     def test_recipes_home_template_loads_recipes(self):
@@ -76,7 +76,7 @@ class RecipeViewsHomeTest(RecipeTestBase):
         content = response.content.decode('utf-8')
 
         # Assertions:
-        self.assertIn('Desculpe. Não encontramos nenhuma receita', content)
+        self.assertIn("No recipes found here...", content)
 
     def test_recipes_home_gets_paginator_numpages_correctly(self):
         for i in range(7):
