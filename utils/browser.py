@@ -1,3 +1,4 @@
+import os
 from time import sleep
 from selenium.webdriver.firefox.service import Service
 from selenium import webdriver
@@ -15,6 +16,9 @@ def make_firefox_browser(*options):
         for option in options:
             firefox_options.add_argument(option)
 
+    if os.environ.get('SELENIUM_HEADLESS') == '1':
+        firefox_options.add_argument('--headless')
+
     firefox_service = Service(executable_path=FIREFOXDRIVER_PATH)
     browser = webdriver.Firefox(
         service=firefox_service, options=firefox_options)
@@ -22,7 +26,7 @@ def make_firefox_browser(*options):
 
 
 if __name__ == '__main__':
-    browser = make_firefox_browser('--headless')
+    browser = make_firefox_browser()
     browser.get('https://www.udemy.com')
     sleep(5)
     browser.quit()
