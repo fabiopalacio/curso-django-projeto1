@@ -1,14 +1,20 @@
 
 from django.test import TestCase  # type: ignore
 from django.contrib.auth.models import User  # type: ignore
+
 from recipes.models import Category, Recipe
+
+# RECIPE MIXIN class:
+# Holds the basic methods to work with the recipes during tests.
 
 
 class RecipeMixin:
 
+    # METHOD to create a new category
     def make_category(self, name='Category'):
         return Category.objects.create(name=name)
 
+    # METHOD to create a new author
     def make_author(
         self,
         first_name='Joe',
@@ -23,6 +29,7 @@ class RecipeMixin:
                                         password=password,
                                         username=username)
 
+    # METHOD to create a new recipe
     def make_recipe(
             self,
             category_data=None,
@@ -38,9 +45,15 @@ class RecipeMixin:
             preparation_steps_is_html=False,
             is_published=True,):
 
+        # Check if category_data is empty.
+        # If so, it calls the make_category method
+
         if category_data is None:
             category_data = self.make_category(name='Default Category')
 
+        # Check if author_data is empty.
+        # If so, creates a empty dictionary to be passed to
+        # the make_author() method
         if author_data is None:
             author_data = {}
 
@@ -58,6 +71,10 @@ class RecipeMixin:
             preparation_steps_is_html=preparation_steps_is_html,
             is_published=is_published,)
 
+    # METHOD to create a group of recipes.
+    # The category_data is required to avoid creating
+    # individuals categories to each recipe when
+    # it is required them to be in the same one
     def make_recipes_in_batch(self, qty=7, category_data=None):
         recipes = []
         for i in range(qty):
@@ -68,6 +85,9 @@ class RecipeMixin:
             )
             recipes.append(recipe)
         return recipes
+
+# CLASS to be used in the recipes app tests.
+# It extends the TestCase and RecipeMixin classes.
 
 
 class RecipeTestBase(TestCase, RecipeMixin):

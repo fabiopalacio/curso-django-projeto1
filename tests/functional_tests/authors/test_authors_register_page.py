@@ -1,9 +1,11 @@
 import time
-from django.test import LiveServerTestCase
+from django.test import LiveServerTestCase  # type: ignore
+import pytest  # type: ignore
 
 from utils.browser import make_firefox_browser  # type: ignore
 
 
+@pytest.mark.functionaltest
 class AuthorsBaseTest(LiveServerTestCase):
 
     def setUp(self) -> None:
