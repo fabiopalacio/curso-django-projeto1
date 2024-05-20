@@ -23,8 +23,28 @@ class RecipeViewsRecipeTest(RecipeTestBase):
             views.recipe,
             msg="DETAILED VIEW - VIEW: Wrong view returned.")
 
+    # TEST if the recipes:recipe loads the correct template
+    def test_recipes_detail_view_loads_correct_template(self):
+
+        # Creating one recipe.
+        # Required: the recipes:recipe view returns 404 page if
+        # no recipe was found
+        self.make_recipe()
+
+        # Getting the response to get the url from (reverse(recipes:recipe)
+        response = self.client.get(reverse('recipes:recipe', kwargs={'id': 1}))
+
+        # Assertions:
+        # Check if the template used by the view is the
+        # 'recipes/pages/recipe-view.html'
+        self.assertTemplateUsed(
+            response,
+            'recipes/pages/recipe-view.html',
+            msg_prefix="DETAILED VIEW - TEMPLATE: Wrong template used.")
+
     # TEST if the recipes:recipe return 404 status code when
     # no recipe was found
+
     def test_recipes_detail_view_returns_404_if_no_recipe_found(self):
         # Getting the url to a recipe that does NOT exist
         url = reverse('recipes:recipe', kwargs={'id': 98123})
