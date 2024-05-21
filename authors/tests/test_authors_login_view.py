@@ -2,6 +2,8 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from django.contrib.auth.models import User
+
 # CLASS to test login View
 
 
@@ -60,4 +62,28 @@ class LoginViewTest(TestCase):
             response.content.decode('utf-8'),
             msg='LOGIN_AUTH - CREDENTIALS: Expected warning message after '
             'inserting invalid credentials.'
+        )
+
+    # TEST if a user can login successfully
+    def test_login_view_user_log_in_successfully(self):
+        # Creating an user
+        User.objects.create_user(username='my_user', password='my_password')
+
+        # Getting the url to the view
+        url = reverse('authors:login_auth')
+
+        # Post the request to log in the url
+        response = self.client.post(
+            url,
+            {'username': 'my_user', 'password': 'my_password'},
+            follow=True)
+
+        # Assertions:
+        # Check if the successfull message was found in the html
+        self.assertIn(
+            'You are logged in.',
+            response.content.decode('utf-8'),
+            msg="LOGIN_AUTH - CREDENTIALS: Valid and authenticated user was "
+            "not considered a valid and authenticated one. Sucess message not"
+            " found."
         )

@@ -80,12 +80,13 @@ def login_auth(request):
 @login_required(login_url='authors:login', redirect_field_name='next')
 def logout_view(request):
     if not request.POST:
+        messages.error(request, 'Invalid logout request.')
         return redirect(reverse('recipes:home'))
 
     if request.POST.get('username') != request.user.username:
+        messages.error(request, 'Invalid username.s')
         return redirect(reverse('recipes:home'))
 
     logout(request)
     messages.success(request, 'Logout successfully')
-    print('Logout')
     return redirect(reverse('recipes:home'))
