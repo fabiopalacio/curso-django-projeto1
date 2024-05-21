@@ -51,7 +51,7 @@ def login_view(request):
     })
 
 
-def login_create(request):
+def login_auth(request):
 
     if not request.POST:
         raise Http404()

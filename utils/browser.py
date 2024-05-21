@@ -1,5 +1,4 @@
 import os
-from time import sleep
 from selenium.webdriver.firefox.service import Service
 from selenium import webdriver
 from pathlib import Path
@@ -23,10 +22,3 @@ def make_firefox_browser(*options):
     browser = webdriver.Firefox(
         service=firefox_service, options=firefox_options)
     return browser
-
-
-if __name__ == '__main__':
-    browser = make_firefox_browser()
-    browser.get('https://www.udemy.com')
-    sleep(5)
-    browser.quit()
