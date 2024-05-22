@@ -1,3 +1,4 @@
+from authors.forms.recipe_form import AuthorsRecipeForm
 from recipes.models import Recipe
 from django.http import Http404  # type: ignore
 from django.shortcuts import redirect, render  # type: ignore
@@ -109,13 +110,19 @@ def dashboard_view(request):
 def dashboard_recipe(request, id):
     recipe = Recipe.objects.filter(
         id=id
-    )
+    ).first()
 
     if not recipe:
         raise Http404()
 
+    form = AuthorsRecipeForm(
+        request.POST or None,
+        instance=recipe
+    )
     return render(
         request, 'authors/pages/dashboard_recipe.html',
         context={
             'recipe': recipe,
+            'form': form,
+            'btn_text': 'Send...'
         })
