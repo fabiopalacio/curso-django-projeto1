@@ -1,3 +1,4 @@
+from django.urls import reverse  # type: ignore
 import pytest  # type: ignore
 
 from parameterized import parameterized  # type: ignore
@@ -121,9 +122,12 @@ class AuthorsRegisterFunctionalTest(AuthorsBaseTest):
 
         self.form_fill_with_callback(callback)
 
+    # TEST if valid user can be register
     def test_user_valid_data_register_sucess(self):
+        # Getting the register page
         self.browser.get(self.live_server_url + '/authors/register/')
 
+        # Getting the form in the page and filling each field with valid data
         form = self.get_form()
         self.get_by_id(form, 'id_first_name').send_keys('FirstName')
         self.get_by_id(form, 'id_last_name').send_keys('LastName')
@@ -132,13 +136,66 @@ class AuthorsRegisterFunctionalTest(AuthorsBaseTest):
         self.get_by_id(form, 'id_password').send_keys('Password1234')
         self.get_by_id(form, 'id_password2').send_keys('Password1234')
 
+        # Submitting the form
         form.submit()
 
+        # waiting the page to reload
         self.sleep(1)
 
+        # Assertions:
+        # Check if the success message was found in the body tag
         self.assertIn(
             "Your user was created. Please, log in",
             self.browser.find_element(By.TAG_NAME, 'body').text,
             msg="AUTHORS:REGISTER - VALID USER INSERTION: Valid user data "
                 "was NOT accepted as valid. Success message wasn't found. "
+        )
+
+    def test_user_email_must_be_unique(self):
+        for i in range(2):
+            # Getting the register page
+            self.browser.get(self.live_server_url + '/authors/register/')
+
+            # Getting the form in the page and filling each field with
+            # valid data
+            form = self.get_form()
+            self.get_by_id(form, 'id_first_name').send_keys('FirstName')
+            self.get_by_id(form, 'id_last_name').send_keys('LastName')
+            self.get_by_id(form, 'id_username').send_keys(f'UserName123{i}')
+            self.get_by_id(form, 'id_email').send_keys('myemail@server.com')
+            self.get_by_id(form, 'id_password').send_keys('Password1234')
+            self.get_by_id(form, 'id_password2').send_keys('Password1234')
+
+            # Submitting the form
+            form.submit()
+
+            # waiting the page to reload
+            self.sleep(1)
+
+        # Assertions:
+        # Check if the success message was found in the body tag
+        self.assertIn(
+            "This e-mail is already in use.",
+            self.browser.find_element(By.TAG_NAME, 'body').text,
+            msg="AUTHORS:REGISTER - UNIQUE E-MAIL REQUIRED: A non unique email"
+                " was accepted. Error message not found. "
+        )
+
+    # TEST if register view returns 404 if user tries to GET
+    # the register_create
+    def test_authors_register_view_returns_404_to_GET(self):
+        # GET the register_create view.
+        # Expecting receive 404 page
+        self.browser.get(
+            self.live_server_url +
+            reverse('authors:register_create'))
+
+        # Assertions:
+        # Checking if the Not Found message was found in the page
+        # displayed to the user
+        self.assertIn(
+            'Not Found',
+            self.browser.find_element(By.TAG_NAME, 'body').text,
+            msg="REGISTER_CREATE - GET METHOD: The GET register_create did NOT"
+            " return 404 page. 'Not Found' message not found"
         )

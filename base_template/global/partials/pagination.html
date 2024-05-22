@@ -9,28 +9,22 @@
 
         {% for page in pagination_range.pagination %}
 
-            {% if pagination_range.current_page == page %}
-                <div 
-                    aria-label="Current page, page {{page}}" 
-                    aria-current='true'
-                    class="page-link page_item current-page"
-
-                >
-                    {{page}}
-                </div>
-            {% else %}
-                <a       
-                aria-label="Go to page {{ page }}"
-                href="?page={{ page }}{{additional_url_query}}"
-                class="page-link page_item">{{page}}</a>
-            {% endif %}
+        {% if pagination_range.current_page == page %}
+        <div aria-label="Current page, page {{page}}" aria-current='true' class="page-link page_item current-page">
+            {{page}}
+        </div>
+        {% else %}
+        <a aria-label="Go to page {{ page }}" href="?page={{ page }}{{additional_url_query}}"
+            class="page-link page_item">{{page}}</a>
+        {% endif %}
 
         {% endfor %}
 
         {% if pagination_range.last_page_out_of_range %}
-            <span class='page_item'>...</span>
-            <a aria-label="Go to page {{pagination_range.total_pages}}" href="?page={{pagination_range.total_pages}}{{additional_url_query}}"
-                class="page-link page_item">{{pagination_range.total_pages}}</a>
+        <span class='page_item'>...</span>
+        <a aria-label="Go to page {{pagination_range.total_pages}}"
+            href="?page={{pagination_range.total_pages}}{{additional_url_query}}"
+            class="page-link page_item">{{pagination_range.total_pages}}</a>
         {% endif %}
 
 
