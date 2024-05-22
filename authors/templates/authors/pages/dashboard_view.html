@@ -1,0 +1,20 @@
+{% extends "global/base.html" %}
+
+{% block title %} Dashboard {{ user }} | {% endblock title %}
+
+{% block content %}
+
+    <div class="main-content container center">
+        <h2 class='mt-medium'> Dashboard {{ user }}</h2>
+
+        {% include "global/partials/messages.html" %}
+
+        <form action="{% url "authors:logout" %}" method='POST'>
+            {% csrf_token %}
+            <input type="hidden" name="username" value="{{request.user.username}}">
+            <button class="plaintext-button" type="submit">Click here to Logout</button>
+        </form>
+
+    </div>
+
+{% endblock content %}

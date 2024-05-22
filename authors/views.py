@@ -1,9 +1,9 @@
-from django.http import Http404
+from django.http import Http404  # type: ignore
 from django.shortcuts import redirect, render  # type: ignore
-from django.contrib import messages
-from django.urls import reverse
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib import messages  # type: ignore
+from django.urls import reverse  # type: ignore
+from django.contrib.auth import authenticate, login, logout  # type: ignore
+from django.contrib.auth.decorators import login_required  # type: ignore
 
 # Create your views here.
 from .forms import RegisterForm, LoginForm
@@ -56,7 +56,6 @@ def login_auth(request):
     if not request.POST:
         raise Http404()
 
-    login_url = reverse('authors:login')
     form = LoginForm(request.POST)
 
     if form.is_valid():
@@ -74,7 +73,7 @@ def login_auth(request):
     else:
         messages.error(request, "Invalid credentials.")
 
-    return redirect(login_url)
+    return redirect(reverse('authors:dashboard'))
 
 
 @login_required(login_url='authors:login', redirect_field_name='next')
@@ -90,3 +89,8 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'Logout successfully')
     return redirect(reverse('recipes:home'))
+
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard_view(request):
+    return render(request, 'authors/pages/dashboard_view.html')

@@ -160,7 +160,7 @@ class RecipeHomePageFunctionalTest(RecipeBaseFunctionalTest):
                 'recipes:category',
                 kwargs={'category_id': recipes[0].category_id}))
 
-        self.sleep(65)
+        self.sleep(1)
 
         try:
             element = self.browser.find_element(
