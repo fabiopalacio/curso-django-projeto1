@@ -153,14 +153,14 @@ class RecipeHomePageFunctionalTest(RecipeBaseFunctionalTest):
     @patch('recipes.views.PER_PAGE', new=2)
     def test_recipes_category_page_uses_pagination_correctly(self):
         category = self.make_category('TestCategory')
-        self.make_recipes_in_batch(5, category)
+        recipes = self.make_recipes_in_batch(5, category)
         self.browser.get(
             self.live_server_url +
             reverse(
                 'recipes:category',
-                kwargs={'category_id': 1}))
+                kwargs={'category_id': recipes[0].category_id}))
 
-        self.sleep(2)
+        self.sleep(65)
 
         try:
             element = self.browser.find_element(
