@@ -391,6 +391,22 @@ h6 {
     transform: scale(1.05);
 }
 
+/* DASHBOARD */
+
+.authors-dashboard-container {
+    max-width: 64rem;
+    padding: var(--spacing-gutter-medium);
+    text-align: left;
+    margin: auto;
+}
+
+.authors-dashboard-container h3,
+.authors-dashboard-container ul,
+.authors-dashboard-container p {
+    list-style: none;
+    margin: 1rem 0
+}
+
 /* Messages */
 
 .messages-container {

@@ -1,3 +1,4 @@
+from recipes.models import Recipe
 from django.http import Http404  # type: ignore
 from django.shortcuts import redirect, render  # type: ignore
 from django.contrib import messages  # type: ignore
@@ -93,4 +94,12 @@ def logout_view(request):
 
 @login_required(login_url='authors:login', redirect_field_name='next')
 def dashboard_view(request):
-    return render(request, 'authors/pages/dashboard_view.html')
+    recipes = Recipe.objects.filter(
+        is_published=False,
+        author=request.user
+    )
+    return render(
+        request, 'authors/pages/dashboard_view.html',
+        context={
+            'recipes': recipes,
+        })

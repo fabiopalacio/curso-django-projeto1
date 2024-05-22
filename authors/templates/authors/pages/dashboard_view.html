@@ -14,6 +14,19 @@
             <input type="hidden" name="username" value="{{request.user.username}}">
             <button class="plaintext-button" type="submit">Click here to Logout</button>
         </form>
+        
+        <div class='authors-dashboard-container'>
+            <h3>Your Recipes</h3>
+            <ul>
+                {% for recipe in recipes %}
+                    <li>
+                        <a href="#"> {{ recipe }}</a>
+                    </li>
+                {%empty%}
+                    You don't have unpublished recipes.
+                {% endfor %}
+            </ul>
+        </div>
 
     </div>
 
