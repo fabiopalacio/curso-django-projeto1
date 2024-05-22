@@ -349,6 +349,8 @@ h6 {
     color: var(--color-error-dark);
 }
 
+.form-content select,
+.form-content textarea,
 .form-content input {
     width: 100%;
     padding: 1rem;
@@ -376,6 +378,10 @@ h6 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     gap: calc(var(--spacing-gutter-medium)/2) var(--spacing-gutter-medium);
+}
+
+.span-2 {
+    grid-column: span 2;
 }
 
 .plaintext-button {
@@ -459,6 +465,10 @@ h6 {
 
 .center {
     text-align: center;
+}
+
+.left {
+    text-align: left;
 }
 
 .mt-medium {
