@@ -20,7 +20,7 @@
             <ul>
                 {% for recipe in recipes %}
                     <li>
-                        <a href="#"> {{ recipe }}</a>
+                        <a href="{% url "authors:dashboard_recipe" recipe.id%}"> {{ recipe }}</a>
                     </li>
                 {%empty%}
                     You don't have unpublished recipes.

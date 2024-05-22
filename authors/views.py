@@ -103,3 +103,19 @@ def dashboard_view(request):
         context={
             'recipes': recipes,
         })
+
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard_recipe(request, id):
+    recipe = Recipe.objects.filter(
+        id=id
+    )
+
+    if not recipe:
+        raise Http404()
+
+    return render(
+        request, 'authors/pages/dashboard_recipe.html',
+        context={
+            'recipe': recipe,
+        })
