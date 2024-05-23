@@ -36,7 +36,6 @@ def make_pagination_range(
     # start_range_offset
 
     # Same logic is aplied to the next block (stop_range)
-    # There is an error here
     if start_range < 0:
         start_range = 0
         stop_range += start_range_offset
@@ -87,6 +86,11 @@ def make_pagination(request, queryset, per_page, qty_pages=4):
     # of items you’d like to have on each page, and it gives you methods for
     # accessing the items for each page.
     paginator = Paginator(queryset, per_page)
+
+    # check if the current page is in the page_range
+    # If not, uses the page 1
+    if current_page > len(paginator.page_range):
+        current_page = 1
 
     # Get the current page from paginator
     # this method allows to get any page
