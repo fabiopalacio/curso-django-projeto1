@@ -28,7 +28,7 @@ class RecipeAdmin(admin.ModelAdmin):
     list_per_page = 10
     ordering = ('-id',)
     prepopulated_fields = {
-        'slug': ('title', )
+        'slug': ('title',)
     }
 
 

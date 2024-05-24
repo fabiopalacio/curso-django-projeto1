@@ -79,6 +79,7 @@ def make_pagination(request, queryset, per_page, qty_pages=4):
         current_page = int(request.GET.get('page', 1))
     # if the try raises an ValueError (ex: a letter was passed to page)
     # uses page 1
+
     except ValueError:
         current_page = 1
 

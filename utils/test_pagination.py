@@ -1,12 +1,16 @@
 from unittest import TestCase
+from unittest.mock import patch
 
-from django.http import HttpRequest  # type: ignore
+from django.http import HttpRequest
+import pytest  # type: ignore
 
 
+from recipes.tests.test_recipe_base import RecipeMixin
 from utils.pagination import make_pagination_range, make_pagination
 
 
-class PaginationTest(TestCase):
+@pytest.mark.django_db
+class PaginationTest(TestCase, RecipeMixin):
 
     def test_make_pagination_range_returns_a_pagination_range(self):
         pagination = make_pagination_range(
@@ -89,18 +93,29 @@ class PaginationTest(TestCase):
         self.assertEqual([17, 18, 19, 20], pagination)
 
     def test_make_pagination_current_page_1_when_ValueError(self):
+        recipes = self.make_recipes_in_batch(20)
         request = HttpRequest()
         request.method = 'GET'
-        request.GET['page'] = '84'
+        request.GET['page'] = '4'
         page_obj, pagination = make_pagination(
-            request=request, per_page=4, qty_pages=4, queryset='')
-        self.assertEqual(pagination['current_page'], 84,
-                         msg='Failed to convert: int("int")')
+            request=request, per_page=1, qty_pages=4, queryset=recipes)
+        self.assertEqual(
+            pagination['current_page'], 4,
+            msg='Failed to convert: int("int")')
 
         request = HttpRequest()
         request.method = 'GET'
         request.GET['page'] = 'anyText'
         page_obj, pagination = make_pagination(
             request=request, per_page=4, qty_pages=4, queryset='')
-        self.assertEqual(pagination['current_page'], 1,
-                         msg='Failed in the try block: did not change the current page to one when failed to convert the page query to int')  # noqa: E501
+        self.assertEqual(
+            pagination['current_page'], 1,
+            msg='Failed in the try block: did not change the current page to one when failed to convert the page query to int')  # noqa: E501
+
+        request.GET['page'] = '84'
+        page_obj, pagination = make_pagination(
+            request=request, per_page=9, qty_pages=4, queryset=recipes)
+        self.assertEqual(
+            pagination['current_page'], 1,
+            msg='PAGINATION: Failed to get page 1 when out of range page '
+            'was requested.')

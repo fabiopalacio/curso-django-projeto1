@@ -12,11 +12,13 @@
         <form action="{% url "authors:logout" %}" method='POST'>
             {% csrf_token %}
             <input type="hidden" name="username" value="{{request.user.username}}">
+            <a href="{% url "authors:dashboard_recipe_new" %}">Create new recipe</a>
             <button class="plaintext-button" type="submit">Click here to Logout</button>
         </form>
         
         <div class='authors-dashboard-container'>
             <h3>Your Recipes</h3>
+
             <ul>
                 {% for recipe in recipes %}
                     <li>
