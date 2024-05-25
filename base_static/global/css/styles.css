@@ -480,6 +480,10 @@ a {
     text-align: left;
 }
 
+.mr-small {
+    margin-right: 0.7rem;
+}
+
 .mt-medium {
     margin-top: var(--spacing-gutter-medium);
 }
