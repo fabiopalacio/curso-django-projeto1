@@ -437,6 +437,8 @@ a {
     background: var(--color-gray-2);
     color: var(--color-dark-text);
     text-align: center;
+    margin-top: var(--spacing-gutter-medium);
+
 }
 
 .message-error {

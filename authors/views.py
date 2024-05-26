@@ -173,4 +173,4 @@ def create_recipe(request):
         del (request.session['recipe_form_data'])
         return redirect('authors:dashboard')
 
-    return redirect('authors:new_recipe')
+    return redirect('authors:dashboard_recipe_new')
