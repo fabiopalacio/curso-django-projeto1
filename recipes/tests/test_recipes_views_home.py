@@ -21,8 +21,8 @@ class RecipeViewsHomeTest(RecipeTestBase):
         # Assertions:
         # Check if the returned view is views.home
         self.assertIs(
-            view.func,
-            views.home,
+            view.func.view_class,
+            views.RecipeListViewHome,
             msg="HOME VIEW - VIEW: The returned view was incorrect.")
 
     # TEST if the home view is returning status code 200

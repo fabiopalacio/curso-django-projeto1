@@ -22,8 +22,8 @@ class RecipeViewsCategoryTest(RecipeTestBase):
         # Assertions
         # Checking if the view returned above is the views.category
         self.assertIs(
-            view.func,
-            views.category,
+            view.func.view_class,
+            views.RecipeListViewCategory,
             msg="CATEGORY VIEW: The View returned is incorrect")
 
     # TEST if the category view returns 404 if no recipe was found
@@ -83,6 +83,7 @@ class RecipeViewsCategoryTest(RecipeTestBase):
 
     # TEST to check if the category views is callling paginator
     # and getting the correct number of pages
+    @patch('recipes.views.PER_PAGE', new=3)
     def test_recipes_category_gets_paginator_numpages_correctly(self):
         # Creating a new category. It will be use to all recipes in this test
         category = self.make_category('MyCategory')
@@ -92,51 +93,51 @@ class RecipeViewsCategoryTest(RecipeTestBase):
 
         # Using patch to create a new paginator with
         # 3 recipes per page
-        with patch('recipes.views.PER_PAGE', new=3):
-            # Getting the url to the recipes:category with
-            # category_id = 1
-            url = reverse('recipes:category', kwargs={'category_id': 1})
 
-            # Getting the response to the url above
-            response = self.client.get(url)
+        # Getting the url to the recipes:category with
+        # category_id = 1
+        url = reverse('recipes:category', kwargs={'category_id': 1})
 
-            # Assertions:
-            # Check if the page has the paginator attribute exists
-            # in the response, with num_pages equals to 3
-            self.assertEqual(
-                response.context['recipes'].paginator.num_pages,
-                3,
-                msg="CATEGORY VIEW - PAGINATOR: The paginator page got the "
-                "wrong number of pages. Expected: 3. "
-                f"Found: {response.context['recipes'].paginator.num_pages}",)
+        # Getting the response to the url above
+        response = self.client.get(url)
 
-            # Check if the response has three recipe's cover
-            # Representing the 3 recipes per page
-            self.assertContains(
-                response,
-                '<div class="recipe-cover">',
-                3,
-                msg_prefix="CATEGORY VIEW - PAGINATOR: The response HTML has "
-                "the wrong number of recipes.")
+        # Assertions:
+        # Check if the page has the paginator attribute exists
+        # in the response, with num_pages equals to 3
+        self.assertEqual(
+            response.context['recipes'].paginator.num_pages,
+            3,
+            msg="CATEGORY VIEW - PAGINATOR: The paginator page got the "
+            "wrong number of pages. Expected: 3. "
+            f"Found: {response.context['recipes'].paginator.num_pages}",)
 
-            # Checking if the number of recipes per page is correct.
-            # Seven recipes were created.
-            # Three recipes are displayed in each page, so:
-            # The first and second pages should have three recipes
-            # The third page should have one recipe
+        # Check if the response has three recipe's cover
+        # Representing the 3 recipes per page
+        self.assertContains(
+            response,
+            '<div class="recipe-cover">',
+            3,
+            msg_prefix="CATEGORY VIEW - PAGINATOR: The response HTML has "
+            "the wrong number of recipes.")
 
-            # Checking the first page
-            self.assertEqual(
-                len(response.context['recipes'].paginator.get_page(1)),
-                3,
-                msg="CATEGORY VIEW - PAGINATOR: The first page has the wrong "
-                "number of recipes. Expected: 3. Found: "
-                f"{len(response.context['recipes'].paginator.get_page(1))}",)
+        # Checking if the number of recipes per page is correct.
+        # Seven recipes were created.
+        # Three recipes are displayed in each page, so:
+        # The first and second pages should have three recipes
+        # The third page should have one recipe
 
-            # Checking the third page
-            self.assertEqual(
-                len(response.context['recipes'].paginator.get_page(3)),
-                1,
-                msg="CATEGORY VIEW - PAGINATOR: The third page has the wrong "
-                "number of recipes. Expected: 1. Found: "
-                f"{len(response.context['recipes'].paginator.get_page(3))}",)
+        # Checking the first page
+        self.assertEqual(
+            len(response.context['recipes'].paginator.get_page(1)),
+            3,
+            msg="CATEGORY VIEW - PAGINATOR: The first page has the wrong "
+            "number of recipes. Expected: 3. Found: "
+            f"{len(response.context['recipes'].paginator.get_page(1))}",)
+
+        # Checking the third page
+        self.assertEqual(
+            len(response.context['recipes'].paginator.get_page(3)),
+            1,
+            msg="CATEGORY VIEW - PAGINATOR: The third page has the wrong "
+            "number of recipes. Expected: 1. Found: "
+            f"{len(response.context['recipes'].paginator.get_page(3))}",)

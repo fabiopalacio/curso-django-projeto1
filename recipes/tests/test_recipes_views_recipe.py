@@ -10,7 +10,7 @@ class RecipeViewsRecipeTest(RecipeTestBase):
     # TEST if the the correct view is loaded
     def test_recipes_detail_view_function_is_correct(self):
         # Getting the url to the recipes:recipe
-        url = reverse('recipes:recipe', kwargs={'id': 1})
+        url = reverse('recipes:recipe', kwargs={'pk': 1})
 
         # Getting the view
         view = resolve(url)
@@ -19,8 +19,8 @@ class RecipeViewsRecipeTest(RecipeTestBase):
         # Check if the view returned through the resolve above
         # is the views.recipe
         self.assertIs(
-            view.func,
-            views.recipe,
+            view.func.view_class,
+            views.RecipeDetail,
             msg="DETAILED VIEW - VIEW: Wrong view returned.")
 
     # TEST if the recipes:recipe loads the correct template
@@ -32,7 +32,7 @@ class RecipeViewsRecipeTest(RecipeTestBase):
         self.make_recipe()
 
         # Getting the response to get the url from (reverse(recipes:recipe)
-        response = self.client.get(reverse('recipes:recipe', kwargs={'id': 1}))
+        response = self.client.get(reverse('recipes:recipe', kwargs={'pk': 1}))
 
         # Assertions:
         # Check if the template used by the view is the
@@ -47,7 +47,7 @@ class RecipeViewsRecipeTest(RecipeTestBase):
 
     def test_recipes_detail_view_returns_404_if_no_recipe_found(self):
         # Getting the url to a recipe that does NOT exist
-        url = reverse('recipes:recipe', kwargs={'id': 98123})
+        url = reverse('recipes:recipe', kwargs={'pk': 98123})
         # Getting the get response to the url
         response = self.client.get(url)
 
@@ -69,7 +69,7 @@ class RecipeViewsRecipeTest(RecipeTestBase):
 
         # Saving the response and content
         response = self.client.get(
-            reverse('recipes:recipe', kwargs={'id': 1}))
+            reverse('recipes:recipe', kwargs={'pk': 1}))
         content = response.content.decode('utf-8')
 
         # Assertionts:
@@ -86,7 +86,7 @@ class RecipeViewsRecipeTest(RecipeTestBase):
         recipe = self.make_recipe(is_published=False)
 
         # Getting the url to recipes:recipe using the above recipe's id
-        url = reverse('recipes:recipe', kwargs={'id': recipe.id})
+        url = reverse('recipes:recipe', kwargs={'pk': recipe.id})
 
         # Getting the response to the get url
         response = self.client.get(url)
@@ -101,4 +101,4 @@ class RecipeViewsRecipeTest(RecipeTestBase):
             404,
             msg="DETAILED VIEW - UNPUBLISHED RECIPE: Wrong status code. "
             "Unpublished recipe's page did NOT return 404."
-            f"Expected: 404. Found: {response.status_code}")
+            f'Expected: 404. Found: {response.status_code}')

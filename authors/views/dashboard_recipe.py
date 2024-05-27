@@ -1,7 +1,10 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
+from django.views.generic import ListView
 from django.contrib import messages  # type: ignore
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -64,3 +67,51 @@ class DashboardRecipe(View):
             return redirect(reverse('authors:dashboard'))
 
         return self.render_recipe(form)
+
+
+@method_decorator(
+    login_required(
+        login_url='authors:login',
+        redirect_field_name='next'),
+    name='dispatch')
+class DashboardRecipeDelete(DashboardRecipe):
+    def post(self, request, *args, **kwargs):
+        recipe = self.get_recipe(id=request.POST.get('id'))
+        recipe.delete()
+        messages.success(request, 'Your recipe was deleted.')
+        return redirect(reverse('authors:dashboard'))
+
+
+@method_decorator(
+    login_required(
+        login_url='authors:login',
+        redirect_field_name='next'),
+    name='dispatch')
+class DashboardRecipeClear(DashboardRecipe):
+    def get(self, request, *args, **kwargs):
+        request.POST = None
+        request.files = None
+        request.session['recipe_form_data'] = None
+        return redirect(reverse('authors:dashboard'))
+
+
+@method_decorator(
+    login_required(
+        login_url='authors:login',
+        redirect_field_name='next'),
+    name='dispatch')
+class DashboardList(ListView):
+    model = Recipe
+    paginate_by = None
+    context_object_name = 'recipes'
+    template_name = 'authors/pages/dashboard_view.html'
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+
+        qs = qs.filter(
+            is_published=False,
+            author=self.request.user
+        )
+
+        return qs

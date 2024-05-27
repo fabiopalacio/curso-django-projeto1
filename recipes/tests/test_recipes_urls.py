@@ -31,7 +31,7 @@ class RecipesURLsTest(TestCase):
     # TEST to check the url to the details page
     def test_recipes_detail_url_is_correct(self):
         # Getting the url to the details page with recipe id = 1
-        url = reverse('recipes:recipe', kwargs={'id': 1})
+        url = reverse('recipes:recipe', kwargs={'pk': 1})
 
         # Checking if the returned url is /recipes/id/
         self.assertEqual(

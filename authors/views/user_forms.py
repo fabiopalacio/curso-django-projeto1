@@ -1,4 +1,3 @@
-from recipes.models import Recipe
 from django.http import Http404  # type: ignore
 from django.shortcuts import redirect, render  # type: ignore
 from django.contrib import messages  # type: ignore
@@ -89,42 +88,3 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'Logout successfully')
     return redirect(reverse('recipes:home'))
-
-
-@login_required(login_url='authors:login', redirect_field_name='next')
-def dashboard_view(request):
-    recipes = Recipe.objects.filter(
-        is_published=False,
-        author=request.user
-    )
-    return render(
-        request, 'authors/pages/dashboard_view.html',
-        context={
-            'recipes': recipes,
-        })
-
-
-@login_required(login_url='authors:login', redirect_field_name='next')
-def dashboard_delete_recipe(request):
-    if not request.POST:
-        raise Http404()
-
-    id = request.POST.get('id')
-
-    recipe = Recipe.objects.filter(
-        is_published=False,
-        author=request.user,
-        id=id
-    ).first()
-
-    recipe.delete()
-    messages.success(request, 'Your recipe was deleted.')
-    return redirect(reverse('authors:dashboard'))
-
-
-@login_required(login_url='authors:login', redirect_field_name='next')
-def dashboard_clean_new_recipe(request):
-    request.session['recipe_form_data'] = None
-    request.POST = None
-    request.files = None
-    return redirect(reverse('authors:dashboard'))

@@ -14,13 +14,13 @@ class RecipeViewsSearchTest(RecipeTestBase):
         url = reverse('recipes:search')
 
         # resolving the url
-        resolved = resolve(url)
+        view = resolve(url)
 
         # Assertions:
         # Check if the returned view is views.search
         self.assertIs(
-            resolved.func,
-            views.search,
+            view.func.view_class,
+            views.RecipeListViewSearch,
             msg="SEARCH VIEW - VIEW: The returned view was NOT the "
             "expected one")
 

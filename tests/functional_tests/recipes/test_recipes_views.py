@@ -92,7 +92,7 @@ class RecipeHomePageFunctionalTest(RecipeBaseFunctionalTest):
     def test_recipes_recipe_return_404_when_wrong_id(self):
         self.browser.get(
             self.live_server_url +
-            reverse('recipes:recipe', kwargs={'id': 1923}))
+            reverse('recipes:recipe', kwargs={'pk': 1923}))
         self.assertIn(
             'Not Found',
             self.browser.find_element(By.TAG_NAME, 'body').text,
@@ -108,7 +108,7 @@ class RecipeHomePageFunctionalTest(RecipeBaseFunctionalTest):
         recipe.save()
         self.browser.get(
             self.live_server_url +
-            reverse('recipes:recipe', kwargs={'id': recipe.pk}))
+            reverse('recipes:recipe', kwargs={'pk': recipe.id}))
 
         self.assertIn(
             'The new Recipe Title',
