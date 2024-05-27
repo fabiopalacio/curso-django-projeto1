@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User  # type: ignore
-from django.db import models  # type: ignore
+from django.db import models
+from django.urls import reverse  # type: ignore
 
 # Create your models here.
 
@@ -45,3 +46,6 @@ class Recipe(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("recipes:recipe", kwargs={"id": self.id})

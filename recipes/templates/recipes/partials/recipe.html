@@ -1,7 +1,7 @@
 <div class="recipe recipe-list-item">
     <div class="recipe-cover">
         {%if recipe.cover%}
-        <a href="{% url 'recipes:recipe' recipe.id %}">
+        <a href="{{recipe.get_absolute_url}}">
             <img src={{recipe.cover.url}} alt="Imagem da receita de título{{recipe.title}}">
         </a>
 
@@ -13,7 +13,7 @@
 
     </div>
     <div class="recipe-title-container">
-        <a href="{% url 'recipes:recipe' recipe.id %}">
+        <a href="{{recipe.get_absolute_url}}">
             <h2 class="recipe-title">
                 {{ recipe.title }}
             </h2>
@@ -69,7 +69,7 @@
 
     {% if isDetailPage is not True %}
     <footer class="recipe-footer">
-        <a class="recipe-read-more button button-dark button-full-width" href="{% url "recipes:recipe" recipe.id %}">
+        <a class="recipe-read-more button button-dark button-full-width" href="{{recipe.get_absolute_url}}">
             <i class="fas fa-eye"></i>
             <span>See more...</span>
         </a>
