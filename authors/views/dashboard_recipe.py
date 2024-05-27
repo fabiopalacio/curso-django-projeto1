@@ -3,23 +3,30 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
 from django.contrib import messages  # type: ignore
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 from authors.forms.recipe_form import AuthorsRecipeForm
 from recipes.models import Recipe
 
 
+@method_decorator(
+    login_required(
+        login_url='authors:login',
+        redirect_field_name='next'),
+    name='dispatch')
 class DashboardRecipe(View):
 
-    def get_recipe(self, id):
+    def get_recipe(self, id=None):
         recipe = None
 
-        if id:
+        if id is not None:
             recipe = Recipe.objects.filter(
                 is_published=False,
                 author=self.request.user,
                 id=id).first()
-        if not recipe:
-            raise Http404()
+            if not recipe:
+                raise Http404()
 
         return recipe
 
@@ -31,12 +38,12 @@ class DashboardRecipe(View):
                 'btn_text': 'Send...'
             })
 
-    def get(self, request, id):
+    def get(self, request, id=None):
         recipe = self.get_recipe(id)
         form = AuthorsRecipeForm(instance=recipe)
         return self.render_recipe(form)
 
-    def post(self, request, id):
+    def post(self, request, id=None):
 
         recipe = self.get_recipe(id)
 

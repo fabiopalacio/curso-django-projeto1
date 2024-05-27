@@ -1,4 +1,3 @@
-from authors.forms.recipe_form import AuthorsRecipeForm
 from recipes.models import Recipe
 from django.http import Http404  # type: ignore
 from django.shortcuts import redirect, render  # type: ignore
@@ -103,42 +102,6 @@ def dashboard_view(request):
         context={
             'recipes': recipes,
         })
-
-
-@login_required(login_url='authors:login', redirect_field_name='next')
-def recipe_new(request):
-    recipe_form_data = request.session.get('recipe_form_data', None)
-    files = request.FILES or None
-    form = AuthorsRecipeForm(recipe_form_data, files=files)
-    return render(request, 'authors/pages/dashboard_recipe.html', context={
-        'form': form,
-        'form_action': reverse('authors:dashboard_recipe_create'),
-        'btn_text': 'Save'
-    })
-
-
-@login_required(login_url='authors:login', redirect_field_name='next')
-def create_recipe(request):
-    if not request.POST:
-        raise Http404()
-
-    POST = request.POST
-    files = request.FILES or None
-    request.session['recipe_form_data'] = POST
-    form = AuthorsRecipeForm(POST, files=files)
-
-    if form.is_valid():
-        recipe = form.save(commit=False)
-        recipe.author = request.user
-        recipe.preparation_steps_is_html = False
-        recipe.is_published = False
-        recipe.save()
-        messages.success(request, "Your recipe was created.")
-
-        del (request.session['recipe_form_data'])
-        return redirect('authors:dashboard')
-
-    return redirect('authors:dashboard_recipe_new')
 
 
 @login_required(login_url='authors:login', redirect_field_name='next')
