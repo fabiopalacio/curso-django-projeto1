@@ -34,7 +34,7 @@ urlpatterns = [
 
     path(
         'dashboard/recipe/<int:id>/edit',
-        views.dashboard_recipe,
+        views.DashboardRecipe.as_view(),
         name='dashboard_recipe'),
 
 

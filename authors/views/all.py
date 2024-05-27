@@ -7,8 +7,7 @@ from django.urls import reverse  # type: ignore
 from django.contrib.auth import authenticate, login, logout  # type: ignore
 from django.contrib.auth.decorators import login_required  # type: ignore
 
-# Create your views here.
-from .forms import RegisterForm, LoginForm
+from authors.forms import RegisterForm, LoginForm
 
 
 def register_view(request):
@@ -103,42 +102,6 @@ def dashboard_view(request):
         request, 'authors/pages/dashboard_view.html',
         context={
             'recipes': recipes,
-        })
-
-
-@login_required(login_url='authors:login', redirect_field_name='next')
-def dashboard_recipe(request, id):
-    recipe = Recipe.objects.filter(
-        is_published=False,
-        author=request.user,
-        id=id
-    ).first()
-
-    if not recipe:
-        raise Http404()
-
-    form = AuthorsRecipeForm(
-        data=request.POST or None,
-        files=request.FILES or None,
-        instance=recipe
-    )
-
-    if form.is_valid():
-        recipe = form.save(commit=False)
-        recipe.author = request.user
-        recipe.preparation_steps_is_html = False
-        recipe.is_published = False
-
-        recipe.save()
-        messages.success(request, 'Your recipe was saved successfully!')
-        return redirect(reverse('authors:dashboard'))
-
-    return render(
-        request, 'authors/pages/dashboard_recipe.html',
-        context={
-            'recipe': recipe,
-            'form': form,
-            'btn_text': 'Send...'
         })
 
 
