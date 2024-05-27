@@ -19,11 +19,22 @@
         <div class='authors-dashboard-container'>
             <h3>Your Recipes</h3>
 
-            <ul>
+            <ul class="authors-dashboard-list">
                 {% for recipe in recipes %}
-                    <li>
+                    <li class='authors-dashboard-list-item'>
+                        <form 
+                        class='inline-form form-delete'
+                        action="{% url "authors:dashboard_delete_recipe" %}"
+                        method='POST'>
+                            <input type="hidden" name="id" value="{{recipe.id}}">
+                            {% csrf_token %}
+                            <button type='submit' class='plaintext-button'>
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </form>
                         <a href="{% url "authors:dashboard_recipe" recipe.id%}"> {{ recipe }}</a>
                     </li>
+
                 {%empty%}
                     You don't have unpublished recipes.
                 {% endfor %}

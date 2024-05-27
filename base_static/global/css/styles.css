@@ -35,6 +35,9 @@
     --color-gray-8: #323232;
     --color-gray-9: #191919;
 
+    --color-red: red;
+    --color-darkred: darkred;
+
     --font-primary: sans-serif;
     --font-headings: 'Roboto Slab', serif;
 
@@ -389,6 +392,19 @@ a {
     gap: calc(var(--spacing-gutter-medium)/2) var(--spacing-gutter-medium);
 }
 
+.inline-form {
+    display: inline-block;
+}
+
+.inline-form .plaintext-button {
+    color: var(--color-red);
+    font-size: 1.8rem;
+}
+
+.inline-form .plaintext-button:hover {
+    color: var(--color-darkred);
+}
+
 .span-2 {
     grid-column: span 2;
 }
@@ -420,6 +436,22 @@ a {
 .authors-dashboard-container p {
     list-style: none;
     margin: 1rem 0
+}
+
+.authors-dashboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.authors-dashboard-list-item {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.authors-dashboard-list-item a:hover {
+    text-decoration: underline;
+
 }
 
 /* Messages */
