@@ -106,3 +106,26 @@ class RecipesRecipeModelTest(RecipeTestBase):
         self.assertEqual(
             str(self.recipe), needed,
             msg=f'Expect: "{needed}" but found: "{str(self.recipe)}"')
+
+    def test_recipe_slugify_is_working(self):
+        recipe = Recipe(
+            category=self.make_category(name='MyNewCategory'),
+            author=self.make_author(username='NewUsername'),
+            title='A long title recipe to test slug',
+            description='Recipe Description',
+            preparation_time=10,
+            preparation_time_unit='Minutos',
+            servings=5,
+            servings_unit='Porções',
+            preparation_steps='Recipe Preparation Steps',
+        )
+
+        expected_slug = 'a-long-title-recipe-to-test-slug'
+        recipe.save()
+        self.assertEqual(
+            recipe.slug,
+            expected_slug,
+            msg="RECIPE MODEL - SLUGIFY: Slug created was not what the test "
+            f"expected. Expected: {expected_slug}. "
+            f"Found: {recipe.slug}"
+        )

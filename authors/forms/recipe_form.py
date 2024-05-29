@@ -99,11 +99,11 @@ class AuthorsRecipeForm(forms.ModelForm):
 
         if title == description:
             self._my_errors['title'].append(
-                'Must be different from description')
+                'Must be different from description.')
             self._my_errors['description'].append(
-                'Must be different from title')
+                'Must be different from title.')
 
-            if self._my_errors:
-                raise ValidationError(self._my_errors)
+        if self._my_errors:
+            raise ValidationError(self._my_errors)
 
         return super_clean

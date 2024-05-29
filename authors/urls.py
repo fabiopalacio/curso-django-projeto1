@@ -23,11 +23,7 @@ urlpatterns = [
         'dashboard/recipe/delete',
         views.DashboardRecipeDelete.as_view(),
         name='dashboard_delete_recipe'),
-    path(
-        'dashboard/recipe/cancel_new',
-        views.DashboardRecipeClear.as_view(),
-        name='dashboard_clean_new_recipe'
-    ),
+
 
     path(
         'dashboard/recipe/<int:id>/edit',

@@ -87,19 +87,6 @@ class DashboardRecipeDelete(DashboardRecipe):
         login_url='authors:login',
         redirect_field_name='next'),
     name='dispatch')
-class DashboardRecipeClear(DashboardRecipe):
-    def get(self, request, *args, **kwargs):
-        request.POST = None
-        request.files = None
-        request.session['recipe_form_data'] = None
-        return redirect(reverse('authors:dashboard'))
-
-
-@method_decorator(
-    login_required(
-        login_url='authors:login',
-        redirect_field_name='next'),
-    name='dispatch')
 class DashboardList(ListView):
     model = Recipe
     paginate_by = None
