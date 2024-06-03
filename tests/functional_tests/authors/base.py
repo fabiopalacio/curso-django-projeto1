@@ -8,6 +8,12 @@ from selenium.webdriver.common.by import By
 from utils.browser import make_firefox_browser
 
 
+# CLASS BASE to some authors views tests
+# This class create the browser in setup method,
+# quit the browser in the tearDown method,
+# and create two methods used by some tests:
+# sleep method -> used to wait page to load
+# get_by_id -> return the web_element with the passed id
 class AuthorsBaseTest(LiveServerTestCase):
 
     def setUp(self) -> None:

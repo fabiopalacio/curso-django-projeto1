@@ -123,7 +123,7 @@ class AuthorsRegisterFunctionalTest(AuthorsBaseTest):
         self.form_fill_with_callback(callback)
 
     # TEST if valid user can be register
-    def test_user_valid_data_register_sucess(self):
+    def test_user_valid_data_register_success(self):
         # Getting the register page
         self.browser.get(self.live_server_url + '/authors/register/')
 

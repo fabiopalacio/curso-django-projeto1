@@ -9,7 +9,7 @@
 
         {% include "global/partials/messages.html" %}
 
-        <form action="{% url "authors:logout" %}" method='POST'>
+        <form class='user-form' action="{% url "authors:logout" %}" method='POST'>
             {% csrf_token %}
             <input type="hidden" name="username" value="{{request.user.username}}">
             <a href="{% url "authors:dashboard_recipe_new" %}">Create new recipe</a>
