@@ -130,7 +130,7 @@ class RecipeListViewSearch(RecipeListViewBase):
             raise Http404()
 
         ctx.update({
-            'page_title': f'Pesquisando por "{ search_term }"',
+            'page_title': f'Searching by "{ search_term }"',
             'search_term': search_term,
             'additional_url_query': f'&q={search_term}'
         })
