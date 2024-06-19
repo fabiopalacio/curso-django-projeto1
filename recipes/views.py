@@ -142,6 +142,12 @@ class RecipeListViewBase(ListView):
         qs = qs.filter(
             is_published=True
         )
+
+        # Performance boost; returns a queryset that will follow
+        # foreign key relationships selecting additional related-object
+        # data when it executes its query.
+        qs = qs.select_related('author', 'category')
+
         # Returning the new super().get_queryset
         return qs
 
