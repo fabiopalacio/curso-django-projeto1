@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
+import sys
 from django.contrib.messages import constants  # type: ignore
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+
 
     # My apps
     'recipes',
@@ -147,3 +150,17 @@ MESSAGE_TAGS = {
     constants.INFO: 'message-info',
 
 }
+
+# DJANGO DEBUG TOOLBAR
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
+INSTALLED_APPS = [
+    *INSTALLED_APPS,
+    'debug_toolbar',
+]
+MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    *MIDDLEWARE,
+]
