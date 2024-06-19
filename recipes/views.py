@@ -39,25 +39,15 @@ def set_author_name(recipe):
         will be done by the author's id and category's id
         But the author's name and category's name should be available
         in the API.
-        The category name is adjusted in the get_recipes() method
-        because it does not require a huge logic
+        The author name is setted here to make it easy future
+        adjustments in this logic.
     '''
     author_id = recipe.author.id
 
-    if recipe.author.first_name != '' and recipe.author.last_name != '':
-        author_name = recipe.author.first_name + \
-            ' ' + recipe.author.last_name
+    author_name = recipe.author.first_name + \
+        ' ' + recipe.author.last_name
 
-    elif recipe.author.first_name == '' and recipe.author.last_name == '':
-        author_name = recipe.author.username
-
-    else:
-        if recipe.author.first_name == '':
-            author_name = recipe.author.last_name
-        else:
-            author_name = recipe.author.first_name
-
-    return author_id, author_name
+    return author_id, author_name.strip()
 
 
 def get_recipes(self, is_detailed=False):
@@ -97,6 +87,7 @@ def get_recipes(self, is_detailed=False):
         for recipe in recipes:
             category_name = recipe.category.name
             author_id, author_name = set_author_name(recipe)
+
             recipe = model_to_dict(recipe)
 
             recipe['author_id'] = author_id
