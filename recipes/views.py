@@ -1,5 +1,8 @@
+from django.forms import model_to_dict
+from django.http import JsonResponse
 import os
 from django.db.models import Q
+from django.http.response import HttpResponse as HttpResponse
 from django.views.generic import DetailView, ListView
 from django.http import Http404
 
@@ -9,7 +12,114 @@ from utils.pagination import make_pagination
 PER_PAGE = int(os.environ.get('PER_PAGE', 6))
 
 
+def get_path_to_media(self):
+    '''
+        Method to recover the domain
+    '''
+    return self.request.build_absolute_uri(
+    )[:self.request.build_absolute_uri().find('recipes')] + 'media/'
+
+
+def set_path_to_media(self, recipe):
+    '''
+        Method to adjust the link to the recipes medias
+    '''
+    if recipe.get('cover'):
+        path_to_media = get_path_to_media(self)
+        recipe['cover'] = path_to_media + recipe['cover'].name
+    else:
+        recipe['cover'] = ''
+    return recipe
+
+
+def set_author_name(recipe):
+    '''
+        Method to check author name
+        The future API methods to interact with the application
+        will be done by the author's id and category's id
+        But the author's name and category's name should be available
+        in the API.
+        The category name is adjusted in the get_recipes() method
+        because it does not require a huge logic
+    '''
+    author_id = recipe.author.id
+
+    if recipe.author.first_name != '' and recipe.author.last_name != '':
+        author_name = recipe.author.first_name + \
+            ' ' + recipe.author.last_name
+
+    elif recipe.author.first_name == '' and recipe.author.last_name == '':
+        author_name = recipe.author.username
+
+    else:
+        if recipe.author.first_name == '':
+            author_name = recipe.author.last_name
+        else:
+            author_name = recipe.author.first_name
+
+    return author_id, author_name
+
+
+def get_recipes(self, is_detailed=False):
+    '''
+        Method to recover the recipes to each view and return it
+        prepared to be used in JsonResponse()
+        Two situations here: first to detailed view (which search for 'recipe' context);
+        and second to the remain views (which search for 'recipes' context)
+    '''
+    if is_detailed:
+        recipe = self.get_context_data()['recipe']
+
+        recipe_dict = model_to_dict(recipe)
+
+        author_id, author_name = set_author_name(recipe)
+
+        recipe_dict['author_id'] = author_id
+        recipe_dict['author_name'] = author_name
+
+        recipe_dict = set_path_to_media(self, recipe_dict)
+
+        recipe_dict['category_id'] = recipe_dict['category']
+        recipe_dict['category_name'] = recipe.category.name
+
+        del recipe_dict['author']
+        del recipe_dict['category']
+
+        recipe_dict['created_at'] = str(recipe.created_at)
+        recipe_dict['update_at'] = str(recipe.update_at)
+
+        return recipe_dict
+
+    else:
+        recipes = self.get_context_data()['recipes']
+        recipes_list = list()
+
+        for recipe in recipes:
+            category_name = recipe.category.name
+            author_id, author_name = set_author_name(recipe)
+            recipe = model_to_dict(recipe)
+
+            recipe['author_id'] = author_id
+            recipe['author_name'] = author_name
+
+            recipe['category_id'] = recipe['category']
+            recipe['category_name'] = category_name
+
+            del recipe['author']
+            del recipe['category']
+
+            recipe = set_path_to_media(self, recipe)
+
+            recipes_list.append(recipe)
+
+        return recipes_list
+
+
 class RecipeListViewBase(ListView):
+    '''
+        Base View to all recipes views
+        Holds the default conf
+    '''
     model = Recipe
     context_object_name = 'recipes'
 
@@ -74,10 +184,24 @@ class RecipeListViewBase(ListView):
 
 
 class RecipeListViewHome(RecipeListViewBase):
-    # template_name -> required because django uses
-    # f'{context_object_name}_list.html'
-    # If this is not the template's name, change here
+    '''
+        template_name -> required because django uses
+        f'{context_object_name}_list.html'
+        If this is not the template's name, change here
+    '''
     template_name = 'recipes/pages/home.html'
+
+
+class RecipeListViewHomeAPI(RecipeListViewHome):
+
+    def render_to_response(self, context, **response_kwargs):
+
+        recipes = get_recipes(self, is_detailed=False)
+
+        return JsonResponse(
+            recipes,
+            safe=False
+        )
 
 
 class RecipeListViewCategory(RecipeListViewBase):
@@ -104,6 +228,17 @@ class RecipeListViewCategory(RecipeListViewBase):
         })
 
         return ctx
+
+
+class RecipeListViewCategoryAPI(RecipeListViewCategory):
+    def render_to_response(self, context, **response_kwargs):
+
+        recipes = get_recipes(self)
+
+        return JsonResponse(
+            recipes,
+            safe=False
+        )
 
 
 class RecipeListViewSearch(RecipeListViewBase):
@@ -138,6 +273,17 @@ class RecipeListViewSearch(RecipeListViewBase):
         return ctx
 
 
+class RecipeListViewSearchAPI(RecipeListViewSearch):
+    def render_to_response(self, context, **response_kwargs):
+
+        recipes = get_recipes(self)
+
+        return JsonResponse(
+            recipes,
+            safe=False
+        )
+
+
 class RecipeDetail(DetailView):
     model = Recipe
     context_object_name = 'recipe'
@@ -163,3 +309,13 @@ class RecipeDetail(DetailView):
         })
 
         return ctx
+
+
+class RecipeDetailAPI(RecipeDetail):
+    def render_to_response(self, context, **response_kwargs):
+        recipe = get_recipes(self, is_detailed=True)
+
+        return JsonResponse(
+            recipe,
+            safe=False
+        )
