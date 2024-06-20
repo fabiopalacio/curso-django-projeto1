@@ -12,8 +12,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-import sys
 from django.contrib.messages import constants  # type: ignore
+
+if os.environ.get('DEBUG', None) is None:
+    from dotenv import load_dotenv
+    load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,7 +48,8 @@ INSTALLED_APPS = [
 
     # My apps
     'recipes',
-    'authors'
+    'authors',
+    'tag'
 ]
 
 MIDDLEWARE = [

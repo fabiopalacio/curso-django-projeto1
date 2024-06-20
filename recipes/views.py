@@ -7,6 +7,7 @@ from django.views.generic import DetailView, ListView
 from django.http import Http404
 
 from recipes.models import Recipe
+from tag.models import Tag
 from utils.pagination import make_pagination
 
 PER_PAGE = int(os.environ.get('PER_PAGE', 6))
@@ -138,6 +139,7 @@ class RecipeListViewBase(ListView):
         # foreign key relationships selecting additional related-object
         # data when it executes its query.
         qs = qs.select_related('author', 'category')
+        qs = qs.prefetch_related('tags')
 
         # Returning the new super().get_queryset
         return qs
@@ -316,3 +318,32 @@ class RecipeDetailAPI(RecipeDetail):
             recipe,
             safe=False
         )
+
+
+class RecipeListViewTag(RecipeListViewBase):
+    template_name = 'recipes/pages/tag.html'
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+
+        qs = qs.filter(tags__slug=self.kwargs.get('slug', ''))
+
+        return qs
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+
+        page_title = Tag.objects.filter(
+            slug=self.kwargs.get('slug', '')).first()
+
+        if not page_title:
+            page_title = 'No recipes found'
+
+        page_title = f'Tag "{page_title}" '
+
+        ctx.update({
+            'page_title': page_title,
+
+        })
+
+        return ctx
