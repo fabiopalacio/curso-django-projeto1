@@ -12,7 +12,7 @@ class TagAdmin(admin.ModelAdmin):
 
     list_per_page = 10
     list_editable = ('name',)
-    list_filter = ('content_type', )
+    # list_filter = ('content_type', )
 
     ordering = ('-id',)
     prepopulated_fields = {'slug': ('name', ), }
