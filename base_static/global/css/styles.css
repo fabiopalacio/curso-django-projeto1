@@ -504,6 +504,30 @@ a {
     color: var(--color-debug-dark);
 }
 
+/* TAG-STYLES */
+.tag-container {
+    background: var(--color-gray-1);
+}
+
+.tag-link {
+    background-color: var(--color-gray-0);
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: solid black 1px;
+}
+
+.tag-link:hover {
+    transition: all ease-in-out 300ms;
+    color: var(--color-primary-dark-hover);
+    background-color: var(--color-primary-light);
+
+}
+
+.tags-list {
+    display: inline-flex;
+    gap: 8px;
+}
+
 /* Generics */
 
 .center {

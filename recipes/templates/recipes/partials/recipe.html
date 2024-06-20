@@ -86,21 +86,24 @@
         {% endif %}
     </div>
     
-    {% if recipe.tags.all %}
+    <div class="tag-container">
+        <div class="container">
+            {% if recipe.tags.all %}
+
+                <div class="tags-list">
+                {% for tag in recipe.tags.all %}
+
+                    <a class="tag-link" href={% url "recipes:tag" tag.slug %}>
+                        {{tag.name}}
+                    </a>
     
-        <p>
-            TAGs:
-            {% for tag in recipe.tags.all %}
-            
-                <a href={% url "recipes:tag" tag.slug %}>
-                    {{tag.name}}
-                </a>
-
-            {% endfor %}
-
-        </p>
-
-    {% endif %}
+                {% endfor %}
+                </div>
+    
+    
+        {% endif %}
+        </div>
+    </div>
 
     {% endif %}
 
