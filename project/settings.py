@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from django.contrib.messages import constants  # type: ignore
 
+from utils.environment import get_env_variables, parse_comma_sep_to_list
 if os.environ.get('DEBUG', None) is None:
     from dotenv import load_dotenv
     load_dotenv()
@@ -31,8 +32,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'INSECURE')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get('DEBUG') == '1' else False
 
-ALLOWED_HOSTS = ['*']  # type: ignore
 
+ALLOWED_HOSTS = parse_comma_sep_to_list(
+    get_env_variables('ALLOWED_HOSTS'))  # type: ignore
+
+CSFR_TRUSTED_ORIGINS = parse_comma_sep_to_list(
+    get_env_variables('CSFR_TRUSTED_ORIGINS'))
 
 # Application definition
 
