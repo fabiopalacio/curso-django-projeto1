@@ -66,8 +66,9 @@ class RecipeViewsSearchTest(RecipeTestBase):
         # The &quot; is used by the view and, because of that, it is not
         # required in the search term to test if the view is escaping the
         # quotes. The assertion search for it.
+
         self.assertIn(
-            'Pesquisando por &quot;&lt;Teste&gt;&quot;',
+            'Looking for &quot;&lt;Teste&gt;&quot;',
             response.content.decode('utf-8'),
             msg="SEARCH VIEW - ESCAPING CHARACTERS: The escaped representation"
             " was not found int the response HTML")
@@ -75,7 +76,7 @@ class RecipeViewsSearchTest(RecipeTestBase):
         # Check if the text without escaped characters was NOT found in the
         # HTML
         self.assertNotIn(
-            'Pesquisando por "<Teste>"',
+            'Looking for "<Teste>"',
             response.content.decode('utf-8'),
             msg="SEARCH VIEW - ESCAPING CHARACTERS: The text without escaping "
             "the special characters was found in the HTML")
