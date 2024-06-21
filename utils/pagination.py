@@ -6,13 +6,12 @@ def make_pagination_range(
         page_range,
         qty_pages,
         current_page):
-    '''
-        Method to make pagination range.
-        Requires:
-            page_range -> list of pages.
-            qty_pages -> number of pages to be displayed to the user
-            current_page -> current page number
-    '''
+
+    # Method to make pagination range.
+    # Requires:
+    #     page_range -> list of pages.
+    #     qty_pages -> number of pages to be displayed to the user
+    #     current_page -> current page number
 
     total_pages = len(page_range)  # Total number of pages
 
@@ -64,15 +63,15 @@ def make_pagination_range(
 
 
 def make_pagination(request, queryset, per_page, qty_pages=4):
-    '''
-            Method to create the pagination scheme.
-        queryset -> list of items to be displayed in the pages
-        per_page -> number os items to be displayed in each page
-        qty_pages -> number of options in the navigation scheme
-            Example: if qty_pages = 5 and the current page is 5
-                It will be displayed the navigation itens to
-                page 3,4,5,6,7
-    '''
+
+    # Method to create the pagination scheme.
+    # queryset -> list of items to be displayed in the pages
+    # per_page -> number os items to be displayed in each page
+    # qty_pages -> number of options in the navigation scheme
+    #     Example: if qty_pages = 5 and the current page is 5
+    #         It will be displayed the navigation itens to
+    #         page 3,4,5,6,7
+
     # Try to get the page query in the url. If no attribute page is found
     # use 1 (representing the first page)
     try:
