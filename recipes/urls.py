@@ -38,7 +38,7 @@ urlpatterns = [
         name='recipe'),
 
     path(
-        'recipes/tag/<slug:slug>/',
+        'recipes/tag/<str:tag_name>/',
         views.RecipeListViewTag.as_view(),
         name='tag'),
 
@@ -51,12 +51,12 @@ urlpatterns = [
     path(
         'recipes/api/v1/<int:pk>/',
         views.RecipeDetailAPI.as_view(),
-        name='recipe_api_v1/'),
+        name='recipe_api_v1'),
 
     path(
         'recipes/api/v1/category/<int:category_id>/',
         views.RecipeListViewCategoryAPI.as_view(),
-        name='recipes_category_api_v1/'),
+        name='category_api_v1'),
 
     path(
         'recipes/api/v1/search/',
