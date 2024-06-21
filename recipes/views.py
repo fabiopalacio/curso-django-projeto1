@@ -14,17 +14,14 @@ PER_PAGE = int(os.environ.get('PER_PAGE', 6))
 
 
 def get_path_to_media(self):
-    '''
-        Method to recover the domain
-    '''
+    # Method to recover the url to media folder.
+
     return self.request.build_absolute_uri(
     )[:self.request.build_absolute_uri().find('recipes')] + 'media/'
 
 
 def set_path_to_media(self, recipe):
-    '''
-        Method to adjust the link to the recipes medias
-    '''
+    # Method to adjust the link to the recipes medias
     if recipe.get('cover'):
         path_to_media = get_path_to_media(self)
         recipe['cover'] = path_to_media + recipe['cover'].name
@@ -34,15 +31,14 @@ def set_path_to_media(self, recipe):
 
 
 def set_author_name(recipe):
-    '''
-        Method to check author name
-        The future API methods to interact with the application
-        will be done by the author's id and category's id
-        But the author's name and category's name should be available
-        in the API.
-        The author name is setted here to make it easy future
-        adjustments in this logic.
-    '''
+    # Method to check author name
+    #     The future API methods to interact with the application
+    #     will be done by the author's id and category's id
+    #     But the author's name and category's name should be available
+    #     in the API.
+    #     The author name is setted here to make it easy future
+    #     adjustments in this logic.
+
     author_id = recipe.author.id
 
     author_name = recipe.author.first_name + \
@@ -52,12 +48,11 @@ def set_author_name(recipe):
 
 
 def get_recipes(self, is_detailed=False):
-    '''
-        Method to recover the recipes to each view and return it
-        prepared to be used in JsonResponse()
-        Two situations here: first to detailed view (which search for 'recipe' context);
-        and second to the remain views (which search for 'recipes' context)
-    '''
+    # Method to recover the recipes to each view and return it
+    # prepared to be used in JsonResponse()
+    # Two situations here: first to detailed view (which search for
+    # 'recipe' context); and second to the remain views (which
+    # search for 'recipes' context)
     if is_detailed:
         recipe = self.get_context_data()['recipe']
 
@@ -96,11 +91,20 @@ def get_recipes(self, is_detailed=False):
 
             recipe['category_id'] = recipe['category']
             recipe['category_name'] = category_name
+            tag_list = ''
 
+            for tag in recipe['tags']:
+                tag_list += tag.name + ', '
+
+            tag_list = tag_list.strip()[:-1]
+
+            del recipe['tags']
             del recipe['author']
             del recipe['category']
 
             recipe = set_path_to_media(self, recipe)
+
+            recipe['tags'] = tag_list
 
             recipes_list.append(recipe)
 
@@ -108,10 +112,10 @@ def get_recipes(self, is_detailed=False):
 
 
 class RecipeListViewBase(ListView):
-    '''
-        Base View to all recipes views
-        Holds the default conf
-    '''
+
+    # Base View to all recipes views
+    # Holds the default conf
+
     model = Recipe
     context_object_name = 'recipes'
 
@@ -183,11 +187,9 @@ class RecipeListViewBase(ListView):
 
 
 class RecipeListViewHome(RecipeListViewBase):
-    '''
-        template_name -> required because django uses
-        f'{context_object_name}_list.html'
-        If this is not the template's name, change here
-    '''
+    # template_name -> required because django uses
+    #     f'{context_object_name}_list.html'
+    # If this is not the template's name, change here
     template_name = 'recipes/pages/home.html'
 
 
@@ -326,7 +328,7 @@ class RecipeListViewTag(RecipeListViewBase):
     def get_queryset(self, *args, **kwargs):
         qs = super().get_queryset(*args, **kwargs)
 
-        qs = qs.filter(tags__slug=self.kwargs.get('slug', ''))
+        qs = qs.filter(tags__name=self.kwargs.get('tag_name', ''))
 
         return qs
 
@@ -334,7 +336,7 @@ class RecipeListViewTag(RecipeListViewBase):
         ctx = super().get_context_data(*args, **kwargs)
 
         page_title = Tag.objects.filter(
-            slug=self.kwargs.get('slug', '')).first()
+            slug=self.kwargs.get('tag_name', '')).first()
 
         if not page_title:
             page_title = 'No recipes found'
