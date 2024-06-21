@@ -93,7 +93,7 @@
                 <div class="tags-list">
                 {% for tag in recipe.tags.all %}
 
-                    <a class="tag-link" href={% url "recipes:tag" tag.slug %}>
+                    <a class="tag-link" href={% url "recipes:tag" tag.name %}>
                         {{tag.name}}
                     </a>
     
