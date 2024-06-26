@@ -317,3 +317,64 @@ class RecipePageFunctionalTest(RecipeBaseFunctionalTest):
             msg="RECIPES_PAGINATION - CURRENT PAGE 1': Pagination did not ."
             "redirect to page 1."
         )
+
+
+@pytest.mark.functionaltest
+class RecipesTagsFunctionalTest(RecipeBaseFunctionalTest):
+    def test_recipes_tag_view_return_404_when_no_recipe_found(self):
+        self.browser.get(
+            self.live_server_url +
+            reverse('recipes:tag', kwargs={'tag_name': 'abcde'}))
+        self.assertIn(
+            'No recipes found here...',
+            self.browser.find_element(By.TAG_NAME, 'body').text,
+            msg="RECIPES TAG VIEW - NO RECIPE FOUND: Tag view not"
+            "expected to find any recipes. Informative message not "
+            "found in body."
+        )
+
+    def test_recipes_tag_view_loads_recipes(self):
+        category = self.make_category('TestCategory')
+        recipe = self.make_recipe(category_data=category)
+
+        self.browser.get(
+            self.live_server_url +
+            reverse('recipes:category',
+                    kwargs={'category_id': recipe.category.pk}))
+
+        body = self.browser.find_element(By.TAG_NAME, 'body').text
+
+        self.assertNotIn(
+            'No recipes found here...',
+            body)
+        self.assertIn(
+            'My Recipe Title',
+            body,
+            msg="RECIPES_CATEGORY - LOADING RECIPES: Category View did NOT "
+            "found expected recipes. Recipe Title not found in the HTML body."
+        )
+
+    @patch('recipes.views.PER_PAGE', new=2)
+    def test_recipes_category_page_uses_pagination_correctly(self):
+        category = self.make_category('TestCategory')
+        recipes = self.make_recipes_in_batch(5, category)
+        self.browser.get(
+            self.live_server_url +
+            reverse(
+                'recipes:category',
+                kwargs={'category_id': recipes[0].category_id}))
+
+        self.sleep(1)
+
+        try:
+            element = self.browser.find_element(
+                By.XPATH,
+                '//a[@aria-label = "Go to page 2"]')
+        except Exception:
+            element = None
+
+        self.assertNotEqual(
+            element,
+            None,
+            msg="RECIPES_CATEGORY_VIEW - PAGINATION: Link to page 2 not found."
+        )
