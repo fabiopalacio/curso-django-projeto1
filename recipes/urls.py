@@ -61,5 +61,5 @@ urlpatterns = [
     path(
         'recipes/api/v1/search/',
         views.RecipeListViewSearchAPI.as_view(),
-        name='recipes_search_api_v1/'),
+        name='search_api_v1'),
 ]
