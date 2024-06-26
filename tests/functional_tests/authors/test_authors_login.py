@@ -85,7 +85,7 @@ class AuthorsLoginTest(AuthorsBaseTest):
         form.submit()
 
         # Waiting the page reload
-        self.sleep(1)
+        self.sleep(3)
 
         # Assertions:
         # Check if the "Invalid credentials." was displayed as an error
