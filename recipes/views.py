@@ -47,6 +47,37 @@ def set_author_name(recipe):
     return author_id, author_name.strip()
 
 
+def adjust_recipe(self, recipe):
+    category_name = recipe.category.name
+    author_id, author_name = set_author_name(recipe)
+    created_at = recipe.created_at
+
+    recipe = model_to_dict(recipe)
+
+    recipe['author_id'] = author_id
+    recipe['author_name'] = author_name
+
+    recipe = set_path_to_media(self, recipe)
+
+    recipe['category_id'] = recipe['category']
+    recipe['category_name'] = category_name
+
+    tag_list = ''
+    for tag in recipe['tags']:
+        tag_list += tag.name + ', '
+
+    tag_list = tag_list.strip()[:-1]
+
+    del recipe['tags']
+    del recipe['author']
+    del recipe['category']
+
+    recipe['tags'] = tag_list
+    recipe['created_at'] = str(created_at)
+
+    return recipe
+
+
 def get_recipes(self, is_detailed=False):
     # Method to recover the recipes to each view and return it
     # prepared to be used in JsonResponse()
@@ -54,58 +85,19 @@ def get_recipes(self, is_detailed=False):
     # 'recipe' context); and second to the remain views (which
     # search for 'recipes' context)
     if is_detailed:
+
         recipe = self.get_context_data()['recipe']
+        if recipe == '':
+            return None
 
-        recipe_dict = model_to_dict(recipe)
-
-        author_id, author_name = set_author_name(recipe)
-
-        recipe_dict['author_id'] = author_id
-        recipe_dict['author_name'] = author_name
-
-        recipe_dict = set_path_to_media(self, recipe_dict)
-
-        recipe_dict['category_id'] = recipe_dict['category']
-        recipe_dict['category_name'] = recipe.category.name
-
-        del recipe_dict['author']
-        del recipe_dict['category']
-
-        recipe_dict['created_at'] = str(recipe.created_at)
-        recipe_dict['update_at'] = str(recipe.update_at)
-
-        return recipe_dict
+        return adjust_recipe(self, recipe)
 
     else:
         recipes = self.get_context_data()['recipes']
         recipes_list = list()
 
         for recipe in recipes:
-            category_name = recipe.category.name
-            author_id, author_name = set_author_name(recipe)
-
-            recipe = model_to_dict(recipe)
-
-            recipe['author_id'] = author_id
-            recipe['author_name'] = author_name
-
-            recipe['category_id'] = recipe['category']
-            recipe['category_name'] = category_name
-            tag_list = ''
-
-            for tag in recipe['tags']:
-                tag_list += tag.name + ', '
-
-            tag_list = tag_list.strip()[:-1]
-
-            del recipe['tags']
-            del recipe['author']
-            del recipe['category']
-
-            recipe = set_path_to_media(self, recipe)
-
-            recipe['tags'] = tag_list
-
+            recipe = adjust_recipe(self, recipe)
             recipes_list.append(recipe)
 
         return recipes_list
