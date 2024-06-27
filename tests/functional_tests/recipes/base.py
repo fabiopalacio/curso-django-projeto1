@@ -2,6 +2,7 @@
 import time
 from django.test import LiveServerTestCase  # type: ignore
 
+from recipes.models import Recipe
 from recipes.tests.test_recipe_base import RecipeMixin
 
 from utils.browser import make_firefox_browser
@@ -28,6 +29,11 @@ class RecipeBaseFunctionalTest(LiveServerTestCase, RecipeMixin):
     # Quit the browser after each test.
     def tearDown(self) -> None:
         self.browser.quit()
+
+        # Removing recipes from test database after each test
+        recipes = Recipe.objects.all()
+        recipes.delete()
+
         return super().tearDown()
 
     # sleep method:
