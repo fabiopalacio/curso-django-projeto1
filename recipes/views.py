@@ -15,6 +15,12 @@ PER_PAGE = int(os.environ.get('PER_PAGE', 6))
 
 def get_path_to_media(self):
     # Method to recover the url to media folder.
+    # self.request.build_absolute_uri() returns the full uri, but here
+    # it is required only the domain. The first thing after the domain
+    # is 'recipes. So the str is cutted where recipes is found
+    # and is concated with 'media/', which is the folder where the medias
+    # are saved. This method allows the set_path_to_media() to create the
+    # correct link to the media
 
     return self.request.build_absolute_uri(
     )[:self.request.build_absolute_uri().find('recipes')] + 'media/'
@@ -22,6 +28,10 @@ def get_path_to_media(self):
 
 def set_path_to_media(self, recipe):
     # Method to adjust the link to the recipes medias
+    # It get the path to media folder from get_path_to_media()
+    # and add the cover name from recipe.
+    # If no cover was passed to recipe, it uses an empty string
+    # and them return the recipe adjusted.
     if recipe.get('cover'):
         path_to_media = get_path_to_media(self)
         recipe['cover'] = path_to_media + recipe['cover'].name
@@ -36,8 +46,6 @@ def set_author_name(recipe):
     #     will be done by the author's id and category's id
     #     But the author's name and category's name should be available
     #     in the API.
-    #     The author name is setted here to make it easy future
-    #     adjustments in this logic.
 
     author_id = recipe.author.id
 
@@ -48,30 +56,61 @@ def set_author_name(recipe):
 
 
 def adjust_recipe(self, recipe):
+    # Method to adjust the recipe to be passed as JSON
+    # It converts the recipe model to dict and adjust
+    # some values
+    #
+    # Any interaction with the application should be done
+    # by IDs. So here is created new keys to recipe dict,
+    # allowing API to know the authors and category's names,
+    # but also knowing their IDs, if necessary.
+    #
+    # This variables are created to be easier to use their
+    # values. It was easier to work with recipe model here,
+    # so the values are saved before recipe convertion
+    # to dict
     category_name = recipe.category.name
     author_id, author_name = set_author_name(recipe)
     created_at = recipe.created_at
 
+    # Here recipe become a dict
     recipe = model_to_dict(recipe)
 
-    recipe['author_id'] = author_id
+    # Creating new keys to recipe dict.
+    # Author's name to be display to users
+    # Author's id to interact with application
     recipe['author_name'] = author_name
+    recipe['author_id'] = author_id
 
+    # Creating new keys to recipe dict.
+    # Category's name to be display to users
+    # Category's id to interact with application
+    # recipe['category'] returns the id
+    # (after the model_to_dict() method)
+    recipe['category_name'] = category_name
+    recipe['category_id'] = recipe['category']
+
+    # Adjusting the link to recipe's cover
     recipe = set_path_to_media(self, recipe)
 
-    recipe['category_id'] = recipe['category']
-    recipe['category_name'] = category_name
-
+    # Adjusting the tags to be passed as JSON
+    # The decision here was to use a string with
+    # each tag separated by comma.
     tag_list = ''
     for tag in recipe['tags']:
         tag_list += tag.name + ', '
 
+    # Removing the last char because it will add a comma
+    # after the last tag
     tag_list = tag_list.strip()[:-1]
 
+    # Removing the key-values that were adjusted here to be
+    # passed as JSON. Their values are saved in different keys above
     del recipe['tags']
     del recipe['author']
     del recipe['category']
 
+    # Creating new keys
     recipe['tags'] = tag_list
     recipe['created_at'] = str(created_at)
 
@@ -87,9 +126,6 @@ def get_recipes(self, is_detailed=False):
     if is_detailed:
 
         recipe = self.get_context_data()['recipe']
-        if recipe == '':
-            return None
-
         return adjust_recipe(self, recipe)
 
     else:
@@ -186,9 +222,17 @@ class RecipeListViewHome(RecipeListViewBase):
 
 
 class RecipeListViewHomeAPI(RecipeListViewHome):
-
+    # View to be used as API, returning JSON with home data
     def render_to_response(self, context, **response_kwargs):
-
+        # Overwriting render_to_response() to return the JSON
+        # with requested data.
+        # This logic was moved to method get_recipes()
+        # to avoid repetition
+        # and to let the view code cleaner.
+        # The parameter is_detailed=False allow the method
+        # to search to the specific context.
+        # Detail view uses recipe (singular)
+        # and the remaining views use recipes (plural)
         recipes = get_recipes(self, is_detailed=False)
 
         return JsonResponse(
@@ -198,22 +242,37 @@ class RecipeListViewHomeAPI(RecipeListViewHome):
 
 
 class RecipeListViewCategory(RecipeListViewBase):
+    # template_name -> required because django uses
+    #     f'{context_object_name}_list.html'
+    # If this is not the template's name, change here
     template_name = 'recipes/pages/category.html'
 
     def get_queryset(self, *args, **kwargs):
+        # Overwriting the get_queryset method
+        # It calls the RecipeListViewBase get_queryset
+        # and does a new filter, getting only the
+        # recipes with the desired category
+        # (filtered by category_id)
+        # Here the is_published is added to the filter
+        # only as a guarantee (It is used in super().get_queryset)
+        # Empty queryset is treated as error and raises 404
         qs = super().get_queryset(*args, **kwargs)
 
         qs = qs.filter(
             is_published=True,
             category_id=self.kwargs.get('category_id')
         )
-
+        # If the returned queryset is empty, raises 404
         if not qs:
             raise Http404()
-
         return qs
 
     def get_context_data(self, *args, **kwargs):
+        # Overwriting get_context_data to create page title
+        # based on the category required
+        # It updates the context data, adding a new
+        # entry called title, which will be used in the template
+        # to change the page title
         ctx = super().get_context_data(*args, **kwargs)
 
         ctx.update({
@@ -224,6 +283,12 @@ class RecipeListViewCategory(RecipeListViewBase):
 
 
 class RecipeListViewCategoryAPI(RecipeListViewCategory):
+    # Overwriting render_to_response() to return the JSON with requested data.
+    # This logic was moved to method get_recipes() to avoid repetition
+    # and to let the view code cleaner.
+    # The parameter is_detailed=False allow the method to search to the specific
+    # context. Detail view uses recipe (singular) and the remaining views use
+    # recipes (plural)
     def render_to_response(self, context, **response_kwargs):
 
         recipes = get_recipes(self)
@@ -235,9 +300,20 @@ class RecipeListViewCategoryAPI(RecipeListViewCategory):
 
 
 class RecipeListViewSearch(RecipeListViewBase):
+    # template_name -> required because django uses
+    #     f'{context_object_name}_list.html'
+    # If this is not the template's name, change here
     template_name = 'recipes/pages/search.html'
 
     def get_queryset(self, *args, **kwargs):
+        # Overwriting the get_queryset method
+        # It calls the RecipeListViewBase get_queryset
+        # and does a new filter, getting only the
+        # recipes with the desired category
+        # (filtered by category_id)
+        # Here the is_published is added to the filter
+        # only as a guarantee (It is used in super().get_queryset)
+        # Empty queryset is treated as error and raises 404
         qs = super().get_queryset(*args, **kwargs)
         search_term = self.request.GET.get('q', '').strip()
 
@@ -250,6 +326,13 @@ class RecipeListViewSearch(RecipeListViewBase):
         return qs
 
     def get_context_data(self, *args, **kwargs):
+        # Overwriting get_context_data to create page title
+        # based on the search term typed
+        # It updates the context data, adding a new
+        # entry called title, which will be used in the template
+        # to change the page title
+        # It also pass the search term and additional url query
+        # If no search term is passed, raises a 404 error
         ctx = super().get_context_data(*args, **kwargs)
 
         search_term = self.request.GET.get('q', '').strip()
@@ -267,6 +350,12 @@ class RecipeListViewSearch(RecipeListViewBase):
 
 
 class RecipeListViewSearchAPI(RecipeListViewSearch):
+    # Overwriting render_to_response() to return the JSON with requested data.
+    # This logic was moved to method get_recipes() to avoid repetition
+    # and to let the view code cleaner.
+    # The parameter is_detailed=False allow the method to search to the specific
+    # context. Detail view uses recipe (singular) and the remaining views use
+    # recipes (plural)
     def render_to_response(self, context, **response_kwargs):
 
         recipes = get_recipes(self)
@@ -278,11 +367,24 @@ class RecipeListViewSearchAPI(RecipeListViewSearch):
 
 
 class RecipeDetail(DetailView):
+    # Define the model (require to DetailView)
     model = Recipe
+
+    # Define the context_object_name as recipe
+    # which will be used to get the context data
     context_object_name = 'recipe'
+    # template_name -> required because django uses
+    #     f'{context_object_name}_list.html'
+    # If this is not the template's name, change here
     template_name = 'recipes/pages/recipe-view.html'
 
     def get_queryset(self, *args, **kwargs):
+        # get_querysey -> to manipulate the queryset
+        # Here it is required to filter the unpublished recipes out of queryset (showing only the published ones)
+        # and uses the pk to filter the recipes, keeping
+        # only the desired one
+        # If no recipe is found with that pk,
+        # raises 404
         qs = super().get_queryset(*args, **kwargs)
 
         qs = qs.filter(
@@ -296,6 +398,8 @@ class RecipeDetail(DetailView):
         return qs
 
     def get_context_data(self, *args, **kwargs):
+        # Get the context data from parent (method super)
+        # and update the context, adding the isDetailPage to be True
         ctx = super().get_context_data(*args, **kwargs)
         ctx.update({
             'isDetailPage': True
@@ -305,6 +409,12 @@ class RecipeDetail(DetailView):
 
 
 class RecipeDetailAPI(RecipeDetail):
+    # Overwriting render_to_response() to return the JSON with requested data.
+    # This logic was moved to method get_recipes() to avoid repetition
+    # and to let the view code cleaner.
+    # The parameter is_detailed=True allow the method to search to the specific
+    # context. Detail view uses recipe (singular) and the remaining views use
+    # recipes (plural)
     def render_to_response(self, context, **response_kwargs):
         recipe = get_recipes(self, is_detailed=True)
 
@@ -315,9 +425,15 @@ class RecipeDetailAPI(RecipeDetail):
 
 
 class RecipeListViewTag(RecipeListViewBase):
+    # template_name -> required because django uses
+    #     f'{context_object_name}_list.html'
+    # If this is not the template's name, change here
     template_name = 'recipes/pages/tag.html'
 
     def get_queryset(self, *args, **kwargs):
+        # get_querysey -> to manipulate the queryset
+        # Filter the recipes that have the same tag as passed
+        # by url
         qs = super().get_queryset(*args, **kwargs)
 
         qs = qs.filter(tags__name=self.kwargs.get('tag_name', ''))
@@ -325,15 +441,18 @@ class RecipeListViewTag(RecipeListViewBase):
         return qs
 
     def get_context_data(self, *args, **kwargs):
+        # Overwriting get_context_data to create page title
+        # based on the tag name required
+
         ctx = super().get_context_data(*args, **kwargs)
 
-        page_title = Tag.objects.filter(
-            slug=self.kwargs.get('tag_name', '')).first()
+        tag = Tag.objects.filter(
+            name=self.kwargs.get('tag_name', '')).first()
 
-        if not page_title:
+        if not tag:
             page_title = 'No recipes found'
-
-        page_title = f'Tag "{page_title}" '
+        else:
+            page_title = f'Tag "{tag.name}" '
 
         ctx.update({
             'page_title': page_title,
