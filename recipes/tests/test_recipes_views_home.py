@@ -163,7 +163,7 @@ class RecipeViewsHomeTest(RecipeTestBase):
             f"recipes. Expected: 1. Found: {len(context)}")
 
     # TEST if the home view does not load unpublished recipes
-    def test_recipes_home_template_dont_load_non_published_recipes(self):
+    def test_recipes_home_template_dont_load_not_published_recipes(self):
 
         # Creating a new recipe with is_published = False
         self.make_recipe(is_published=False)
