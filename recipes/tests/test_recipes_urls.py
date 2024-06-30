@@ -52,3 +52,16 @@ class RecipesURLsTest(TestCase):
             '/recipes/search/',
             msg="RECIPES URLS - SEARCH PAGE: Expected: "
             f"'/recipes/search/'. Found: {url}",)
+
+    # TEST to check the url to the tag page
+    def test_recipes_tag_url_is_correct(self):
+        # Getting the url to the tag page
+
+        url = reverse('recipes:tag', kwargs={'tag_name': 'name'})
+
+        # Checking if the url returned is /recipes/search/
+        self.assertEqual(
+            url,
+            '/recipes/tag/name/',
+            msg="RECIPES URLS - TAG PAGE: Expected: "
+            f"'/recipes/tag/'. Found: {url}",)
