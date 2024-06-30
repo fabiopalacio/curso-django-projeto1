@@ -102,3 +102,32 @@ class RecipeViewsRecipeTest(RecipeTestBase):
             msg="DETAILED VIEW - UNPUBLISHED RECIPE: Wrong status code. "
             "Unpublished recipe's page did NOT return 404."
             f'Expected: 404. Found: {response.status_code}')
+
+    def test_recipes_detail_view_loads_and_display_tags(self):
+        recipe = self.make_recipe(is_published=True)
+        expected_tag = self.make_tag('RightTagToBeFoundInRecipe')
+        not_expected_tag = self.make_tag('WrongTagToBeFoundInRecipe')
+        recipe.tags.add(expected_tag)
+
+        # Getting the url to recipes:recipe using the above recipe's id
+        url = reverse('recipes:recipe', kwargs={'pk': recipe.id})
+
+        # Getting the response to the get url
+        response = self.client.get(url)
+        tag_list = list()
+        for tag in response.context['recipe'].tags.all():
+            tag_list.append(str(tag))
+
+        self.assertIn(
+            expected_tag.name,
+            tag_list,
+            msg="DETAILED VIEW - RECIPE'S TAGs: Wrong tag found. "
+            f"Expected: '{expected_tag.name}'. "
+            f"Found: {tag_list}")
+
+        self.assertNotIn(
+            not_expected_tag.name,
+            tag_list,
+            msg="DETAILED VIEW - RECIPE'S TAGs: Wrong tag found. "
+            f"Expected: '{not_expected_tag.name}'. "
+            f"Found: {tag_list}")
