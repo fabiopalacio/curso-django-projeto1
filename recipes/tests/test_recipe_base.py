@@ -1,4 +1,5 @@
 
+from tag.models import Tag
 from django.test import TestCase  # type: ignore
 from django.contrib.auth.models import User  # type: ignore
 
@@ -86,8 +87,11 @@ class RecipeMixin:
             recipes.append(recipe)
         return recipes
 
-# CLASS to be used in the recipes app tests.
-# It extends the TestCase and RecipeMixin classes.
+    def make_tag(self, tag_name='GenericTag'):
+        return Tag.objects.create(name =  tag_name)
+
+    # CLASS to be used in the recipes app tests.
+    # It extends the TestCase and RecipeMixin classes.
 
 
 class RecipeTestBase(TestCase, RecipeMixin):
