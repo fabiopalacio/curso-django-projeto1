@@ -9,12 +9,9 @@
 
         {% include "global/partials/messages.html" %}
 
-        <form class='user-form' action="{% url "authors:logout" %}" method='POST'>
-            {% csrf_token %}
-            <input type="hidden" name="username" value="{{request.user.username}}">
-            <a href="{% url "authors:dashboard_recipe_new" %}">Create new recipe</a>
-            <button class="plaintext-button" type="submit">Click here to Logout</button>
-        </form>
+        {% include "../partials/logout_form.html" %}
+        <button class="plaintext-button authors-logout-link" type="submit">Click here to Logout</button>
+
         
         <div class='authors-dashboard-container'>
             <h3>Your Recipes</h3>

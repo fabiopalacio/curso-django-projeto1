@@ -13,11 +13,9 @@
 
         {% if request.user.is_authenticated %}
             <p>You are logged in as {{request.user.first_name}}</p>
-            <form action="{% url "authors:logout" %}" method='POST'>
-                {% csrf_token %}
-                <input type="hidden" name="username" value="{{request.user.username}}">
-                <button class="plaintext-button" type="submit">Click here to Logout</button>
-            </form>
+            {% include "../partials/logout_form.html" %}
+            <button class="plaintext-button authors-logout-link" type="submit">Click here to Logout</button>
+
         {% else %}
         
             {% include "global/partials/form.html" %}
