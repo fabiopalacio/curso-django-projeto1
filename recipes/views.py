@@ -460,3 +460,25 @@ class RecipeListViewTag(RecipeListViewBase):
         })
 
         return ctx
+
+
+class RecipeListViewTagAPI(RecipeListViewTag):
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        if not qs:
+            raise Http404()
+        else:
+            return qs
+    # Overwriting render_to_response() to return the JSON with requested data.
+    # This logic was moved to method get_recipes() to avoid repetition
+    # and to let the view code cleaner.
+
+    def render_to_response(self, context, **response_kwargs):
+
+        recipes = get_recipes(self)
+
+        return JsonResponse(
+            recipes,
+            safe=False
+        )

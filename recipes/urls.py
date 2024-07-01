@@ -62,4 +62,10 @@ urlpatterns = [
         'recipes/api/v1/search/',
         views.RecipeListViewSearchAPI.as_view(),
         name='search_api_v1'),
+
+
+    path(
+        'recipes/api/v1/tag/<str:tag_name>/',
+        views.RecipeListViewTagAPI.as_view(),
+        name='tag_api_v1'),
 ]
