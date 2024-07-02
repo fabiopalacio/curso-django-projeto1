@@ -11,47 +11,45 @@
       }
     });
   }
+})();
 
-  (() => {
-    const buttonCloseMenu = document.querySelector(".button-close-menu");
-    const buttonShowMenu = document.querySelector(".button-show-menu");
-    const menuContainer = document.querySelector(".menu-container");
+(() => {
+  const buttonCloseMenu = document.querySelector(".button-close-menu");
+  const buttonShowMenu = document.querySelector(".button-show-menu");
+  const menuContainer = document.querySelector(".menu-container");
 
-    const buttonShowMenuVisibleClass = "button-show-menu-visible";
-    const menuHiddenClass = "menu-hidden";
+  const buttonShowMenuVisibleClass = "button-show-menu-visible";
+  const menuHiddenClass = "menu-hidden";
 
-    const showMenu = () => {
-      menuContainer.classList.remove(menuHiddenClass);
-      buttonShowMenu.classList.remove(buttonShowMenuVisibleClass);
-    };
+  const showMenu = () => {
+    menuContainer.classList.remove(menuHiddenClass);
+    buttonShowMenu.classList.remove(buttonShowMenuVisibleClass);
+  };
 
-    const closeMenu = () => {
-      menuContainer.classList.add(menuHiddenClass);
-      buttonShowMenu.classList.add(buttonShowMenuVisibleClass);
-    };
+  const closeMenu = () => {
+    menuContainer.classList.add(menuHiddenClass);
+    buttonShowMenu.classList.add(buttonShowMenuVisibleClass);
+  };
 
-    if (buttonCloseMenu) {
-      buttonCloseMenu.removeEventListener("click", closeMenu);
-      buttonCloseMenu.addEventListener("click", closeMenu);
-    }
+  if (buttonCloseMenu) {
+    buttonCloseMenu.removeEventListener("click", closeMenu);
+    buttonCloseMenu.addEventListener("click", closeMenu);
+  }
 
-    if (buttonShowMenu) {
-      buttonShowMenu.removeEventListener("click", showMenu);
-      buttonShowMenu.addEventListener("click", showMenu);
-    }
-  })();
+  if (buttonShowMenu) {
+    buttonShowMenu.removeEventListener("click", showMenu);
+    buttonShowMenu.addEventListener("click", showMenu);
+  }
+})();
 
-  (() => {
-    const auhtorsLogoutLinks = document.querySelectorAll(
-      ".authors-logout-link"
-    );
-    const formLogout = document.querySelector(".form-logout");
+(() => {
+  const auhtorsLogoutLinks = document.querySelectorAll(".authors-logout-link");
+  const formLogout = document.querySelector(".form-logout");
 
-    for (const link of auhtorsLogoutLinks) {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        formLogout.submit();
-      });
-    }
-  })();
+  for (const link of auhtorsLogoutLinks) {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      formLogout.submit();
+    });
+  }
 })();
