@@ -8,7 +8,7 @@
         <h2> Dashboard {{ user }}</h2>
 
         {% include "global/partials/messages.html" %}
-
+        <a class="dashboard-new-recipe" href="{% url "authors:dashboard_recipe_new" %}">Click here to create a new recipe</a>
 
         
         <div class='authors-dashboard-container'>
