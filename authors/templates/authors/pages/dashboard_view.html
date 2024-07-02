@@ -5,12 +5,10 @@
 {% block content %}
 
     <div class="main-content container center">
-        <h2 class='mt-medium'> Dashboard {{ user }}</h2>
+        <h2> Dashboard {{ user }}</h2>
 
         {% include "global/partials/messages.html" %}
 
-        {% include "../partials/logout_form.html" %}
-        <button class="plaintext-button authors-logout-link" type="submit">Click here to Logout</button>
 
         
         <div class='authors-dashboard-container'>

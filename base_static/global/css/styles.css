@@ -156,6 +156,7 @@ a {
 }
 
 .main-content-container {
+    padding: 16px;
     min-height: calc(100vh - 113px - 80px);
 }
 
@@ -427,7 +428,7 @@ a {
 }
 
 .plaintext-button:hover {
-    transform: scale(1.05);
+    color: var(--color-darkred);
 }
 
 /* DASHBOARD */
@@ -636,7 +637,7 @@ a {
 }
 
 .menu-nav a {
-    width: 100%;
+    width: 80%;
     padding: 1rem;
 }
 
