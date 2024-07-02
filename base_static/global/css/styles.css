@@ -563,6 +563,8 @@ a {
     display: none;
 }
 
+/* Side Menu */
+
 .menu-container {
     position: fixed;
     top: 0;
@@ -579,8 +581,6 @@ a {
 .menu-container a {
     color: var(--color-white);
 }
-
-
 
 .menu-hidden {
     left: -255px;
@@ -639,6 +639,11 @@ a {
 .menu-nav a {
     width: 80%;
     padding: 1rem;
+}
+
+.menu-nav .authors-logout-link {
+    position: absolute;
+    bottom: 15px;
 }
 
 @media (max-width: 420px) {
