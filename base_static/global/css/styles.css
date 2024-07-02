@@ -81,7 +81,8 @@ a {
 }
 
 .main-header-container {
-    background: var(--color-primary-dark)
+    background: var(--color-primary-dark);
+    height: 113px;
 }
 
 .container {
@@ -154,9 +155,15 @@ a {
 
 }
 
+.main-content-container {
+    min-height: calc(100vh - 113px - 80px);
+}
+
 .main-content {
     padding-top: 0;
 }
+
+
 
 .main-content-list {
     display: grid;
@@ -270,6 +277,7 @@ a {
     background: var(--color-primary-dark);
     color: var(--color-white);
     padding: var(--spacing-gutter-medium);
+    height: 80px;
 }
 
 .main-footer a {
