@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-02 15:17-0300\n"
+"POT-Creation-Date: 2024-07-02 18:27-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,21 +50,77 @@ msgstr "Entrar"
 msgid "Register"
 msgstr "Cadastre-se"
 
+#: .\recipes\models.py:23
+msgid "Title"
+msgstr "Título"
+
+#: .\recipes\models.py:25
+msgid "Description"
+msgstr "Descrição"
+
+#: .\recipes\models.py:29
+msgid "Preparation Time"
+msgstr "Tempo de Preparo"
+
+#: .\recipes\models.py:32
+msgid "Preparation time unit"
+msgstr "Unidade de tempo de preparo"
+
+#: .\recipes\models.py:34 .\recipes\templates\recipes\partials\recipe.html:71
+msgid "Servings"
+msgstr "Porções"
+
+#: .\recipes\models.py:37
+msgid "Servings unit"
+msgstr "Unidade de Porções"
+
+#: .\recipes\models.py:39
+msgid "Preparation Steps"
+msgstr "Passo a passo"
+
+#: .\recipes\models.py:44
+msgid "Created at"
+msgstr "Criado em"
+
+#: .\recipes\models.py:46
+msgid "Updated at"
+msgstr "Atualizado em"
+
+#: .\recipes\models.py:49
+msgid "Is it published?"
+msgstr "Receita publicada?"
+
+#: .\recipes\models.py:53
+msgid "Cover Image"
+msgstr "Imagem de capa"
+
+#: .\recipes\models.py:57 .\recipes\views.py:285
+msgid "Category"
+msgstr "Categoria"
+
+#: .\recipes\models.py:60
+msgid "Author"
+msgstr "Autor"
+
+#: .\recipes\models.py:63
+msgid "Tags"
+msgstr "Tags"
+
+#: .\recipes\models.py:96
+msgid "Recipe"
+msgstr "Receita"
+
+#: .\recipes\models.py:97
+msgid "Recipes"
+msgstr "Receitas"
+
 #: .\recipes\templates\recipes\partials\recipe.html:65
 msgid "Prep Time"
 msgstr "Tempo de Preparo"
 
-#: .\recipes\templates\recipes\partials\recipe.html:71
-msgid "Servings"
-msgstr "Porções"
-
 #: .\recipes\templates\recipes\partials\recipe.html:82
 msgid "See more"
 msgstr "Veja mais"
-
-#: .\recipes\views.py:285
-msgid "Category"
-msgstr "Categoria"
 
 #: .\recipes\views.py:351
 msgid "Looking for "
