@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-02 14:37-0300\n"
+"POT-Creation-Date: 2024-07-02 15:17-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,39 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\base_template\global\partials\menu.html:5
+msgid "Show Menu"
+msgstr "Exibir Menu"
+
+#: .\base_template\global\partials\menu.html:11
+msgid "Close Menu"
+msgstr "Ocultar Menu"
+
+#: .\base_template\global\partials\menu.html:15
+msgid "Home"
+msgstr "Página Inicial"
+
+#: .\base_template\global\partials\menu.html:17
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: .\base_template\global\partials\menu.html:18
+msgid "New Recipe"
+msgstr "Nova Receita"
+
+#: .\base_template\global\partials\menu.html:19
+msgid "Logout"
+msgstr "Sair"
+
+#: .\base_template\global\partials\menu.html:22
+msgid "Login"
+msgstr "Entrar"
+
+#: .\base_template\global\partials\menu.html:23
+msgid "Register"
+msgstr "Cadastre-se"
+
 #: .\recipes\templates\recipes\partials\recipe.html:65
 msgid "Prep Time"
 msgstr "Tempo de Preparo"
@@ -28,3 +61,11 @@ msgstr "Porções"
 #: .\recipes\templates\recipes\partials\recipe.html:82
 msgid "See more"
 msgstr "Veja mais"
+
+#: .\recipes\views.py:285
+msgid "Category"
+msgstr "Categoria"
+
+#: .\recipes\views.py:351
+msgid "Looking for "
+msgstr "Pesquisando por"

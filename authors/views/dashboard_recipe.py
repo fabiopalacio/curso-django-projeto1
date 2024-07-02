@@ -12,6 +12,8 @@ from django.contrib.auth.decorators import login_required
 from authors.forms.recipe_form import AuthorsRecipeForm
 from recipes.models import Recipe
 
+from utils.i18n import set_language
+
 
 @method_decorator(
     login_required(
@@ -38,7 +40,8 @@ class DashboardRecipe(View):
             self.request, 'authors/pages/dashboard_recipe.html',
             context={
                 'form': form,
-                'btn_text': 'Send...'
+                'btn_text': 'Send...',
+                'html_language': set_language()
             })
 
     def get(self, request, id=None):
@@ -102,3 +105,10 @@ class DashboardList(ListView):
         )
 
         return qs
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        ctx.update({
+            'html_language': set_language(),
+        })
+        return ctx

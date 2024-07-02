@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout  # type: ignore
 from django.contrib.auth.decorators import login_required  # type: ignore
 
 from authors.forms import RegisterForm, LoginForm
+from utils.i18n import set_language
 
 
 def register_view(request):
@@ -14,7 +15,9 @@ def register_view(request):
     return render(request, 'authors/pages/register_view.html', context={
         'form': form,
         'form_action': reverse('authors:register_create'),
-        'btn_text': 'Send...'
+        'btn_text': 'Send...',
+        'html_language': set_language(),
+
     })
 
 
@@ -45,7 +48,8 @@ def login_view(request):
     return render(request, 'authors/pages/login_view.html', context={
         'form': form,
         'form_action': reverse('authors:login_auth'),
-        'btn_text': 'Login'
+        'btn_text': 'Login',
+        'html_language': set_language(),
 
     })
 

@@ -2,6 +2,7 @@ from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from authors.models import Profile
+from utils.i18n import set_language
 
 
 class ProfileView(TemplateView):
@@ -18,4 +19,5 @@ class ProfileView(TemplateView):
 
         return self.render_to_response({
             **context,
-            'profile': profile})
+            'profile': profile,
+            'html_language': set_language()})

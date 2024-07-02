@@ -5,9 +5,12 @@ from django.db.models import Q
 from django.http.response import HttpResponse as HttpResponse
 from django.views.generic import DetailView, ListView
 from django.http import Http404
+from django.utils import translation
+from django.utils.translation import gettext as _
 
 from recipes.models import Recipe
 from tag.models import Tag
+from utils.i18n import set_language
 from utils.pagination import make_pagination
 
 PER_PAGE = int(os.environ.get('PER_PAGE', 6))
@@ -202,12 +205,16 @@ class RecipeListViewBase(ListView):
         page_obj, pagination_range = make_pagination(
             self.request, ctx.get('recipes'), PER_PAGE)
 
+        # Getting the browser language
+        html_language = translation.get_language()
+
         # Update the get_context_data with two new entries got above:
         #   recipes with the recipes to be displayed in the current page
         #   pagination_range with the pagination_range returned above
         ctx.update({
             'recipes': page_obj,
-            'pagination_range': pagination_range
+            'pagination_range': pagination_range,
+            'html_language': html_language,
         })
 
         # Return the new context
@@ -275,8 +282,10 @@ class RecipeListViewCategory(RecipeListViewBase):
         # to change the page title
         ctx = super().get_context_data(*args, **kwargs)
 
+        category_translation = _('Category')
         ctx.update({
-            'title': f"{ctx.get('recipes')[0].category.name} - Category |"
+            'title': f"{ctx.get('recipes')[0].category.name} - "
+            f"{category_translation} |"
         })
 
         return ctx
@@ -339,9 +348,9 @@ class RecipeListViewSearch(RecipeListViewBase):
 
         if not search_term:
             raise Http404()
-
+        prev_page_title = _('Looking for ')
         ctx.update({
-            'page_title': f'Looking for "{ search_term }"',
+            'page_title': f'{prev_page_title} "{ search_term }"',
             'search_term': search_term,
             'additional_url_query': f'&q={search_term}'
         })
@@ -380,7 +389,8 @@ class RecipeDetail(DetailView):
 
     def get_queryset(self, *args, **kwargs):
         # get_querysey -> to manipulate the queryset
-        # Here it is required to filter the unpublished recipes out of queryset (showing only the published ones)
+        # Here it is required to filter the unpublished recipes out of
+        # queryset (showing only the published ones)
         # and uses the pk to filter the recipes, keeping
         # only the desired one
         # If no recipe is found with that pk,
@@ -402,7 +412,9 @@ class RecipeDetail(DetailView):
         # and update the context, adding the isDetailPage to be True
         ctx = super().get_context_data(*args, **kwargs)
         ctx.update({
-            'isDetailPage': True
+            'isDetailPage': True,
+            'html_language': set_language(),
+
         })
 
         return ctx
