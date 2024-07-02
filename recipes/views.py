@@ -171,7 +171,7 @@ class RecipeListViewBase(ListView):
         # foreign key relationships selecting additional related-object
         # data when it executes its query.
         qs = qs.select_related('author', 'category')
-        qs = qs.prefetch_related('tags')
+        qs = qs.prefetch_related('tags', 'author__profile')
 
         # Returning the new super().get_queryset
         return qs
