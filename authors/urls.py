@@ -29,4 +29,10 @@ urlpatterns = [
         'dashboard/recipe/<int:id>/edit',
         views.DashboardRecipe.as_view(),
         name='dashboard_recipe'),
+
+    path(
+        'profile/<int:id>/',
+        views.ProfileView.as_view(),
+        name='profile'),
+
 ]
