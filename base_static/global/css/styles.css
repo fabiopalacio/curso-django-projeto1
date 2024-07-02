@@ -571,6 +571,8 @@ a {
     color: var(--color-white);
 }
 
+
+
 .menu-hidden {
     left: -255px;
 }
@@ -590,6 +592,14 @@ a {
     transition: all 300ms ease-in-out;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
+}
+
+.menu-container a:hover,
+.button-show-menu:hover,
+.button-close-menu:hover {
+    color: var(--color-gray-5);
+    transition: all ease-in-out 300ms;
+
 }
 
 .button-show-menu-visible {
