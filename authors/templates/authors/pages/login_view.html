@@ -1,5 +1,8 @@
 {% extends "global/base.html" %}
 
+{% load i18n %}
+
+
 {% block title %}Login | {% endblock title %}
 
 {% block content %}
@@ -13,8 +16,14 @@
 
         {% if request.user.is_authenticated %}
             <p>You are logged in as {{request.user.first_name}}</p>
-            {% include "../partials/logout_form.html" %}
-            <button class="plaintext-button authors-logout-link" type="submit">Click here to Logout</button>
+            <div class="container logedin-menu">
+                <a href="{% url "recipes:home" %}">{% translate "Home" %}</a>
+                <a href="{% url "authors:dashboard" %}">{% translate "Dashboard" %}</a>
+                {% if request.user.profile %}
+                <a href="{% url "authors:profile" request.user.profile.id %}">{% translate "Profile" %}</a>
+                {% endif %}            
+            </div>
+
 
         {% else %}
         

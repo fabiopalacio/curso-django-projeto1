@@ -659,6 +659,15 @@ a {
     cursor: pointer;
 }
 
+
+
+/* LOGIN MENU */
+.logedin-menu {
+    display: flex;
+    flex-flow: column;
+    gap: 2rem;
+}
+
 @media (max-width: 420px) {
 
     .main-content-list,
