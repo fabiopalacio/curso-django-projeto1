@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-02 18:27-0300\n"
+"POT-Creation-Date: 2024-07-03 10:33-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: .\authors\templates\authors\pages\dashboard_view.html:11
+#: .\base_template\global\partials\menu.html:18
+msgid "New Recipe"
+msgstr "Nova Receita"
+
+#: .\authors\templates\authors\pages\dashboard_view.html:15
+#, fuzzy
+#| msgid "Recipes"
+msgid "Your Recipes"
+msgstr "Receitas"
+
+#: .\authors\templates\authors\pages\dashboard_view.html:34
+msgid "You don't have unpublished recipes."
+msgstr "Você não possui receitas não publicadas"
+
+#: .\authors\templates\authors\pages\login_view.html:20
+#: .\base_template\global\partials\menu.html:15
+msgid "Home"
+msgstr "Página Inicial"
+
+#: .\authors\templates\authors\pages\login_view.html:21
+#: .\base_template\global\partials\menu.html:17
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: .\authors\templates\authors\pages\login_view.html:23
+msgid "Profile"
+msgstr "Perfil"
+
+#: .\authors\templates\authors\partials\logout_form.html:5
+msgid "Logout"
+msgstr "Sair"
+
 #: .\base_template\global\partials\menu.html:5
 msgid "Show Menu"
 msgstr "Exibir Menu"
@@ -25,22 +58,6 @@ msgstr "Exibir Menu"
 #: .\base_template\global\partials\menu.html:11
 msgid "Close Menu"
 msgstr "Ocultar Menu"
-
-#: .\base_template\global\partials\menu.html:15
-msgid "Home"
-msgstr "Página Inicial"
-
-#: .\base_template\global\partials\menu.html:17
-msgid "Dashboard"
-msgstr "Dashboard"
-
-#: .\base_template\global\partials\menu.html:18
-msgid "New Recipe"
-msgstr "Nova Receita"
-
-#: .\base_template\global\partials\menu.html:19
-msgid "Logout"
-msgstr "Sair"
 
 #: .\base_template\global\partials\menu.html:22
 msgid "Login"
@@ -50,67 +67,67 @@ msgstr "Entrar"
 msgid "Register"
 msgstr "Cadastre-se"
 
-#: .\recipes\models.py:23
+#: .\recipes\models.py:24
 msgid "Title"
 msgstr "Título"
 
-#: .\recipes\models.py:25
+#: .\recipes\models.py:26
 msgid "Description"
 msgstr "Descrição"
 
-#: .\recipes\models.py:29
+#: .\recipes\models.py:30
 msgid "Preparation Time"
 msgstr "Tempo de Preparo"
 
-#: .\recipes\models.py:32
+#: .\recipes\models.py:33
 msgid "Preparation time unit"
 msgstr "Unidade de tempo de preparo"
 
-#: .\recipes\models.py:34 .\recipes\templates\recipes\partials\recipe.html:71
+#: .\recipes\models.py:35 .\recipes\templates\recipes\partials\recipe.html:71
 msgid "Servings"
 msgstr "Porções"
 
-#: .\recipes\models.py:37
+#: .\recipes\models.py:38
 msgid "Servings unit"
 msgstr "Unidade de Porções"
 
-#: .\recipes\models.py:39
+#: .\recipes\models.py:40
 msgid "Preparation Steps"
 msgstr "Passo a passo"
 
-#: .\recipes\models.py:44
+#: .\recipes\models.py:45
 msgid "Created at"
 msgstr "Criado em"
 
-#: .\recipes\models.py:46
+#: .\recipes\models.py:47
 msgid "Updated at"
 msgstr "Atualizado em"
 
-#: .\recipes\models.py:49
+#: .\recipes\models.py:50
 msgid "Is it published?"
 msgstr "Receita publicada?"
 
-#: .\recipes\models.py:53
+#: .\recipes\models.py:54
 msgid "Cover Image"
 msgstr "Imagem de capa"
 
-#: .\recipes\models.py:57 .\recipes\views.py:285
+#: .\recipes\models.py:58 .\recipes\views.py:285
 msgid "Category"
 msgstr "Categoria"
 
-#: .\recipes\models.py:60
+#: .\recipes\models.py:61
 msgid "Author"
 msgstr "Autor"
 
-#: .\recipes\models.py:63
+#: .\recipes\models.py:64
 msgid "Tags"
 msgstr "Tags"
 
-#: .\recipes\models.py:96
+#: .\recipes\models.py:80
 msgid "Recipe"
 msgstr "Receita"
 
-#: .\recipes\models.py:97
+#: .\recipes\models.py:81
 msgid "Recipes"
 msgstr "Receitas"
 
