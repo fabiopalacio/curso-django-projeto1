@@ -604,6 +604,7 @@ a {
     cursor: pointer;
 }
 
+.logout-button:hover,
 .menu-container a:hover,
 .button-show-menu:hover,
 .button-close-menu:hover {
@@ -637,14 +638,25 @@ a {
     font-size: 2rem;
 }
 
+.logout-button,
 .menu-nav a {
     width: 80%;
     padding: 1rem;
 }
 
+.logout-button,
 .menu-nav .authors-logout-link {
     position: absolute;
     bottom: 15px;
+}
+
+.logout-button {
+    color: var(--color-white);
+    font-family: var(--font-headings);
+    font-size: 2rem;
+    border: none;
+    background: none;
+    cursor: pointer;
 }
 
 @media (max-width: 420px) {

@@ -41,15 +41,3 @@
     buttonShowMenu.addEventListener("click", showMenu);
   }
 })();
-
-(() => {
-  const auhtorsLogoutLinks = document.querySelectorAll(".authors-logout-link");
-  const formLogout = document.querySelector(".form-logout");
-
-  for (const link of auhtorsLogoutLinks) {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      formLogout.submit();
-    });
-  }
-})();

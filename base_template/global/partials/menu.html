@@ -14,10 +14,10 @@
         <nav class="menu-nav">
             <a href="{% url "recipes:home" %}">{% translate "Home" %}</a>
             {% if user.is_authenticated %}
-                <a href="{% url "authors:dashboard" %}">{% translate "Dashboard" %}</a>
-                <a href="{% url "authors:dashboard_recipe_new" %}">{% translate "New Recipe" %}</a>
-                <a class="authors-logout-link" href="{% url "authors:logout" %}">{% translate "Logout" %}</a>
-                {% include "authors/partials/logout_form.html" %}
+            <a href="{% url "authors:dashboard" %}">{% translate "Dashboard" %}</a>
+            <a href="{% url "authors:dashboard_recipe_new" %}">{% translate "New Recipe" %}</a>
+            
+            {% include "authors/partials/logout_form.html" %}
             {% else %}
             <a href="{% url "authors:login" %}">{% translate "Login" %}</a>
             <a href="{% url "authors:register" %}">{% translate "Register" %}</a>
