@@ -20,7 +20,8 @@ class Category(models.Model):
 
 
 class Recipe(models.Model):
-    title = models.CharField(max_length=65, verbose_name=_('Title'))
+    title = models.CharField(
+        max_length=65, unique=True, verbose_name=_('Title'))
     description = models.CharField(
         max_length=165, verbose_name=_('Description'))
 
@@ -74,23 +75,6 @@ class Recipe(models.Model):
             self.slug = slug
 
         return super().save(*args, **kwargs)
-
-    def clean(self, *args, **kwargs):
-        error_messages = defaultdict(list)
-
-        recipes_from_db = Recipe.objects.filter(
-            title__iexact=self.title
-        )
-
-        for recipe in recipes_from_db:
-            if recipe.pk != self.pk:
-                error_messages['title'].append(
-                    'Found recipes with this title.'
-                    'Please choose another one.')
-                break
-
-        if error_messages:
-            raise ValidationError(error_messages)
 
     class Meta:
         verbose_name = _('Recipe')
