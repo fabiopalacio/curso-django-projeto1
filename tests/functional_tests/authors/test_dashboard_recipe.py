@@ -148,13 +148,12 @@ class DashboardNewRecipeTest(DashboardBaseTest):
         # Wait a while to page load
         self.sleep(1)
 
-        # Finding the form with users features. This form has on anchor
-        # (tag 'a') and a button. The button is used to logout at the moment
-        # and the anchor is used to call the new recipe form
-        form = self.browser.find_element(By.CLASS_NAME, 'user-form')
+        # Finding the anchor element to a new recipe by its class
+        new_recipe = self.browser.find_element(
+            By.CLASS_NAME, 'dashboard-new-recipe')
 
-        # Finding the anchor element and clicking in it
-        form.find_element(By.TAG_NAME, 'a').click()
+        # Clicking in it
+        new_recipe.click()
         # Wait a while to page load
         self.sleep(1)
 
@@ -198,13 +197,13 @@ class DashboardNewRecipeTest(DashboardBaseTest):
         # Wait a while to page load
         self.sleep(1)
 
-        # Finding the form with users features. This form has on anchor
-        # (tag 'a') and a button. The button is used to logout at the moment
-        # and the anchor is used to call the new recipe form
-        form = self.browser.find_element(By.CLASS_NAME, 'user-form')
-        # Finding the anchor element and clicking in it
-        form.find_element(By.TAG_NAME, 'a').click()
-        # Wait a while to page load
+        # Finding the anchor element to a new recipe by its class
+        new_recipe = self.browser.find_element(
+            By.CLASS_NAME, 'dashboard-new-recipe')
+
+        # Clicking in it
+        new_recipe.click()
+        # Waiting a while to page load
         self.sleep(1)
 
         # Getting the form with recipe's information
@@ -337,13 +336,12 @@ class DashboardNewRecipeTest(DashboardBaseTest):
         # Wait a while to page load
         self.sleep(1)
 
-        # Finding the form with users features. This form has on anchor
-        # (tag 'a') and a button. The button is used to logout at the moment
-        # and the anchor is used to call the new recipe form
-        form = self.browser.find_element(By.CLASS_NAME, 'user-form')
+        # Finding the anchor element to a new recipe by its class
+        new_recipe = self.browser.find_element(
+            By.CLASS_NAME, 'dashboard-new-recipe')
 
-        # Finding the anchor element and clicking in it
-        form.find_element(By.TAG_NAME, 'a').click()
+        # Clicking in it
+        new_recipe.click()
 
         # Wait a while to page load
         self.sleep(1)
@@ -400,13 +398,12 @@ class DashboardNewRecipeTest(DashboardBaseTest):
         # Wait a while to page load
         self.sleep(1)
 
-        # Finding the form with users features. This form has on anchor
-        # (tag 'a') and a button. The button is used to logout at the moment
-        # and the anchor is used to call the new recipe form
-        form = self.browser.find_element(By.CLASS_NAME, 'user-form')
+        # Finding the anchor element to a new recipe by its class
+        new_recipe = self.browser.find_element(
+            By.CLASS_NAME, 'dashboard-new-recipe')
 
-        # Finding the anchor element and clicking in it
-        form.find_element(By.TAG_NAME, 'a').click()
+        # Clicking in it
+        new_recipe.click()
 
         # Wait a while to load
         self.sleep(1)
@@ -458,13 +455,12 @@ class DashboardNewRecipeTest(DashboardBaseTest):
         # Wait a while to page load
         self.sleep(1)
 
-        # Finding the form with users features. This form has on anchor
-        # (tag 'a') and a button. The button is used to logout at the moment
-        # and the anchor is used to call the new recipe form
-        form = self.browser.find_element(By.CLASS_NAME, 'user-form')
+        # Finding the anchor element to a new recipe by its class
+        new_recipe = self.browser.find_element(
+            By.CLASS_NAME, 'dashboard-new-recipe')
 
-        # Finding the anchor element and clicking in it
-        form.find_element(By.TAG_NAME, 'a').click()
+        # Clicking in it
+        new_recipe.click()
 
         # Wait a while to load
         self.sleep(1)
@@ -516,13 +512,12 @@ class DashboardNewRecipeTest(DashboardBaseTest):
         # Wait a while to page load
         self.sleep(1)
 
-        # Finding the form with users features. This form has on anchor
-        # (tag 'a') and a button. The button is used to logout at the moment
-        # and the anchor is used to call the new recipe form
-        form = self.browser.find_element(By.CLASS_NAME, 'user-form')
+        # Finding the anchor element to a new recipe by its class
+        new_recipe = self.browser.find_element(
+            By.CLASS_NAME, 'dashboard-new-recipe')
 
-        # Finding the anchor element and clicking in it
-        form.find_element(By.TAG_NAME, 'a').click()
+        # Clicking in it
+        new_recipe.click()
 
         # Wait a while to page load
         self.sleep(1)

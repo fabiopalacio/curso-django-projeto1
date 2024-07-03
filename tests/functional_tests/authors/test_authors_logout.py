@@ -77,13 +77,11 @@ class AuthorsLogoutTest(LiveServerTestCase):
         # Wait a while to page load
         self.sleep(1)
 
-        # Finding the user form. This form at the moment has 2 itens:
-        #   _an anchor element to create a new recipe
-        #   _a button to logout.
         # For the purpose of this test, we need the button element
-        form = self.browser.find_element(By.CLASS_NAME, 'user-form')
-        # Finding the button inside the above form and clicking on it
-        form.find_element(By.TAG_NAME, 'button').click()
+        # to logout and click in it
+        logout_button = self.browser.find_element(
+            By.CLASS_NAME, 'logout-button')
+        logout_button.click()
 
         # Wait a while to page load
         self.sleep(1)
