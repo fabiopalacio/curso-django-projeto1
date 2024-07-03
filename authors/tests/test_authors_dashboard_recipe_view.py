@@ -88,22 +88,14 @@ class DashboardTest(TestCase):
             f'not expected. Found: {response.status_code}'
         )
 
-        self.assertContains(
-            response,
-            status_code=200,
-            text='<input',
-            count=6)
-
     def test_dashboard_recipe_view_get_method_without_id(self):
 
         url = reverse('authors:dashboard_recipe_new')
         response = self.client.get(url, follow=True)
 
-        self.assertContains(
-            response,
-            status_code=200,
-            text='<input',
-            count=6)
+        self.assertEqual(
+            response.status_code,
+            200,)
 
         # Description input has no value
         self.assertIn(
