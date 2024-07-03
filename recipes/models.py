@@ -2,10 +2,8 @@ from collections import defaultdict
 
 from django.contrib.auth.models import User  # type: ignore
 from django.db import models
-from django.forms import ValidationError
 from django.urls import reverse  # type: ignore
 from django.utils.text import slugify
-from django.contrib.contenttypes.fields import GenericRelation
 from django.utils.translation import gettext_lazy as _
 
 from tag.models import Tag
@@ -17,6 +15,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
 
 
 class Recipe(models.Model):
