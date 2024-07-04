@@ -32,5 +32,5 @@ def recipe_cover_update_pre_save(sender, instance, *args, **kwargs):
 
 @receiver(post_save, sender=Recipe)
 def recipe_cover_update_post_save(sender, instance, *args, **kwargs):
-    if instance.old_instance:
+    if hasattr(instance, 'old_instance'):
         delete_cover(instance.old_instance)

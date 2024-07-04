@@ -1,5 +1,8 @@
+from PIL import Image
 from collections import defaultdict
+import os
 
+from django.conf import settings
 from django.contrib.auth.models import User  # type: ignore
 from django.db import models
 from django.urls import reverse  # type: ignore
@@ -71,12 +74,39 @@ class Recipe(models.Model):
     def get_absolute_url(self):
         return reverse("recipes:recipe", kwargs={"pk": self.id})
 
+    @staticmethod
+    def resize_image(image, new_width=800):
+        image_full_path = os.path.join(settings.MEDIA_ROOT, image.name)
+        image_pillow = Image.open(image_full_path)
+        original_width, original_height = image_pillow.size
+
+        if original_width <= new_width:
+            image_pillow.close()
+            return
+
+        new_height = round((original_height*new_width)/original_width)
+
+        new_image = image_pillow.resize(
+            (new_width, new_height),
+            Image.LANCZOS
+        )
+
+        new_image.save(
+            image_full_path,
+            optimize=True,
+            quality=50
+        )
+
     def save(self, *args, **kwargs):
         if not self.slug:
             slug = f'{slugify(self.title)}'
             self.slug = slug
 
-        return super().save(*args, **kwargs)
+        super_save = super().save(*args, **kwargs)
+
+        self.resize_image(self.cover)
+
+        return super_save
 
     class Meta:
         verbose_name = _('Recipe')
