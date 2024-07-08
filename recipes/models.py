@@ -75,7 +75,7 @@ class Recipe(models.Model):
         return reverse("recipes:recipe", kwargs={"pk": self.id})
 
     @staticmethod
-    def resize_image(image, new_width=800):
+    def resize_image(image, new_width=840):
         image_full_path = os.path.join(settings.MEDIA_ROOT, image.name)
         image_pillow = Image.open(image_full_path)
         original_width, original_height = image_pillow.size
@@ -94,7 +94,7 @@ class Recipe(models.Model):
         new_image.save(
             image_full_path,
             optimize=True,
-            quality=50
+            quality=100
         )
 
     def save(self, *args, **kwargs):
@@ -104,7 +104,8 @@ class Recipe(models.Model):
 
         super_save = super().save(*args, **kwargs)
 
-        self.resize_image(self.cover)
+        if self.cover:
+            self.resize_image(self.cover)
 
         return super_save
 
