@@ -21,7 +21,7 @@ class RecipesRecipeModelTest(RecipeTestBase):
         recipe = Recipe(
             category=self.make_category(name='MyNewCategory'),
             author=self.make_author(username='NewUsername'),
-            title='My Recipe Title',
+            title='A new Recipe',
             description='Recipe Description',
             slug='recipe-slug-for-no-defaults',
             preparation_time=10,

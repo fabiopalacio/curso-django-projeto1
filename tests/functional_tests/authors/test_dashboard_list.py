@@ -25,9 +25,16 @@ class DashboardListFunctionalTest(DashboardBaseTest):
         # Creating two recipes unpublished and one published.
         # All 3 with the same author (my_user)
         # We expect to find only 2 recipes in the dashboard list
-        self.make_recipe(slug='recipe-1', author=self.my_user)
-        self.make_recipe(slug='recipe-2', author=self.my_user)
         self.make_recipe(
+            title='Recipe 1',
+            slug='recipe-1',
+            author=self.my_user)
+        self.make_recipe(
+            title='Recipe 2',
+            slug='recipe-2',
+            author=self.my_user)
+        self.make_recipe(
+            title='Recipe 3',
             slug='recipe-3',
             author=self.my_user,
             is_published=True)
@@ -67,10 +74,16 @@ class DashboardListFunctionalTest(DashboardBaseTest):
             username='another_user', password='another_password')
 
         # Creating a new recipe for my_user
-        self.make_recipe(slug='recipe-1', author=self.my_user)
+        self.make_recipe(
+            title='Recipe 1',
+            slug='recipe-1',
+            author=self.my_user)
 
         # Creating a new recipe for another_user
-        self.make_recipe(slug='recipe-2', author=new_user)
+        self.make_recipe(
+            title='Recipe 2',
+            slug='recipe-2',
+            author=new_user)
 
         # Login with my_user
         self.login()

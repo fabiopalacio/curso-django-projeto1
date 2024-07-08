@@ -164,10 +164,12 @@ class RecipeViewsSearchTest(RecipeTestBase):
         description1 = 'This is the recipe one'
         description2 = 'This is the recipe two'
         recipe1 = self.make_recipe(
+            title='Recipe 1',
             slug='recipe-one',
             description=description1, author_data={'username': 'one'}
         )
         recipe2 = self.make_recipe(
+            title='Recipe 2',
             slug='recipe-two',
             description=description2, author_data={'username': 'two'}
         )

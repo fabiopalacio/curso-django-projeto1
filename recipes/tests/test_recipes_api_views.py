@@ -1,9 +1,32 @@
 
+import datetime
 import json
 from unittest.mock import patch
 from django.urls import resolve, reverse
 from recipes import views
 from recipes.tests.test_recipe_base import RecipeTestBase
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import SimpleUploadedFile
+
+
+def generate_image_file():
+    image = Image.new('RGB', (100, 100))
+    fp = BytesIO()
+    image.save(fp, format='JPEG')
+    fp.seek(0)
+
+    image_file = SimpleUploadedFile(
+        name='cover.jpg',
+        content=fp.read(),
+        content_type='image/jpeg'
+    )
+    current_date = datetime.date.today()
+    day = f'0{current_date.day}' if current_date.day < 10 else f'{current_date.day}'
+    month = f'0{current_date.month}' if current_date.month < 10 else f'{current_date.month}'
+    year = current_date.year
+
+    return image_file, day, month, year
 
 
 class RecipesHomeApiViewTest(RecipeTestBase):
@@ -207,6 +230,9 @@ class RecipesHomeApiViewTest(RecipeTestBase):
         )
 
     def test_recipes_home_api_loads_cover_url(self):
+
+        image_file, day, month, year = generate_image_file()
+
         # Test if the HOME API View loads and adjust cover url
         # This test will change the recipe's cover name and request
         # the HOME API view. The API view should return the JSON content
@@ -217,17 +243,14 @@ class RecipesHomeApiViewTest(RecipeTestBase):
         # Default domain from django test is 'http://testserver/'
         default_domain = 'http://testserver/'
 
-        # Fictional image name to be used in the test
-        image_path = 'images/012345.jpg'
-
         # Creating a recipe and changing it cover.name to the image_path
         # created above. The Recipe Model create the cover field as a
         # ImageField, so it has the attribute name. Because no file
         # is passed in self.make_recipe(), the name attribute from the
         # cover field is an empty string by default.
-        recipe = self.make_recipe()
-        recipe.cover.name = image_path
-        recipe.save()
+        self.make_recipe(cover=image_file)
+        # recipe.cover.name = image_path
+        # recipe.save()
 
         # Requesting HOME API content
         response = self.client.get(
@@ -238,12 +261,14 @@ class RecipesHomeApiViewTest(RecipeTestBase):
         # getting the first (and only) item from the list
         raw_data = json.loads(response.content)[0]
 
+        path_to_images_folder = f'{default_domain}media/recipes/cover/{year}/{month}/{day}/'
+
         # Check if the returned cover has the expected url
         self.assertEqual(
-            f'{default_domain}media/{image_path}',
-            raw_data['cover'],
+            path_to_images_folder,
+            raw_data['cover'][:len(path_to_images_folder)],
             msg="HOME API VIEW - RECIPE'S COVER: Wrong path found. Expected: "
-            f"{default_domain}media/{image_path}"
+            f"Expected: {path_to_images_folder} "
             f"Found: {raw_data['cover']}"
         )
 
@@ -485,6 +510,10 @@ class RecipesCategoryApiViewTest(RecipeTestBase):
         )
 
     def test_recipes_category_api_loads_cover_url(self):
+
+        image_file, day, month, year = generate_image_file()
+
+        # Create your object with the image file
         # Test if the CATEGORY API View loads and adjust cover url
         # This test will change the recipe's cover name and request
         # the CATEGORY API view. The API view should return the JSON content
@@ -495,17 +524,14 @@ class RecipesCategoryApiViewTest(RecipeTestBase):
         # Default domain from django test is 'http://testserver/'
         default_domain = 'http://testserver/'
 
-        # Fictional image name to be used in the test
-        image_path = 'images/012345.jpg'
-
         # Creating a recipe and changing it cover.name to the image_path
         # created above. The Recipe Model create the cover field as a
         # ImageField, so it has the attribute name. Because no file
         # is passed in self.make_recipe(), the name attribute from the
         # cover field is an empty string by default.
-        recipe = self.make_recipe()
-        recipe.cover.name = image_path
-        recipe.save()
+        recipe = self.make_recipe(cover=image_file)
+        # recipe.cover.name = image_path
+        # recipe.save()
 
         # Requesting CATEGORY API content
         response = self.client.get(
@@ -515,12 +541,14 @@ class RecipesCategoryApiViewTest(RecipeTestBase):
         # getting the first (and only) item from the list
         raw_data = json.loads(response.content)[0]
 
+        path_to_images_folder = f'{default_domain}media/recipes/cover/{year}/{month}/{day}/'
+
         # Check if the returned cover has the expected url
         self.assertEqual(
-            f'{default_domain}media/{image_path}',
-            raw_data['cover'],
+            path_to_images_folder,
+            raw_data['cover'][:len(path_to_images_folder)],
             msg="CATEGORY API VIEW - RECIPE'S COVER: Wrong path found. "
-            f"Expected: {default_domain}media/{image_path}"
+            f"Expected: {path_to_images_folder} "
             f"Found: {raw_data['cover']}"
         )
 
@@ -776,6 +804,7 @@ class RecipesSearchApiViewTest(RecipeTestBase):
         )
 
     def test_recipes_search_api_loads_cover_url(self):
+        image_file, day, month, year = generate_image_file()
         # Test if the SEARCH API View loads and adjust cover url
         # This test will change the recipe's cover name and request
         # the SEARCH API view. The API view should return the JSON content
@@ -786,17 +815,14 @@ class RecipesSearchApiViewTest(RecipeTestBase):
         # Default domain from django test is 'http://testserver/'
         default_domain = 'http://testserver/'
 
-        # Fictional image name to be used in the test
-        image_path = 'images/012345.jpg'
-
         # Creating a recipe and changing it cover.name to the image_path
         # created above. The Recipe Model create the cover field as a
         # ImageField, so it has the attribute name. Because no file
         # is passed in self.make_recipe(), the name attribute from the
         # cover field is an empty string by default.
-        recipe = self.make_recipe()
-        recipe.cover.name = image_path
-        recipe.save()
+        self.make_recipe(cover=image_file)
+        # recipe.cover.name = image_path
+        # recipe.save()
 
         # Requesting SEARCH API content
         response = self.client.get(
@@ -807,12 +833,14 @@ class RecipesSearchApiViewTest(RecipeTestBase):
         # getting the first (and only) item from the list
         raw_data = json.loads(response.content)[0]
 
+        path_to_images_folder = f'{default_domain}media/recipes/cover/{year}/{month}/{day}/'
+
         # Check if the returned cover has the expected url
         self.assertEqual(
-            f'{default_domain}media/{image_path}',
-            raw_data['cover'],
+            path_to_images_folder,
+            raw_data['cover'][:len(path_to_images_folder)],
             msg="SEARCH API VIEW - RECIPE'S COVER: Wrong path found."
-            f" Expected: {default_domain}media/{image_path}"
+            f"Expected: {path_to_images_folder} "
             f"Found: {raw_data['cover']}"
         )
 
@@ -959,6 +987,8 @@ class RecipesDetailApiViewTest(RecipeTestBase):
         )
 
     def test_recipes_detail_api_loads_cover_url(self):
+        image_file, day, month, year = generate_image_file()
+
         # Test if the DETAIL API View loads and adjust cover url
         # This test will change the recipe's cover name and request
         # the DETAIL API view. The API view should return the JSON content
@@ -969,30 +999,28 @@ class RecipesDetailApiViewTest(RecipeTestBase):
         # Default domain from django test is 'http://testserver/'
         default_domain = 'http://testserver/'
 
-        # Fictional image name to be used in the test
-        image_path = 'images/012345.jpg'
-
         # Creating a recipe and changing it cover.name to the image_path
         # created above. The Recipe Model create the cover field as a
         # ImageField, so it has the attribute name. Because no file
         # is passed in self.make_recipe(), the name attribute from the
         # cover field is an empty string by default.
-        recipe = self.make_recipe()
-        recipe.cover.name = image_path
-        recipe.save()
+        recipe = self.make_recipe(cover=image_file)
 
         # Requesting DETAIL API content
         response = self.client.get(
             reverse(self.path_name, kwargs={'pk': recipe.id}))
 
-        # Converting the response from string to list of dictionaries
+        # Converting the response from string to list of dictionaries and
+        # getting the first (and only) item from the list
         raw_data = json.loads(response.content)
+
+        path_to_images_folder = f'{default_domain}media/recipes/cover/{year}/{month}/{day}/'
 
         # Check if the returned cover has the expected url
         self.assertEqual(
-            f'{default_domain}media/{image_path}',
-            raw_data['cover'],
-            msg="DETAIL API VIEW - RECIPE'S COVER: Wrong path found. Expected: "
-            f"{default_domain}media/{image_path}"
+            path_to_images_folder,
+            raw_data['cover'][:len(path_to_images_folder)],
+            msg="DETAIL API VIEW - RECIPE'S COVER: Wrong path found. "
+            f"Expected: {path_to_images_folder} "
             f"Found: {raw_data['cover']}"
         )

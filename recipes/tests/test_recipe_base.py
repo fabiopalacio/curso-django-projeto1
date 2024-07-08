@@ -44,7 +44,8 @@ class RecipeMixin:
             servings_unit='Porções',
             preparation_steps='Recipe Preparation Steps',
             preparation_steps_is_html=False,
-            is_published=True,):
+            is_published=True,
+            cover='',):
 
         # Check if category_data is empty.
         # If so, it calls the make_category method
@@ -70,7 +71,8 @@ class RecipeMixin:
             servings_unit=servings_unit,
             preparation_steps=preparation_steps,
             preparation_steps_is_html=preparation_steps_is_html,
-            is_published=is_published,)
+            is_published=is_published,
+            cover=cover)
 
     # METHOD to create a group of recipes.
     # The category_data is required to avoid creating
@@ -88,7 +90,7 @@ class RecipeMixin:
         return recipes
 
     def make_tag(self, tag_name='GenericTag'):
-        return Tag.objects.create(name =  tag_name)
+        return Tag.objects.create(name=tag_name)
 
     # CLASS to be used in the recipes app tests.
     # It extends the TestCase and RecipeMixin classes.
