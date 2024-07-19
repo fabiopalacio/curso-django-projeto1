@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-03 14:17-0300\n"
+"POT-Creation-Date: 2024-07-19 16:59-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,161 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: .\authors\forms\login_form.py:10
+msgid "Type your Username"
+msgstr "Digite seu nome de usuário"
+
+#: .\authors\forms\login_form.py:11
+msgid "Type your password"
+msgstr "Digite sua senha"
+
+#: .\authors\forms\login_form.py:14 .\authors\forms\register_form.py:37
+msgid "Username"
+msgstr "Nome de usuário"
+
+#: .\authors\forms\login_form.py:18 .\authors\forms\register_form.py:73
+msgid "Password"
+msgstr "Senha"
+
+#: .\authors\forms\recipe_form.py:48 .\authors\forms\recipe_form.py:51
+#: .\authors\forms\recipe_form.py:54 .\authors\forms\recipe_form.py:57
+#: .\authors\forms\recipe_form.py:60 .\authors\forms\recipe_form.py:63
+#: .\authors\forms\recipe_form.py:66
+msgid "Required."
+msgstr "Obrigatório"
+
+#: .\authors\forms\recipe_form.py:75
+msgid "Must have at least 6 characters."
+msgstr "Necessário ter pelo menos 6 caracteres"
+
+#: .\authors\forms\recipe_form.py:84 .\authors\forms\recipe_form.py:92
+msgid "Must be a positive number."
+msgstr "Necessário ser um número positivo"
+
+#: .\authors\forms\recipe_form.py:104
+msgid "Must be different from description."
+msgstr "Necessário ser diferente da descrição"
+
+#: .\authors\forms\recipe_form.py:106
+msgid "Must be different from title."
+msgstr "Necessário ser diferente do título"
+
+#: .\authors\forms\register_form.py:12
+msgid "Your first name"
+msgstr "Seu nome"
+
+#: .\authors\forms\register_form.py:13
+msgid "Your last name"
+msgstr "Seu sobrenome"
+
+#: .\authors\forms\register_form.py:14
+#, fuzzy
+#| msgid "Recipes"
+msgid "Your e-mail"
+msgstr "Receitas"
+
+#: .\authors\forms\register_form.py:15
+msgid "Your username"
+msgstr "Seu nome de usuário"
+
+#: .\authors\forms\register_form.py:16
+msgid "Your password"
+msgstr "Sua senha"
+
+#: .\authors\forms\register_form.py:17 .\authors\forms\register_form.py:79
+msgid "Repeat your password"
+msgstr "Repita sua senha"
+
+#: .\authors\forms\register_form.py:21
+msgid "The first name must not be empty."
+msgstr "Seu nome não pode ser deixado vazio"
+
+#: .\authors\forms\register_form.py:24
+msgid "First Name"
+msgstr "Primeiro Nome"
+
+#: .\authors\forms\register_form.py:29
+msgid "The last name must not be empty."
+msgstr "O sobrenome não deve ser deixado vazio"
+
+#: .\authors\forms\register_form.py:32
+msgid "Last Name"
+msgstr "Sobrenome"
+
+#: .\authors\forms\register_form.py:39
+msgid ""
+"Required. Length between 4 and 150 characters. Accepts uppercase and "
+"lowercase letters, numbers, and special characters."
+msgstr ""
+"Obrigatório. Deve possuir entre 4 e 150 caracteres. Aceita letras maiúsculas "
+"e minúsculas, números e caracteres especiais."
+
+#: .\authors\forms\register_form.py:42
+msgid "The username is required."
+msgstr "Nome de usuário é obrigatório."
+
+#: .\authors\forms\register_form.py:43
+msgid "Username requires a minimum of 4 characters."
+msgstr "O nome de usuário deve conter pelo menos 4 caracteres"
+
+#: .\authors\forms\register_form.py:44
+msgid "Username requires a maximum of 150 characters."
+msgstr "O nome de usuário deve contar no máximo 150 caracteres."
+
+#: .\authors\forms\register_form.py:45
+msgid "This username is not available."
+msgstr "Nome de usuário não disponível."
+
+#: .\authors\forms\register_form.py:54
+msgid "The e-mail is required."
+msgstr "O e-mail é obrigatório."
+
+#: .\authors\forms\register_form.py:55
+msgid "The e-mail must be a valid one."
+msgstr "Deve ser um e-mail válido."
+
+#: .\authors\forms\register_form.py:58
+msgid "E-mail"
+msgstr "E-mail"
+
+#: .\authors\forms\register_form.py:65
+msgid "The password is required."
+msgstr "A senha é obrigatória."
+
+#: .\authors\forms\register_form.py:68
+msgid ""
+"Password must have at least one uppercase letter, one lowercase and one "
+"number. The length should be at least 8 characters."
+msgstr ""
+"A senha deve conter ao menos uma letra maiúscula, uma minúscula e um número "
+"e conter, ao menos, 8 caracteres."
+
+#: .\authors\forms\register_form.py:81
+msgid "The confirmation password is required."
+msgstr "A confirmação da senha é obrigatória."
+
+#: .\authors\forms\register_form.py:96
+msgid "This e-mail is already in use."
+msgstr "E-mail indisponível."
+
+#: .\authors\forms\register_form.py:110
+msgid "The passwords must be equal."
+msgstr "As senhas inseridas não são iguais."
+
 #: .\authors\models.py:14 .\authors\templates\authors\pages\login_view.html:23
+#: .\authors\templates\authors\pages\profile.html:4
 msgid "Profile"
 msgstr "Perfil"
 
 #: .\authors\models.py:15
-#| msgid "Profile"
 msgid "Profiles"
 msgstr "Perfis"
+
+#: .\authors\templates\authors\pages\dashboard_recipe.html:12
+#, fuzzy
+#| msgid "Recipes"
+msgid "Back to your recipes"
+msgstr "Receitas"
 
 #: .\authors\templates\authors\pages\dashboard_view.html:11
 #: .\base_template\global\partials\menu.html:18
@@ -42,6 +189,10 @@ msgstr "Receitas"
 msgid "You don't have unpublished recipes."
 msgstr "Você não possui receitas não publicadas"
 
+#: .\authors\templates\authors\pages\login_view.html:18
+msgid "You are logged in as"
+msgstr "Você está logado como"
+
 #: .\authors\templates\authors\pages\login_view.html:20
 #: .\base_template\global\partials\menu.html:15
 msgid "Home"
@@ -52,9 +203,44 @@ msgstr "Página Inicial"
 msgid "Dashboard"
 msgstr "Dashboard"
 
+#: .\authors\templates\authors\pages\register_view.html:11
+#: .\base_template\global\partials\menu.html:23
+msgid "Register"
+msgstr "Cadastre-se"
+
 #: .\authors\templates\authors\partials\logout_form.html:5
 msgid "Logout"
 msgstr "Sair"
+
+#: .\authors\views\user_forms.py:18
+msgid "Send..."
+msgstr "Enviar..."
+
+#: .\authors\views\user_forms.py:37
+msgid "Your user was created. Please, log in"
+msgstr "Seu usuário foi criado com sucesso."
+
+#: .\authors\views\user_forms.py:72
+msgid "You are logged in."
+msgstr "Você está logado."
+
+#: .\authors\views\user_forms.py:75 .\authors\views\user_forms.py:77
+msgid "Invalid credentials."
+msgstr "Credenciais Inválidas"
+
+#: .\authors\views\user_forms.py:85
+msgid "Invalid logout request."
+msgstr "Requisição de logout inválida."
+
+#: .\authors\views\user_forms.py:89
+#, fuzzy
+#| msgid "Your username"
+msgid "Invalid username."
+msgstr "Seu nome de usuário"
+
+#: .\authors\views\user_forms.py:93
+msgid "Logout successfully"
+msgstr "Logout realizado com sucesso."
 
 #: .\base_template\global\partials\menu.html:5
 msgid "Show Menu"
@@ -68,77 +254,109 @@ msgstr "Ocultar Menu"
 msgid "Login"
 msgstr "Entrar"
 
-#: .\base_template\global\partials\menu.html:23
-msgid "Register"
-msgstr "Cadastre-se"
-
-#: .\recipes\models.py:20 .\recipes\models.py:60 .\recipes\views.py:285
+#: .\recipes\models.py:23 .\recipes\models.py:77 .\recipes\views.py:285
 msgid "Category"
 msgstr "Categoria"
 
-#: .\recipes\models.py:21
+#: .\recipes\models.py:24
 msgid "Categories"
 msgstr "Categorias"
 
-#: .\recipes\models.py:26
+#: .\recipes\models.py:29
 msgid "Title"
 msgstr "Título"
 
-#: .\recipes\models.py:28
+#: .\recipes\models.py:31
 msgid "Description"
 msgstr "Descrição"
 
-#: .\recipes\models.py:32
+#: .\recipes\models.py:35
 msgid "Preparation Time"
 msgstr "Tempo de Preparo"
 
-#: .\recipes\models.py:35
+#: .\recipes\models.py:39
 msgid "Preparation time unit"
 msgstr "Unidade de tempo de preparo"
 
-#: .\recipes\models.py:37 .\recipes\templates\recipes\partials\recipe.html:71
+#: .\recipes\models.py:41
+msgid "Minutes"
+msgstr "Minutos"
+
+#: .\recipes\models.py:42
+msgid "Hours"
+msgstr "Horas"
+
+#: .\recipes\models.py:43
+msgid "Days"
+msgstr "Dias"
+
+#: .\recipes\models.py:47 .\recipes\templates\recipes\partials\recipe.html:71
 msgid "Servings"
 msgstr "Porções"
 
-#: .\recipes\models.py:40
+#: .\recipes\models.py:51
 msgid "Servings unit"
 msgstr "Unidade de Porções"
 
-#: .\recipes\models.py:42
+#: .\recipes\models.py:53
+msgid "Portions"
+msgstr "Porções"
+
+#: .\recipes\models.py:54
+msgid "Pieces"
+msgstr "Pedaços"
+
+#: .\recipes\models.py:55
+msgid "People"
+msgstr "Pessoas"
+
+#: .\recipes\models.py:59
 msgid "Preparation Steps"
 msgstr "Passo a passo"
 
-#: .\recipes\models.py:47
+#: .\recipes\models.py:64
 msgid "Created at"
 msgstr "Criado em"
 
-#: .\recipes\models.py:49
+#: .\recipes\models.py:66
 msgid "Updated at"
 msgstr "Atualizado em"
 
-#: .\recipes\models.py:52
+#: .\recipes\models.py:69
 msgid "Is it published?"
 msgstr "Receita publicada?"
 
-#: .\recipes\models.py:56
+#: .\recipes\models.py:73
 msgid "Cover Image"
 msgstr "Imagem de capa"
 
-#: .\recipes\models.py:63
+#: .\recipes\models.py:80
 msgid "Author"
 msgstr "Autor"
 
-#: .\recipes\models.py:66
+#: .\recipes\models.py:83
 msgid "Tags"
 msgstr "Tags"
 
-#: .\recipes\models.py:82
+#: .\recipes\models.py:127
 msgid "Recipe"
 msgstr "Receita"
 
-#: .\recipes\models.py:83
+#: .\recipes\models.py:128
 msgid "Recipes"
 msgstr "Receitas"
+
+#: .\recipes\templates\recipes\pages\home.html:12
+#: .\recipes\templates\recipes\pages\search.html:12
+#: .\recipes\templates\recipes\pages\tag.html:12
+msgid "No recipes found here..."
+msgstr "Nenhuma receita encontrada aqui..."
+
+#: .\recipes\templates\recipes\partials\recipe.html:37
+#, fuzzy
+#| msgid "Author"
+msgid "Removed Author"
+msgstr "Autor"
 
 #: .\recipes\templates\recipes\partials\recipe.html:65
 msgid "Prep Time"
@@ -147,6 +365,10 @@ msgstr "Tempo de Preparo"
 #: .\recipes\templates\recipes\partials\recipe.html:82
 msgid "See more"
 msgstr "Veja mais"
+
+#: .\recipes\templates\recipes\partials\search.html:2
+msgid "Search for recipe..."
+msgstr "Pesquisar por receitas..."
 
 #: .\recipes\views.py:351
 msgid "Looking for "

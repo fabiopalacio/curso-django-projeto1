@@ -34,7 +34,7 @@
                     {{ recipe.author.username }}
                 {% endif %}
             {% else %}
-                Autor removido
+                {% translate "Removed Author" %}
             {% endif %}
             {% if recipe.author.profile %}
                 </a>
@@ -64,13 +64,13 @@
         <div class="recipe-meta recipe-preparation">
             <h3 class="recipe-meta-title"><i class="fas fa-stopwatch mr-small"></i>{% translate "Prep Time" %}</h3>
             <div class="recipe-meta-text">
-                {{recipe.preparation_time}} {{recipe.preparation_time_unit}} 
+                {{recipe.preparation_time}} {{recipe.get_preparation_time_unit_display}} 
             </div>
         </div>
         <div class="recipe-meta recipe-servings">
             <h3 class="recipe-meta-title"><i class="fas fa-pizza-slice mr-small"></i>{% translate "Servings" %}</h3>
             <div class="recipe-meta-text">
-                {{recipe.servings}} {{recipe.servings_unit}} 
+                {{recipe.servings}} {{recipe.get_servings_unit_display}} 
             </div>
         </div>
     </div>

@@ -4,6 +4,7 @@ from django import forms
 from recipes.models import Recipe
 from utils.django_forms import add_attr
 from utils.strings import is_positive_number
+from django.utils.translation import gettext_lazy as _
 
 
 class AuthorsRecipeForm(forms.ModelForm):
@@ -27,42 +28,42 @@ class AuthorsRecipeForm(forms.ModelForm):
             ),
 
             'servings_unit': forms.Select(
-                choices=(
-                    ('Porções', 'Porções'),
-                    ('Pedaços', 'Pedaços'),
-                    ('Pessoas', 'Pessoas'),
-                )
+                choices={
+                    ('portions', 'Portions'),
+                    ('pieces', 'Pieces'),
+                    ('people', 'People'), }
+
             ),
             'preparation_time_unit': forms.Select(
-                choices=(
-                    ('Minutos', 'Minutos'),
-                    ('Horas', 'Horas'),
-                    ('Dias', 'Dias'),
-                )
+                choices={
+                    ('minutes', 'Minutes'),
+                    ('hours', 'Hours'),
+                    ('days', 'Days'),
+                }
             )
         }
 
         error_messages = {
             "title": {
-                "required": "Required."
+                "required": _("Required.")
             },
             "description": {
-                "required": "Required."
+                "required": _("Required.")
             },
             "preparation_time": {
-                "required": "Required."
+                "required": _("Required.")
             },
             "servings": {
-                "required": "Required."
+                "required": _("Required.")
             },
             "preparation_time_unit": {
-                "required": "Required."
+                "required": _("Required.")
             },
             "servings_unit": {
-                "required": "Required."
+                "required": _("Required.")
             },
             "preparation_steps": {
-                "required": "Required."
+                "required": _("Required.")
             }
         }
 
@@ -70,7 +71,8 @@ class AuthorsRecipeForm(forms.ModelForm):
         title = self.cleaned_data.get('title')
 
         if len(title) < 6:
-            self._my_errors['title'].append('Must have at least 6 characters.')
+            self._my_errors['title'].append(
+                _('Must have at least 6 characters.'))
 
         return title
 
@@ -79,7 +81,7 @@ class AuthorsRecipeForm(forms.ModelForm):
         field = self.cleaned_data.get(field_name)
         if not is_positive_number(field):
             self._my_errors[field_name].append(
-                'Must be a positive number.')
+                _('Must be a positive number.'))
         return field
 
     def clean_servings(self, *args, **kwargs):
@@ -87,7 +89,7 @@ class AuthorsRecipeForm(forms.ModelForm):
         field = self.cleaned_data.get(field_name)
         if not is_positive_number(field):
             self._my_errors[field_name].append(
-                'Must be a positive number.')
+                _('Must be a positive number.'))
         return field
 
     def clean(self, *args, **kwargs):
@@ -99,9 +101,9 @@ class AuthorsRecipeForm(forms.ModelForm):
 
         if title == description:
             self._my_errors['title'].append(
-                'Must be different from description.')
+                _('Must be different from description.'))
             self._my_errors['description'].append(
-                'Must be different from title.')
+                _('Must be different from title.'))
 
         if self._my_errors:
             raise ValidationError(self._my_errors)

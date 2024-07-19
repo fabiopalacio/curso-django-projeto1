@@ -4,7 +4,7 @@ from django.contrib import messages  # type: ignore
 from django.urls import reverse  # type: ignore
 from django.contrib.auth import authenticate, login, logout  # type: ignore
 from django.contrib.auth.decorators import login_required  # type: ignore
-
+from django.utils.translation import gettext_lazy as _
 from authors.forms import RegisterForm, LoginForm
 from utils.i18n import set_language
 
@@ -15,7 +15,7 @@ def register_view(request):
     return render(request, 'authors/pages/register_view.html', context={
         'form': form,
         'form_action': reverse('authors:register_create'),
-        'btn_text': 'Send...',
+        'btn_text': _("Send..."),
         'html_language': set_language(),
 
     })
@@ -34,7 +34,7 @@ def register_create(request):
         user = form.save(commit=False)
         user.set_password(user.password)
         user.save()
-        messages.success(request, "Your user was created. Please, log in")
+        messages.success(request, _("Your user was created. Please, log in"))
 
         del (request.session['register_form_data'])
         return redirect('authors:login')
@@ -69,12 +69,12 @@ def login_auth(request):
 
         if authenticate_user is not None:
 
-            messages.success(request, 'You are logged in.')
+            messages.success(request, _('You are logged in.'))
             login(request, authenticate_user)
         else:
-            messages.warning(request, "Invalid credentials.")
+            messages.warning(request, _("Invalid credentials."))
     else:
-        messages.error(request, "Invalid credentials.")
+        messages.error(request, _("Invalid credentials."))
 
     return redirect(reverse('authors:dashboard'))
 
@@ -82,13 +82,13 @@ def login_auth(request):
 @login_required(login_url='authors:login', redirect_field_name='next')
 def logout_view(request):
     if not request.POST:
-        messages.error(request, 'Invalid logout request.')
+        messages.error(request, _('Invalid logout request.'))
         return redirect(reverse('recipes:home'))
 
     if request.POST.get('username') != request.user.username:
-        messages.error(request, 'Invalid username.s')
+        messages.error(request, _('Invalid username.'))
         return redirect(reverse('recipes:home'))
 
     logout(request)
-    messages.success(request, 'Logout successfully')
+    messages.success(request, _('Logout successfully'))
     return redirect(reverse('recipes:home'))

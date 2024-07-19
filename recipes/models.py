@@ -35,12 +35,26 @@ class Recipe(models.Model):
     preparation_time = models.IntegerField(verbose_name=_('Preparation Time'))
 
     preparation_time_unit = models.CharField(
-        max_length=65, verbose_name=_('Preparation time unit'))
+        max_length=65,
+        verbose_name=_('Preparation time unit'),
+        choices=list({
+            ('minutes', _('Minutes')),
+            ('hours', _('Hours')),
+            ('days', _('Days')),
+        })
+    )
 
     servings = models.IntegerField(verbose_name=_('Servings'))
 
     servings_unit = models.CharField(
-        max_length=65, verbose_name=_('Servings unit'))
+        max_length=65,
+        verbose_name=_('Servings unit'),
+        choices=list({
+            ('portions', _('Portions')),
+            ('pieces', _('Pieces')),
+            ('people', _('People')),
+
+        }))
 
     preparation_steps = models.TextField(verbose_name=_('Preparation Steps'))
     preparation_steps_is_html = models.BooleanField(

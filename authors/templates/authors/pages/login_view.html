@@ -15,7 +15,7 @@
         <h2 class="mt-medium mb-medium">Login</h2>
 
         {% if request.user.is_authenticated %}
-            <p>You are logged in as {{request.user.first_name}}</p>
+            <p>{% translate "You are logged in as" %} {{request.user.first_name}}</p>
             <div class="container logedin-menu">
                 <a href="{% url "recipes:home" %}">{% translate "Home" %}</a>
                 <a href="{% url "authors:dashboard" %}">{% translate "Dashboard" %}</a>

@@ -1,14 +1,15 @@
 {% extends "global/base.html" %}
+{% load i18n %}
 
-{% block title %} Dashboard Recipe | {% endblock title %}
+{% block title %} Dashboard | {% endblock title %}
 
 {% block content %}
 
     <div class="main-content container center">
-        <h2 class='mt-medium'> Dashboard Recipe</h2>
+        <h2 class='mt-medium'> Dashboard</h2>
         {% include "global/partials/messages.html" %}
         <div>
-            <a href="{% url "authors:dashboard" %}">Back to your recipes</a>
+            <a href="{% url "authors:dashboard" %}">{% translate "Back to your recipes" %}</a>
         </div>
         <div class="left">
             {% include "global/partials/form.html" %}
