@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 16:59-0300\n"
+"POT-Creation-Date: 2024-07-23 19:34-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,26 +34,26 @@ msgstr "Nome de usuário"
 msgid "Password"
 msgstr "Senha"
 
-#: .\authors\forms\recipe_form.py:48 .\authors\forms\recipe_form.py:51
-#: .\authors\forms\recipe_form.py:54 .\authors\forms\recipe_form.py:57
-#: .\authors\forms\recipe_form.py:60 .\authors\forms\recipe_form.py:63
-#: .\authors\forms\recipe_form.py:66
+#: .\authors\forms\recipe_form.py:49 .\authors\forms\recipe_form.py:52
+#: .\authors\forms\recipe_form.py:55 .\authors\forms\recipe_form.py:58
+#: .\authors\forms\recipe_form.py:61 .\authors\forms\recipe_form.py:64
+#: .\authors\forms\recipe_form.py:67
 msgid "Required."
 msgstr "Obrigatório"
 
-#: .\authors\forms\recipe_form.py:75
+#: .\authors\forms\recipe_form.py:76
 msgid "Must have at least 6 characters."
 msgstr "Necessário ter pelo menos 6 caracteres"
 
-#: .\authors\forms\recipe_form.py:84 .\authors\forms\recipe_form.py:92
+#: .\authors\forms\recipe_form.py:85 .\authors\forms\recipe_form.py:93
 msgid "Must be a positive number."
 msgstr "Necessário ser um número positivo"
 
-#: .\authors\forms\recipe_form.py:104
+#: .\authors\forms\recipe_form.py:105
 msgid "Must be different from description."
 msgstr "Necessário ser diferente da descrição"
 
-#: .\authors\forms\recipe_form.py:106
+#: .\authors\forms\recipe_form.py:107
 msgid "Must be different from title."
 msgstr "Necessário ser diferente do título"
 
@@ -254,7 +254,7 @@ msgstr "Ocultar Menu"
 msgid "Login"
 msgstr "Entrar"
 
-#: .\recipes\models.py:23 .\recipes\models.py:77 .\recipes\views.py:285
+#: .\recipes\models.py:23 .\recipes\models.py:78 .\recipes\views.py:285
 msgid "Category"
 msgstr "Categoria"
 
@@ -310,39 +310,43 @@ msgstr "Pedaços"
 msgid "People"
 msgstr "Pessoas"
 
-#: .\recipes\models.py:59
+#: .\recipes\models.py:56
+msgid "Units"
+msgstr "Unidades"
+
+#: .\recipes\models.py:60
 msgid "Preparation Steps"
 msgstr "Passo a passo"
 
-#: .\recipes\models.py:64
+#: .\recipes\models.py:65
 msgid "Created at"
 msgstr "Criado em"
 
-#: .\recipes\models.py:66
+#: .\recipes\models.py:67
 msgid "Updated at"
 msgstr "Atualizado em"
 
-#: .\recipes\models.py:69
+#: .\recipes\models.py:70
 msgid "Is it published?"
 msgstr "Receita publicada?"
 
-#: .\recipes\models.py:73
+#: .\recipes\models.py:74
 msgid "Cover Image"
 msgstr "Imagem de capa"
 
-#: .\recipes\models.py:80
+#: .\recipes\models.py:81
 msgid "Author"
 msgstr "Autor"
 
-#: .\recipes\models.py:83
+#: .\recipes\models.py:84
 msgid "Tags"
 msgstr "Tags"
 
-#: .\recipes\models.py:127
+#: .\recipes\models.py:128
 msgid "Recipe"
 msgstr "Receita"
 
-#: .\recipes\models.py:128
+#: .\recipes\models.py:129
 msgid "Recipes"
 msgstr "Receitas"
 
