@@ -53,6 +53,7 @@ class Recipe(models.Model):
             ('portions', _('Portions')),
             ('pieces', _('Pieces')),
             ('people', _('People')),
+            ('units', _('Units'))
 
         }))
 
