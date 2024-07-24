@@ -72,7 +72,11 @@ def adjust_recipe(self, recipe):
     # values. It was easier to work with recipe model here,
     # so the values are saved before recipe convertion
     # to dict
-    category_name = recipe.category.name
+    if recipe.category:
+        category_name = recipe.category.name
+    else:
+        category_name = ''
+
     author_id, author_name = set_author_name(recipe)
     created_at = recipe.created_at
 
