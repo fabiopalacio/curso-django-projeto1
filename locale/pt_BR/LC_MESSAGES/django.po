@@ -67,9 +67,8 @@ msgstr "Seu sobrenome"
 
 #: .\authors\forms\register_form.py:14
 #, fuzzy
-#| msgid "Recipes"
 msgid "Your e-mail"
-msgstr "Receitas"
+msgstr "Seu e-mail"
 
 #: .\authors\forms\register_form.py:15
 msgid "Your username"
@@ -169,10 +168,8 @@ msgid "Profiles"
 msgstr "Perfis"
 
 #: .\authors\templates\authors\pages\dashboard_recipe.html:12
-#, fuzzy
-#| msgid "Recipes"
 msgid "Back to your recipes"
-msgstr "Receitas"
+msgstr "Voltar para suas receitas"
 
 #: .\authors\templates\authors\pages\dashboard_view.html:11
 #: .\base_template\global\partials\menu.html:18
@@ -180,10 +177,8 @@ msgid "New Recipe"
 msgstr "Nova Receita"
 
 #: .\authors\templates\authors\pages\dashboard_view.html:15
-#, fuzzy
-#| msgid "Recipes"
 msgid "Your Recipes"
-msgstr "Receitas"
+msgstr "Suas Receitas"
 
 #: .\authors\templates\authors\pages\dashboard_view.html:34
 msgid "You don't have unpublished recipes."

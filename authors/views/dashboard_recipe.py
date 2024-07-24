@@ -13,6 +13,7 @@ from authors.forms.recipe_form import AuthorsRecipeForm
 from recipes.models import Recipe
 
 from utils.i18n import set_language
+from django.utils.translation import gettext_lazy as _
 
 
 @method_decorator(
@@ -40,7 +41,7 @@ class DashboardRecipe(View):
             self.request, 'authors/pages/dashboard_recipe.html',
             context={
                 'form': form,
-                'btn_text': 'Send...',
+                'btn_text': _('Send...'),
                 'html_language': set_language()
             })
 
