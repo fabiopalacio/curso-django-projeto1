@@ -3,7 +3,7 @@ import datetime
 import json
 from unittest.mock import patch
 from django.urls import resolve, reverse
-from recipes import views
+from recipes.views import site
 from recipes.tests.test_recipe_base import RecipeTestBase
 from PIL import Image
 from io import BytesIO
@@ -41,7 +41,7 @@ class RecipesHomeApiViewTest(RecipeTestBase):
         # Check if the returned view is views.home
         self.assertIs(
             view.func.view_class,
-            views.RecipeListViewHomeAPI,
+            site.RecipeListViewHomeAPI,
             msg="HOME API VIEW - VIEW: The returned view was incorrect.")
 
     def test_recipes_home_api_view_returns_status_code_200_OK(self):
@@ -293,7 +293,7 @@ class RecipesCategoryApiViewTest(RecipeTestBase):
         # Check if the returned view is views.RecipeListViewCategoryAPI
         self.assertIs(
             view.func.view_class,
-            views.RecipeListViewCategoryAPI,
+            site.RecipeListViewCategoryAPI,
             msg="CATEGORY API VIEW - VIEW: The returned view was incorrect.")
 
     def test_recipes_category_api_view_returns_status_code_200_OK(self):
@@ -573,7 +573,7 @@ class RecipesSearchApiViewTest(RecipeTestBase):
         # Check if the returned view is views.RecipeListViewSearchAPI
         self.assertIs(
             view.func.view_class,
-            views.RecipeListViewSearchAPI,
+            site.RecipeListViewSearchAPI,
             msg="SEARCH API VIEW - VIEW: The returned view was incorrect.")
 
     def test_recipes_search_api_view_returns_status_code_200_OK(self):
@@ -865,7 +865,7 @@ class RecipesDetailApiViewTest(RecipeTestBase):
         # Check if the returned view is views.home
         self.assertIs(
             view.func.view_class,
-            views.RecipeDetailAPI,
+            site.RecipeDetailAPI,
             msg="DETAIL API VIEW - VIEW: The returned view was incorrect.")
 
     def test_recipes_detail_api_view_returns_status_code_200_OK(self):

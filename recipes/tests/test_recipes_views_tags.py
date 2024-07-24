@@ -2,7 +2,7 @@
 from unittest.mock import patch
 from django.urls import resolve, reverse
 
-from recipes import views
+from recipes.views import site
 from recipes.tests.test_recipe_base import RecipeTestBase
 
 from tag.models import Tag
@@ -30,7 +30,7 @@ class RecipeViewsTagTest(RecipeTestBase):
         # Check if the returned view is views.tag
         self.assertIs(
             view.func.view_class,
-            views.RecipeListViewTag,
+            site.RecipeListViewTag,
             msg="TAG VIEW - VIEW: The returned view was incorrect.")
 
     # TEST if the view is returning status code 200

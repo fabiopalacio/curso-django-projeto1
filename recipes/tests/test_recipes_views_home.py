@@ -1,7 +1,7 @@
 from unittest.mock import patch
 from django.urls import resolve, reverse  # type: ignore
 
-from recipes import views
+from recipes.views import site
 from .test_recipe_base import RecipeTestBase
 # Create your tests here.
 
@@ -22,7 +22,7 @@ class RecipeViewsHomeTest(RecipeTestBase):
         # Check if the returned view is views.home
         self.assertIs(
             view.func.view_class,
-            views.RecipeListViewHome,
+            site.RecipeListViewHome,
             msg="HOME VIEW - VIEW: The returned view was incorrect.")
 
     # TEST if the home view is returning status code 200

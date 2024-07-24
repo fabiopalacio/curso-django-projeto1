@@ -1,7 +1,7 @@
 from django.urls import resolve, reverse  # type: ignore
 from unittest.mock import patch
 
-from recipes import views
+from recipes.views import site
 from .test_recipe_base import RecipeTestBase
 
 # CLASS to test the Category view
@@ -23,7 +23,7 @@ class RecipeViewsCategoryTest(RecipeTestBase):
         # Checking if the view returned above is the views.category
         self.assertIs(
             view.func.view_class,
-            views.RecipeListViewCategory,
+            site.RecipeListViewCategory,
             msg="CATEGORY VIEW: The View returned is incorrect")
 
     # TEST if the category view returns 404 if no recipe was found

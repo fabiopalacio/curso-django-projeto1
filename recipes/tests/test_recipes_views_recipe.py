@@ -1,5 +1,5 @@
 from django.urls import resolve, reverse  # type: ignore
-from recipes import views
+from recipes.views import site
 from .test_recipe_base import RecipeTestBase
 
 # Class to test the Detailed view (recipes:recipe)
@@ -20,7 +20,7 @@ class RecipeViewsRecipeTest(RecipeTestBase):
         # is the views.recipe
         self.assertIs(
             view.func.view_class,
-            views.RecipeDetail,
+            site.RecipeDetail,
             msg="DETAILED VIEW - VIEW: Wrong view returned.")
 
     # TEST if the recipes:recipe loads the correct template

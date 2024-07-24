@@ -1,6 +1,6 @@
 from unittest.mock import patch
 from django.urls import resolve, reverse  # type: ignore
-from recipes import views
+from recipes.views import site
 from .test_recipe_base import RecipeTestBase
 
 # CLASS to Search view
@@ -20,7 +20,7 @@ class RecipeViewsSearchTest(RecipeTestBase):
         # Check if the returned view is views.search
         self.assertIs(
             view.func.view_class,
-            views.RecipeListViewSearch,
+            site.RecipeListViewSearch,
             msg="SEARCH VIEW - VIEW: The returned view was NOT the "
             "expected one")
 
