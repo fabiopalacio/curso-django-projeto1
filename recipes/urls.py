@@ -15,57 +15,67 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path  # type: ignore
-from . import views
+
+from .views import site, api
 
 app_name = 'recipes'
 
 urlpatterns = [
-    path('', views.RecipeListViewHome.as_view(), name='home'),
+    path('', site.RecipeListViewHome.as_view(), name='home'),
 
     path(
         'recipes/search/',
-        views.RecipeListViewSearch.as_view(),
+        site.RecipeListViewSearch.as_view(),
         name='search'),
 
     path(
         'recipes/category/<int:category_id>/',
-        views.RecipeListViewCategory.as_view(),
+        site.RecipeListViewCategory.as_view(),
         name='category'),
 
     path(
         'recipes/<int:pk>/',
-        views.RecipeDetail.as_view(),
+        site.RecipeDetail.as_view(),
         name='recipe'),
 
     path(
         'recipes/tag/<str:tag_name>/',
-        views.RecipeListViewTag.as_view(),
+        site.RecipeListViewTag.as_view(),
         name='tag'),
 
     # API
     path(
         'recipes/api/v1/',
-        views.RecipeListViewHomeAPI.as_view(),
+        site.RecipeListViewHomeAPI.as_view(),
         name='recipes_api_v1'),
 
     path(
         'recipes/api/v1/<int:pk>/',
-        views.RecipeDetailAPI.as_view(),
+        site.RecipeDetailAPI.as_view(),
         name='recipe_api_v1'),
 
     path(
         'recipes/api/v1/category/<int:category_id>/',
-        views.RecipeListViewCategoryAPI.as_view(),
+        site.RecipeListViewCategoryAPI.as_view(),
         name='category_api_v1'),
 
     path(
         'recipes/api/v1/search/',
-        views.RecipeListViewSearchAPI.as_view(),
+        site.RecipeListViewSearchAPI.as_view(),
         name='search_api_v1'),
 
 
     path(
         'recipes/api/v1/tag/<str:tag_name>/',
-        views.RecipeListViewTagAPI.as_view(),
+        site.RecipeListViewTagAPI.as_view(),
         name='tag_api_v1'),
+
+    # DJANGO REST FRAMEWORK
+    path(
+        'recipes/api/v2/',
+        api.recipe_api_list,
+        name='recipes_api_v2'),
+
+
+
 ]
