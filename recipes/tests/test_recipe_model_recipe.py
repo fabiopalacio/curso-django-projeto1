@@ -25,9 +25,9 @@ class RecipesRecipeModelTest(RecipeTestBase):
             description='Recipe Description',
             slug='recipe-slug-for-no-defaults',
             preparation_time=10,
-            preparation_time_unit='Minutos',
+            preparation_time_unit='minutes',
             servings=5,
-            servings_unit='Porções',
+            servings_unit='portions',
             preparation_steps='Recipe Preparation Steps',
         )
         # Check if there are any errors in the objects
@@ -114,9 +114,9 @@ class RecipesRecipeModelTest(RecipeTestBase):
             title='A long title recipe to test slug',
             description='Recipe Description',
             preparation_time=10,
-            preparation_time_unit='Minutos',
+            preparation_time_unit='minutes',
             servings=5,
-            servings_unit='Porções',
+            servings_unit='portions',
             preparation_steps='Recipe Preparation Steps',
         )
 

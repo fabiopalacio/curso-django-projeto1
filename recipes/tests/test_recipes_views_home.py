@@ -81,9 +81,9 @@ class RecipeViewsHomeTest(RecipeTestBase):
             title='My Recipe Title',
             description='Recipe Description',
             preparation_time=10,
-            preparation_time_unit='Minutos',
+            preparation_time_unit='minutes',
             servings=5,
-            servings_unit='Porções')
+            servings_unit='portions')
 
         # Saving the response, content and context
         response = self.client.get(reverse('recipes:home'))
@@ -121,13 +121,13 @@ class RecipeViewsHomeTest(RecipeTestBase):
         )
 
         self.assertIn(
-            '5 Porções',
+            '5 Portions',
             content,
             msg="HOME VIEW - LOADING RECIPE: Recipe servings was NOT found in"
             " the response HTML",)
 
         self.assertIn(
-            '10 Minutos',
+            '10 Minutes',
             content,
             msg="HOME VIEW - LOADING RECIPE: Recipe prep time was NOT found in"
             " the response HTML",)
@@ -149,7 +149,7 @@ class RecipeViewsHomeTest(RecipeTestBase):
         # Check if the placeholer image is insert when no cover image was
         # provided
         self.assertIn(
-            'https://via.placeholder.com/1280x720',
+            'https://via.placeholder.com/800x533',
             content,
             msg="HOME VIEW - LOADING RECIPE: Default cover image link not "
             "found in response HTML",)

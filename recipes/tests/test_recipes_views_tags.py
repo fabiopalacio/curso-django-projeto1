@@ -91,9 +91,9 @@ class RecipeViewsTagTest(RecipeTestBase):
             description='Recipe Description',
             category_data=category_data,
             preparation_time=10,
-            preparation_time_unit='Minutos',
+            preparation_time_unit='minutes',
             servings=5,
-            servings_unit='Porções')
+            servings_unit='portions')
 
         recipe.tags.add(self.tag)
 
@@ -134,13 +134,13 @@ class RecipeViewsTagTest(RecipeTestBase):
         )
 
         self.assertIn(
-            '5 Porções',
+            '5 Portions',
             content,
             msg="TAG VIEW - LOADING RECIPE: Recipe servings was NOT found in"
             " the response HTML",)
 
         self.assertIn(
-            '10 Minutos',
+            '10 Minutes',
             content,
             msg="TAG VIEW - LOADING RECIPE: Recipe prep time was NOT found in"
             " the response HTML",)
@@ -162,7 +162,7 @@ class RecipeViewsTagTest(RecipeTestBase):
         # Check if the placeholer image is insert when no cover image was
         # provided
         self.assertIn(
-            'https://via.placeholder.com/1280x720',
+            'https://via.placeholder.com/800x533',
             content,
             msg="TAG VIEW - LOADING RECIPE: Default cover image link not "
             "found in response HTML",)
