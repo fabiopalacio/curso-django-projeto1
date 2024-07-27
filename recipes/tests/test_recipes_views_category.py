@@ -83,7 +83,7 @@ class RecipeViewsCategoryTest(RecipeTestBase):
 
     # TEST to check if the category views is callling paginator
     # and getting the correct number of pages
-    @patch('recipes.views.PER_PAGE', new=3)
+    @patch('recipes.views.site.PER_PAGE', new=3)
     def test_recipes_category_gets_paginator_numpages_correctly(self):
         # Creating a new category. It will be use to all recipes in this test
         category = self.make_category('MyCategory')

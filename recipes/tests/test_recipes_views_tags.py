@@ -206,7 +206,7 @@ class RecipeViewsTagTest(RecipeTestBase):
 
         # Using patch to change the paginator configuration
         # to show 2 recipes per page
-        with patch('recipes.views.PER_PAGE', new=2):
+        with patch('recipes.views.site.PER_PAGE', new=2):
             # Getting the url to the view
             url = reverse('recipes:tag', kwargs={'tag_name': self.tag.name})
             # Getting the response to the above url

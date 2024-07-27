@@ -106,7 +106,7 @@ class RecipesHomeApiViewTest(RecipeTestBase):
             msg="HOME API VIEW - PUBLISHED RECIPES: Expected title not "
             f"found. Title found: {recipes_data['title']}")
 
-    @patch('recipes.views.PER_PAGE', new=2)
+    @patch('recipes.views.site.PER_PAGE', new=2)
     def test_recipes_home_api_view_paginator_working_correctly(self):
         # Test to check if the paginator is working in the home API view
         # This test uses PER_PAGE value equals to 2, allowing to generate less
@@ -385,7 +385,7 @@ class RecipesCategoryApiViewTest(RecipeTestBase):
             msg="CATEGORY API VIEW - PUBLISHED RECIPES: Expected title not "
             f"found. Title found: {recipes_data['title']}")
 
-    @patch('recipes.views.PER_PAGE', new=2)
+    @patch('recipes.views.site.PER_PAGE', new=2)
     def test_recipes_category_api_view_paginator_working_correctly(self):
         # Test to check if the paginator is working in the category API view
         # This test uses PER_PAGE value equals to 2, allowing to generate less
@@ -688,7 +688,7 @@ class RecipesSearchApiViewTest(RecipeTestBase):
             msg="SEARCH API VIEW - PUBLISHED RECIPES: Expected title not "
             f"found. Title found: {recipes_data['title']}")
 
-    @patch('recipes.views.PER_PAGE', new=2)
+    @patch('recipes.views.site.PER_PAGE', new=2)
     def test_recipes_search_api_view_paginator_working_correctly(self):
         # Test to check if the paginator is working in the search API view
         # This test uses PER_PAGE value equals to 2, allowing to generate less

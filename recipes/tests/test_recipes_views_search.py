@@ -246,7 +246,7 @@ class RecipeViewsSearchTest(RecipeTestBase):
 
         # Using patch to change recipes per page
         # quantity to three
-        with patch('recipes.views.PER_PAGE', 3):
+        with patch('recipes.views.site.PER_PAGE', 3):
             # Getting the url to recipes:search
             search_url = reverse('recipes:search')
 

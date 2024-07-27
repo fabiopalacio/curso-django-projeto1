@@ -189,7 +189,7 @@ class RecipeViewsHomeTest(RecipeTestBase):
 
         # Using patch to change the paginator configuration
         # to show 3 recipes per page
-        with patch('recipes.views.PER_PAGE', new=3):
+        with patch('recipes.views.site.PER_PAGE', new=3):
             # Getting the url to the view
             url = reverse('recipes:home')
             # Getting the response to the above url
