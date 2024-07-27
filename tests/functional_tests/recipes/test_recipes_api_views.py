@@ -79,7 +79,7 @@ class RecipeHomeApiView(RecipeBaseFunctionalTest):
         )
 
         self.assertEqual(
-            'Minutos',
+            'minutes',
             raw_data['preparation_time_unit'],
             msg='RECIPEs-API_HOME: RECIPE PPEPARATION TIME. Wrong preparation '
             'time unit found. Expeted: "10". '
@@ -95,7 +95,7 @@ class RecipeHomeApiView(RecipeBaseFunctionalTest):
         )
 
         self.assertEqual(
-            'Porções',
+            'portions',
             raw_data['servings_unit'],
             msg='RECIPEs-API_HOME: RECIPE SERVINGS. Wrong servings unit found.'
             ' Expeted: "Porções". '
@@ -200,7 +200,7 @@ class RecipeHomeApiView(RecipeBaseFunctionalTest):
             f'Found {raw_data}'
         )
 
-    @patch('recipes.views.PER_PAGE', new=2)
+    @patch('recipes.views.site.PER_PAGE', new=2)
     def test_home_api_pagination_works(self):
         recipes = self.make_recipes_in_batch(3)
         first_recipe_id = recipes[0].id
@@ -369,7 +369,7 @@ class RecipeCategoryApiView(RecipeBaseFunctionalTest):
         )
 
         self.assertEqual(
-            'Minutos',
+            'minutes',
             raw_data['preparation_time_unit'],
             msg='RECIPEs - API_CATEGORY: RECIPE PPEPARATION TIME. Wrong'
             ' preparation time unit found. Expeted: "10". '
@@ -385,7 +385,7 @@ class RecipeCategoryApiView(RecipeBaseFunctionalTest):
         )
 
         self.assertEqual(
-            'Porções',
+            'portions',
             raw_data['servings_unit'],
             msg='RECIPEs - API_CATEGORY: RECIPE SERVINGS. Wrong servings '
             'unit found. Expeted: "Porções". '
@@ -527,7 +527,7 @@ class RecipeCategoryApiView(RecipeBaseFunctionalTest):
             f'Found {len(raw_data)}'
         )
 
-    @patch('recipes.views.PER_PAGE', new=2)
+    @patch('recipes.views.site.PER_PAGE', new=2)
     def test_category_api_pagination_works(self):
 
         category = self.make_category(name='First category')
@@ -695,7 +695,7 @@ class RecipeSearchApiView(RecipeBaseFunctionalTest):
             f'Found {raw_data}'
         )
 
-    @patch('recipes.views.PER_PAGE', new=2)
+    @patch('recipes.views.site.PER_PAGE', new=2)
     def test_search_api_pagination_works(self):
 
         recipes = self.make_recipes_in_batch(qty=3)

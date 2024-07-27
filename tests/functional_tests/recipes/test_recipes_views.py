@@ -34,7 +34,7 @@ class RecipePageFunctionalTest(RecipeBaseFunctionalTest):
 
     # TEST if home page loads recipes
     # Using patch to change PER_PAGE value
-    @patch('recipes.views.PER_PAGE', new=2)
+    @patch('recipes.views.site.PER_PAGE', new=2)
     def test_recipes_home_page_loads_recipes(self):
         # Creating one recipe.
         # Only one is required to not show the info message
@@ -56,7 +56,7 @@ class RecipePageFunctionalTest(RecipeBaseFunctionalTest):
             "it was not expected to. Message: 'No recipes found here...'")
 
     # TEST if recipes search page show correct recipes
-    @patch('recipes.views.PER_PAGE', new=2)
+    @patch('recipes.views.site.PER_PAGE', new=2)
     def test_recipes_search_page_can_find_correct_recipes(self):
 
         # Creating 7 recipes. Just to have a good amount of recipes
@@ -105,7 +105,7 @@ class RecipePageFunctionalTest(RecipeBaseFunctionalTest):
     # Using patch yo change the value of PER_PAGE to 2
     # Allow to use less recipes and, yet, generate multiple
     # pages, making the test faster
-    @patch('recipes.views.PER_PAGE', new=2)
+    @patch('recipes.views.site.PER_PAGE', new=2)
     # TEST if the pagination is working in the home page.
     # It creates 3 recipes. But, becaus patch above changes
     # the value of PER_PAGE to 2, these recipes should be
@@ -225,7 +225,7 @@ class RecipePageFunctionalTest(RecipeBaseFunctionalTest):
             "found expected recipes. Recipe Title not found in the HTML body."
         )
 
-    @patch('recipes.views.PER_PAGE', new=2)
+    @patch('recipes.views.site.PER_PAGE', new=2)
     def test_recipes_category_page_uses_pagination_correctly(self):
         category = self.make_category('TestCategory')
         recipes = self.make_recipes_in_batch(5, category)
@@ -250,7 +250,7 @@ class RecipePageFunctionalTest(RecipeBaseFunctionalTest):
             msg="RECIPES_CATEGORY_VIEW - PAGINATION: Link to page 2 not found."
         )
 
-    @patch('recipes.views.PER_PAGE', new=1)
+    @patch('recipes.views.site.PER_PAGE', new=1)
     def test_recipes_home_page_adjust_pagination_correctly(self):
         self.make_recipes_in_batch(5)
         self.browser.get(
@@ -276,7 +276,7 @@ class RecipePageFunctionalTest(RecipeBaseFunctionalTest):
             "Navigation numbers not found."
         )
 
-    @patch('recipes.views.PER_PAGE', new=1)
+    @patch('recipes.views.site.PER_PAGE', new=1)
     def test_recipes_home_page_limit_page(self):
         self.make_recipes_in_batch(5)
         self.browser.get(
@@ -297,7 +297,7 @@ class RecipePageFunctionalTest(RecipeBaseFunctionalTest):
             "redirect to page 1 when page requested is out of range."
         )
 
-    @patch('recipes.views.PER_PAGE', new=2)
+    @patch('recipes.views.site.PER_PAGE', new=2)
     def test_recipes_home_page_page_invalid_redirect_page_1(self):
         self.make_recipes_in_batch(5)
         self.browser.get(
@@ -354,7 +354,7 @@ class RecipesTagsFunctionalTest(RecipeBaseFunctionalTest):
             "found expected recipes. Recipe Title not found in the HTML body."
         )
 
-    @patch('recipes.views.PER_PAGE', new=2)
+    @patch('recipes.views.site.PER_PAGE', new=2)
     def test_recipes_category_page_uses_pagination_correctly(self):
         category = self.make_category('TestCategory')
         recipes = self.make_recipes_in_batch(5, category)
