@@ -10,6 +10,8 @@ from django.utils.translation import gettext_lazy as _
 class AuthorsRecipeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['servings_unit'].initial = 'people'
+        self.fields['preparation_time_unit'].initial = 'hours'
 
         self._my_errors = defaultdict(list)
 
