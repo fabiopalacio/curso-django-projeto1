@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-23 19:34-0300\n"
+"POT-Creation-Date: 2024-07-28 15:39-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,26 +34,26 @@ msgstr "Nome de usuário"
 msgid "Password"
 msgstr "Senha"
 
-#: .\authors\forms\recipe_form.py:49 .\authors\forms\recipe_form.py:52
-#: .\authors\forms\recipe_form.py:55 .\authors\forms\recipe_form.py:58
-#: .\authors\forms\recipe_form.py:61 .\authors\forms\recipe_form.py:64
-#: .\authors\forms\recipe_form.py:67
+#: .\authors\forms\recipe_form.py:51 .\authors\forms\recipe_form.py:54
+#: .\authors\forms\recipe_form.py:57 .\authors\forms\recipe_form.py:60
+#: .\authors\forms\recipe_form.py:63 .\authors\forms\recipe_form.py:66
+#: .\authors\forms\recipe_form.py:69
 msgid "Required."
 msgstr "Obrigatório"
 
-#: .\authors\forms\recipe_form.py:76
+#: .\authors\forms\recipe_form.py:78
 msgid "Must have at least 6 characters."
 msgstr "Necessário ter pelo menos 6 caracteres"
 
-#: .\authors\forms\recipe_form.py:85 .\authors\forms\recipe_form.py:93
+#: .\authors\forms\recipe_form.py:87 .\authors\forms\recipe_form.py:95
 msgid "Must be a positive number."
 msgstr "Necessário ser um número positivo"
 
-#: .\authors\forms\recipe_form.py:105
+#: .\authors\forms\recipe_form.py:107
 msgid "Must be different from description."
 msgstr "Necessário ser diferente da descrição"
 
-#: .\authors\forms\recipe_form.py:107
+#: .\authors\forms\recipe_form.py:109
 msgid "Must be different from title."
 msgstr "Necessário ser diferente do título"
 
@@ -207,7 +207,7 @@ msgstr "Cadastre-se"
 msgid "Logout"
 msgstr "Sair"
 
-#: .\authors\views\user_forms.py:18
+#: .\authors\views\dashboard_recipe.py:44 .\authors\views\user_forms.py:18
 msgid "Send..."
 msgstr "Enviar..."
 
@@ -249,7 +249,7 @@ msgstr "Ocultar Menu"
 msgid "Login"
 msgstr "Entrar"
 
-#: .\recipes\models.py:23 .\recipes\models.py:78 .\recipes\views.py:285
+#: .\recipes\models.py:23 .\recipes\models.py:78 .\recipes\views\site.py:289
 msgid "Category"
 msgstr "Categoria"
 
@@ -346,10 +346,14 @@ msgid "Recipes"
 msgstr "Receitas"
 
 #: .\recipes\templates\recipes\pages\home.html:12
-#: .\recipes\templates\recipes\pages\search.html:12
+#: .\recipes\templates\recipes\pages\search.html:16
 #: .\recipes\templates\recipes\pages\tag.html:12
 msgid "No recipes found here..."
 msgstr "Nenhuma receita encontrada aqui..."
+
+#: .\recipes\templates\recipes\pages\search.html:7
+msgid "Searching for"
+msgstr "Mostrando resultados da busca por"
 
 #: .\recipes\templates\recipes\partials\recipe.html:37
 #, fuzzy
@@ -369,6 +373,6 @@ msgstr "Veja mais"
 msgid "Search for recipe..."
 msgstr "Pesquisar por receitas..."
 
-#: .\recipes\views.py:351
+#: .\recipes\views\site.py:355
 msgid "Looking for "
 msgstr "Pesquisando por"
