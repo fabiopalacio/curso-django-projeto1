@@ -1,3 +1,5 @@
+from django.db.models import F, Value
+from django.db.models.functions import Concat
 from PIL import Image
 from collections import defaultdict
 import os
@@ -24,7 +26,24 @@ class Category(models.Model):
         verbose_name_plural = _('Categories')
 
 
+class RecipeManager(models.Manager):
+    def get_published(self):
+        return self.filter(
+            is_published=True
+        ).annotate(
+            author_full_name=Concat(
+                F('author__first_name'), Value(' '),
+                F('author__last_name'), Value(' ('),
+                F('author__username'), Value(')'),
+            )
+        ) \
+            .order_by('-id') \
+            .select_related('category', 'author') \
+            .prefetch_related('tags')
+
+
 class Recipe(models.Model):
+    objects = RecipeManager()
     title = models.CharField(
         max_length=65, unique=True, verbose_name=_('Title'))
     description = models.CharField(
@@ -89,7 +108,7 @@ class Recipe(models.Model):
     def get_absolute_url(self):
         return reverse("recipes:recipe", kwargs={"pk": self.id})
 
-    @staticmethod
+    @ staticmethod
     def resize_image(image, new_width=840):
         image_full_path = os.path.join(settings.MEDIA_ROOT, image.name)
         image_pillow = Image.open(image_full_path)
