@@ -15,30 +15,24 @@ class RecipeSerializer(serializers.ModelSerializer):
             'category', 'author_name', 'author', 'public', 'tags',
             'tags_objects', 'tags_links']
 
-    public = serializers.BooleanField(source='is_published')
+    public = serializers.BooleanField(source='is_published', read_only=True,)
 
     preparation = serializers.SerializerMethodField(
-        method_name='get_preparation')
+        method_name='get_preparation', read_only=True,)
 
     category_name = serializers.StringRelatedField(source='category')
 
     author_name = serializers.StringRelatedField(source='author')
 
-    tags = serializers.PrimaryKeyRelatedField(
-        queryset=Tag.objects.all(),
-        many=True,
-    )
-
     tags_objects = TagSerializer(
         many=True,
-        source='tags'
+        source='tags', read_only=True,
     )
 
     tags_links = serializers.HyperlinkedRelatedField(
         many=True,
-        queryset=Tag.objects.all(),
         view_name='recipes:tag_detail_api_v2',
-        source='tags'
+        source='tags', read_only=True,
 
     )
 

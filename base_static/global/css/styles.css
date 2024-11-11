@@ -668,7 +668,23 @@ a {
     gap: 2rem;
 }
 
+.powered {
+    text-align: end;
+}
+
 @media (max-width: 420px) {
+    .container {
+        padding: 0;
+        padding-top: 32px;
+    }
+
+    .tags-list {
+        padding: 16px;
+    }
+
+    .recipe-meta {
+        margin: 8px;
+    }
 
     .main-content-list,
     .form-content-grid {
